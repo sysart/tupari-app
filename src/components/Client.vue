@@ -1,28 +1,38 @@
 <template>
   <div>
-    <button @click="addTodo">jee</button>
-    <div v-for="todo in todos" :key="todo['.key']">
-      {{todo}}}
+    <Start v-if="!isLoggedIn"/>
+    <div v-else>
+      moi {{user.name}}
     </div>
   </div>
 </template>
 
 <script>
+import Start from './Start'
 import { mapState } from 'vuex'
+import { userRef } from '@/firebase'
 
 export default {
   name: 'Client',
+  components: {
+    Start
+  },
   computed: {
-    ...mapState(['todos'])
+    isLoggedIn () {
+      return this.user && this.user.name
+    },
+    ...mapState(['user'])
   },
   data () {
     return {
     }
   },
   methods: {
-    addTodo () {
-      this.$store.dispatch('addTodo')
-    }
+  },
+  created () {
+    userRef().then(ref => {
+      this.$store.dispatch('setUserRef', ref)
+    })
   }
 }
 </script>

@@ -3,15 +3,12 @@
 </template>
 
 <script>
-import { todosRef } from '@/firebase'
-
 export default {
   data () {
     return {
     }
   },
   created () {
-    this.$store.dispatch('setTodosRef', todosRef)
   }
 }
 </script>

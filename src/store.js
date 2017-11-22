@@ -1,26 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import { todosRef } from '@/firebase'
+import { userRef } from '@/firebase'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    todos: []
+    user: null
   },
   mutations: {
     ...firebaseMutations
   },
   actions: {
-    setTodosRef: firebaseAction(({ bindFirebaseRef }, ref) => {
-      bindFirebaseRef('todos', ref)
+    setUserRef: firebaseAction(({ bindFirebaseRef }, ref) => {
+      bindFirebaseRef('user', ref)
     }),
-    addTodo () {
-      todosRef.push({
-        title: Math.random().toString(36).slice(2)
+    join: firebaseAction((jtn, name) => {
+      return userRef().then(ref => {
+        return ref.set({
+          name
+        })
       })
-    }
+    })
   },
   getters: {
 
