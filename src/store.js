@@ -16,11 +16,16 @@ export default new Vuex.Store({
     setUserRef: firebaseAction(({ bindFirebaseRef }, ref) => {
       bindFirebaseRef('user', ref)
     }),
-    join: firebaseAction((jtn, name) => {
+    join: firebaseAction(({}, name) => {
       return userRef().then(ref => {
         return ref.set({
           name
         })
+      })
+    }),
+    updateScore: firebaseAction((context, {game, score}) => {
+      return userRef().then(ref => {
+        ref.child(`games/${game}`).set(score)
       })
     })
   },
