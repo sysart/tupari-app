@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import { userRef } from '@/firebase'
+import { userRef, joinSession, leaveSession } from '@/firebase'
 
 Vue.use(Vuex)
 
@@ -10,24 +10,32 @@ export default new Vuex.Store({
     user: null
   },
   mutations: {
+    clearUser (state) {
+      state.user = null
+    },
     ...firebaseMutations
   },
   actions: {
     setUserRef: firebaseAction(({ bindFirebaseRef }, ref) => {
       bindFirebaseRef('user', ref)
     }),
-    join: firebaseAction((context, name) => {
-      return userRef().then(ref => {
-        return ref.set({
-          name
-        })
+    unsetUserRef: firebaseAction(({ unbindFirebaseRef }) => {
+      unbindFirebaseRef('user')
+    }),
+    join: firebaseAction((context, { name, session }) => {
+      return joinSession(session).then(ref => {
+        return ref.child('name').set(name)
       })
     }),
     updateResult: firebaseAction((context, { game, result }) => {
       return userRef().then(ref => {
         ref.child(`games/${game}`).set(result)
       })
-    })
+    }),
+    leaveSession () {
+      leaveSession()
+      this.commit('clearUser')
+    }
   },
   getters: {
 

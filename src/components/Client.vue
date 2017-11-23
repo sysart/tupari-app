@@ -7,6 +7,7 @@
         <div v-for="game in games" :key="game.id">
           <v-btn @click="selectedGame = game.id">{{game.name}}</v-btn>
         </div>
+        <v-btn @click="leaveSession">Leave Session</v-btn>
       </div>
 
       <Game
@@ -26,8 +27,8 @@
 import Start from './Start'
 import Game from './Game'
 import { mapState } from 'vuex'
-import { userRef } from '@/firebase'
-import { GAMES } from '@/enums'
+import { userRef$ } from '@/firebase'
+import { GAMES } from '@/stuff'
 
 export default {
   name: 'Client',
@@ -63,12 +64,20 @@ export default {
     updateResult (gameId, result) {
       this.$store.dispatch('updateResult', { game: gameId, result })
       this.selectedGame = null
+    },
+    leaveSession () {
+      this.$store.dispatch('leaveSession')
     }
   },
 
   created () {
-    userRef().then(ref => {
-      this.$store.dispatch('setUserRef', ref)
+    this.subscription = userRef$.subscribe((ref) => {
+      console.log('new ref', ref && ref.path.toString())
+      if (ref) {
+        this.$store.dispatch('setUserRef', ref)
+      } else {
+        this.$store.dispatch('unsetUserRef')
+      }
     })
   }
 }
