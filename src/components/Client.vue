@@ -2,43 +2,70 @@
   <div>
     <Start v-if="!isLoggedIn"/>
     <div v-else>
-      moi {{user.name}}
-      <div v-for="(score, game) of user.games" :key="game">
-        {{game}} {{score}}
+      <div v-if="selectedGame == null">
+        moi {{user.name}}
+        <div v-for="game in games" :key="game.id">
+          <v-btn @click="selectedGame = game.id">{{game.name}}</v-btn>
+        </div>
       </div>
-      <form @submit.prevent="updateScore">
-        <input v-model="score"/>
-      </form>
+
+      <Game
+        v-for="game in games"
+        :key="game.id"
+        v-if="selectedGame == game.id"
+        :previousResult="game.result"
+        :game="game"
+        @updateResult="updateResult"
+        @back="selectedGame = null"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import Start from './Start'
+import Game from './Game'
 import { mapState } from 'vuex'
 import { userRef } from '@/firebase'
+import { GAMES } from '@/enums'
 
 export default {
   name: 'Client',
+
   components: {
-    Start
+    Start,
+    Game
   },
+
   computed: {
     isLoggedIn () {
       return this.user && this.user.name
     },
+    games () {
+      const results = (this.user && this.user.games) || {}
+      return GAMES.map(game => {
+        return {
+          ...game,
+          result: results[game.id]
+        }
+      })
+    },
     ...mapState(['user'])
   },
+
   data () {
     return {
-      score: null
+      selectedGame: null
     }
   },
+
   methods: {
-    updateScore () {
-      this.$store.dispatch('updateScore', { game: 'ralli', score: this.score })
+    updateResult (gameId, result) {
+      this.$store.dispatch('updateResult', { game: gameId, result })
+      this.selectedGame = null
     }
   },
+
   created () {
     userRef().then(ref => {
       this.$store.dispatch('setUserRef', ref)

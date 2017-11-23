@@ -1,10 +1,8 @@
 <template>
-<form @submit.prevent="join">
-  <label>
-    nimi:
-    <input v-model="name" />
-  </label>
-</form>
+  <form @submit.prevent="join">
+    <v-text-field label="Name" v-model="name" />
+    <v-btn @click="join">Join</v-btn>
+  </form>
 </template>
 
 <script>
@@ -17,7 +15,9 @@ export default {
   },
   methods: {
     join () {
-      this.$store.dispatch('join', this.name)
+      if (this.name) {
+        this.$store.dispatch('join', this.name)
+      }
     }
   }
 }
