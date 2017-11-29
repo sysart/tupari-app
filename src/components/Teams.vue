@@ -17,7 +17,7 @@ export default {
   created () {
     this.$store.dispatch('bindRef', { key: 'teams', ref: teamsRef(this.session) })
   },
-  destroyed () {
+  beforeDestroy () {
     this.$store.dispatch('unbindRef', 'teams')
   }
 }

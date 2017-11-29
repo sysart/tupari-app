@@ -98,7 +98,7 @@ export default {
     })
   },
 
-  destroyed () {
+  beforeDestroy () {
     this.subscription.unsubscribe()
     this.$store.dispatch('unbindRef', 'user')
   }

@@ -9,20 +9,23 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: null,
-    teams: []
+    teams: null,
+    session: null
   },
   mutations: {
-    clearUser (state) {
-      state.user = null
+    clear (state, key) {
+      state[key] = null
     },
     ...firebaseMutations
   },
   actions: {
-    bindRef: firebaseAction(({ commit, bindFirebaseRef }, pair) => {
-      bindFirebaseRef(pair.key, pair.ref)
+    bindRef: firebaseAction(({ commit, bindFirebaseRef }, { key, ref }) => {
+      console.log('höhö', key, ref)
+      bindFirebaseRef(key, ref)
     }),
     unbindRef: firebaseAction(({ unbindFirebaseRef }, key) => {
       unbindFirebaseRef(key)
+      this.commit('clear', key)
     }),
     join: firebaseAction((context, { name, session }) => {
       return join(session).then(ref => {
@@ -43,7 +46,6 @@ export default new Vuex.Store({
     }),
     leaveSession () {
       leaveSession()
-      this.commit('clearUser')
     }
   },
   getters: {

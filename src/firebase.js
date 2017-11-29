@@ -39,6 +39,10 @@ export const teamsRef$ = storedSession.stream
     }
   })
 
+export const sessionRef = (session) => {
+  return db.ref(`${session}`)
+}
+
 export const userRef = () => {
   return userRef$.first().toPromise()
 }
