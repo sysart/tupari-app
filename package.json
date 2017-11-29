@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "firebase": "^4.6.2",
+    "lodash": "^4.17.4",
     "rxjs": "^5.5.2",
     "vue": "^2.5.3",
     "vue-router": "^3.0.1",

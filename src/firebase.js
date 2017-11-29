@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import storedValue from '@/utils/storedValue'
 import firebase from 'firebase'
 import { Observable } from 'rxjs'
@@ -55,10 +56,25 @@ export const joinTeam = () => {
     .then(teamRef => {
       return teamRef.once('value')
     })
+    .then(ds => ds.toJSON())
     .then(teams => {
-      teams.forEach(team => {
-        console.log('team', team)
-      })
+      return _(teams)
+        .map((team, teamId) => {
+          return {
+            id: teamId,
+            members: team.members ? Object.keys(team.members).length : 0
+          }
+        })
+        .groupBy(t => t.members)
+        .map(v => v)
+        .first()
+    })
+    .then(teams => {
+      return _.sample(teams)
+    })
+    .then(team => {
+      storedTeam.set(team.id)
+      return team.id
     })
 }
 
