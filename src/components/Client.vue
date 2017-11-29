@@ -72,13 +72,17 @@ export default {
 
   created () {
     this.subscription = userRef$.subscribe((ref) => {
-      console.log('new ref', ref && ref.path.toString())
       if (ref) {
-        this.$store.dispatch('setUserRef', ref)
+        this.$store.dispatch('bindRef', { key: 'user', ref })
       } else {
-        this.$store.dispatch('unsetUserRef')
+        this.$store.dispatch('unbindRef', 'user')
       }
     })
+  },
+
+  destroyed () {
+    this.subscription.unsubscribe()
+    this.$store.dispatch('unbindRef', 'user')
   }
 }
 </script>

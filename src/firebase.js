@@ -1,8 +1,9 @@
+import storedValue from '@/utils/storedValue'
 import firebase from 'firebase'
 import { Observable } from 'rxjs'
-import { session$, join } from './session'
 
-window.firebase = firebase
+const storedSession = storedValue('session')
+const storedTeam = storedValue('team')
 
 export const db = firebase.initializeApp({
   apiKey: 'AIzaSyCS6Uc837o3JrF3sbla3JAyAVrk5il_ePY',
@@ -17,10 +18,10 @@ export const todosRef = db.ref('todos')
 
 const user$ = Observable.fromPromise(firebase.auth().signInAnonymously())
 
-export const userRef$ = Observable.combineLatest(user$, session$)
-  .map(([user, session]) => {
-    if (user && session) {
-      return db.ref(`${session}/users/${user.uid}`)
+export const userRef$ = Observable.combineLatest(user$, storedSession.stream, storedTeam.stream)
+  .map(([user, session, team]) => {
+    if (user && session && team) {
+      return db.ref(`${session}/teams/${team}/members/${user.uid}`)
     } else {
       return null
     }
@@ -28,15 +29,40 @@ export const userRef$ = Observable.combineLatest(user$, session$)
   .publishReplay(1)
   .refCount()
 
+export const teamsRef$ = storedSession.stream
+  .map(session => {
+    if (session) {
+      return db.ref(`${session}/teams`)
+    } else {
+      return null
+    }
+  })
+
 export const userRef = () => {
   return userRef$.first().toPromise()
 }
 
-export const joinSession = (session) => {
-  join(session)
-  return userRef()
+export const teamsRef = () => {
+  return teamsRef$.first().toPromise()
 }
 
 export const leaveSession = () => {
-  join(null)
+  storedSession.set(null)
+}
+
+export const joinTeam = () => {
+  return teamsRef()
+    .then(teamRef => {
+      return teamRef.once('value')
+    })
+    .then(teams => {
+      teams.forEach(team => {
+        console.log('team', team)
+      })
+    })
+}
+
+export const join = (session) => {
+  storedSession.set(session)
+  return joinTeam().then(() => userRef())
 }

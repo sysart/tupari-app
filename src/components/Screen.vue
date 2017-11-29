@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Tupari-app</h1>
+    <h2>Session: {{session}}</h2>
   </div>
 </template>
 
@@ -11,6 +12,11 @@ export default {
   data () {
     return {
 
+    }
+  },
+  computed: {
+    session () {
+      return this.$route.params.session
     }
   }
 }

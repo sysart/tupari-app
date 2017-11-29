@@ -3,26 +3,19 @@ Firebase database
 
 ```json
 {
-  "users": {
-    "**USER_ID**": {
-      "name": "Joni",
-      "team_id": "**TEAM_ID**",
-      "scores": {
-        "ralli": 6,
-        "bilis": 3
-      }
-    }
-  },
   "teams": {
     "**TEAM_ID**": {
-      "name": "Jonit"
+      "name": "Jonit",
+      "members": {
+        "**USER_ID**": {
+          "name": "Joni",
+          "results": {
+            "ralli": 6,
+            "bilis": 3
+          }
+        }
+      }
     }
-  },
-  "messages": [
-    {
-      "from": "Joni",
-      "message": "Kivaa!"
-    }
-  ]
+  }
 }
 ```
