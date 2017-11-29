@@ -15,7 +15,7 @@
               <v-card dark elevation-15>
                 <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
                 <v-card-text>
-                  {{game.result}} / {{game.max}}
+                  {{game.score || '&nbsp;'}}
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -28,13 +28,11 @@
         v-for="game in games"
         :key="game.id"
         v-if="isLoggedIn && selectedGame == game.id"
-        :previousResult="game.result"
+        :previousResult="game.result || game.score"
         :game="game"
         @updateResult="updateResult"
         @back="selectedGame = null"
       />
-
-
   </div>
 </template>
 
@@ -60,9 +58,11 @@ export default {
     games () {
       const results = (this.user && this.user.games) || {}
       return GAMES.map(game => {
+        const result = results[game.id]
         return {
           ...game,
-          result: results[game.id]
+          score: result && result.score,
+          result: result && result.result
         }
       })
     },
