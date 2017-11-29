@@ -15,7 +15,7 @@ export const db = firebase.initializeApp({
   messagingSenderId: '886633615657'
 }).database()
 
-export const todosRef = db.ref('todos')
+export const scoreboard = db.ref('sysart')
 
 const user$ = Observable.fromPromise(firebase.auth().signInAnonymously())
 
