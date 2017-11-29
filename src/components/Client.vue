@@ -4,7 +4,7 @@
 
       <div v-if="isLoggedIn && selectedGame == null" class="buttonWrap">
         <div class="menubar">
-          User{{user.name}}
+          {{user.name}}
         </div>
         <v-container fluid grid-list-md>
           <v-layout row wrap class="games">
@@ -15,13 +15,13 @@
               <v-card dark elevation-15>
                 <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
                 <v-card-text>
-                  {{game.name}}
+                  {{game.result}} / {{game.max}}
                 </v-card-text>
               </v-card>
             </v-flex>
           </v-layout>
         </v-container>
-        <!-- <v-btn @click="leaveSession">Leave Session</v-btn> -->
+        <v-btn @click="leaveSession">Leave Session</v-btn>
       </div>
 
       <Game
@@ -42,7 +42,7 @@
 import Start from "./Start";
 import Game from "./Game";
 import { mapState } from "vuex";
-import { userRef$ } from "@/firebase";
+import { userRef$, scoreboard } from "@/firebase";
 import { GAMES } from "@/stuff";
 
 export default {
@@ -91,6 +91,7 @@ export default {
   created() {
     this.subscription = userRef$.subscribe(ref => {
       console.log("new ref", ref && ref.path.toString());
+      console.log("scoreboard", scoreboard);
       if (ref) {
         this.$store.dispatch("setUserRef", ref);
       } else {

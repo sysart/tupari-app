@@ -12,17 +12,20 @@ export default {
   data () {
     return {
       name: '',
-      session: ''
+      session: '',
+      secret: 'perrier'
     }
   },
   methods: {
     join () {
       const name = this.name.trim()
       const session = this.session.trim()
+      const secret = this.secret.trim();
       if (name && session) {
         this.$store.dispatch('join', {
           name,
-          session
+          session,
+          secret
         })
       }
     }

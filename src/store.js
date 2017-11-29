@@ -22,7 +22,7 @@ export default new Vuex.Store({
     unsetUserRef: firebaseAction(({ unbindFirebaseRef }) => {
       unbindFirebaseRef('user')
     }),
-    join: firebaseAction((context, { name, session }) => {
+    join: firebaseAction((context, { name, session, secret }) => {
       return joinSession(session).then(ref => {
         return ref.child('name').set(name)
       })

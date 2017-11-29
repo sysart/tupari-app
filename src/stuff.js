@@ -4,7 +4,9 @@ export const GAMES = [
     name: 'Golf',
     img: 'golf.svg',
     inputMode: 'number',
-    inputLabel: 'Montako puttia upotit?'
+    inputLabel: 'Montako puttia upotit?',
+    min: 0,
+    max: 6
   },
   {
     id: 'team',
@@ -36,7 +38,9 @@ export const GAMES = [
     name: 'VR',
     img: 'vr.svg',
     inputMode: 'number',
-    inputLabel: 'Montako pistettä sait?'
+    inputLabel: 'Montako pistettä sait?',
+    min: 0,
+    max: 6
   },
   {
     id: 'nopeus',
