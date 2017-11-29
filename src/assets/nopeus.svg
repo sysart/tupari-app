@@ -1,0 +1,18 @@
+<svg width="46" height="51" viewBox="0 0 46 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>the essentials-2524</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-600 289)">
+<g id="the essentials-2524">
+<g id="Group">
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(600 -289)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 24 2C 24 0.9 23.1 0 22 0C 20.9 0 20 0.9 20 2L 20 5L 24 5L 24 2ZM 23 26.2L 23 13L 21 13L 21 26.2C 19.8 26.6 19 27.7 19 29C 19 30.3 19.8 31.4 21 31.8L 21 35L 23 35L 23 31.8C 24.2 31.4 25 30.3 25 29C 25 27.7 24.2 26.6 23 26.2ZM 22 7C 9.8 7 0 16.8 0 29C 0 41.1 9.8 51 22 51C 34.2 51 44 41.1 44 29C 44 16.8 34.2 7 22 7ZM 22 49C 11 49 2 40 2 29C 2 18 11 9 22 9C 33 9 42 18 42 29C 42 40 33 49 22 49ZM 39.9 4.9L 38.5 6.3L 40.6 8.4L 38.5 10.5L 39.9 11.9L 42 9.8L 44.1 11.9L 45.5 10.5L 39.9 4.9Z"/>
+</defs>
+</svg>
