@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import { userRef, join, leaveSession } from '@/firebase'
+import { getScore } from '@/stuff'
 
 Vue.use(Vuex)
 
@@ -29,8 +30,15 @@ export default new Vuex.Store({
       }).catch(error => console.error(error))
     }),
     updateResult: firebaseAction((context, { game, result }) => {
+      const computedScore = getScore(game, result)
+
       return userRef().then(ref => {
-        ref.child(`games/${game}`).set(result)
+        ref.child(`games/${game}`).set({
+          score: computedScore || result,
+          ...computedScore && {
+            result
+          }
+        })
       })
     }),
     leaveSession () {

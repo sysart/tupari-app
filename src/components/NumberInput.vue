@@ -23,8 +23,11 @@ export default {
   },
   computed: {
     numberValue () {
-      const value = parseInt(this.value)
-      return (value >= this.min && value <= this.max) ? value : null
+      const value = parseInt(this.value, 10)
+      if (isNaN(value)) return null
+      if (this.max !== undefined && value > this.max) return null
+      if (this.min !== undefined && value < this.min) return null
+      return value
     }
   },
   watch: {

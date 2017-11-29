@@ -9,9 +9,14 @@ Firebase database
       "members": {
         "**USER_ID**": {
           "name": "Joni",
-          "results": {
-            "ralli": 6,
-            "bilis": 3
+          "games": {
+            "ralli": {
+              "score": 3,
+              "result": "1.20,300"
+            },
+            "bilis": {
+              "score": 2
+            }
           }
         }
       }

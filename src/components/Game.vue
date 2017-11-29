@@ -16,7 +16,7 @@
         <TimeInput v-model="result" v-if="game.inputMode == 'time'" :label="game.inputLabel" />
         <NumberInput v-model="result" v-if="game.inputMode == 'number'" :label="game.inputLabel" :min="game.min" :max="game.max" />
       </div>
-      <v-btn @click="updateResult" :disabled="!result" large>Päivitä</v-btn>
+      <v-btn @click="updateResult" :disabled="result === null" large>Päivitä</v-btn>
       <!-- <v-btn type="button" @click="$emit('back')">Back</v-btn> -->
     </v-form>
   </div>
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     updateResult () {
-      if (this.result) {
+      if (this.result !== null) {
         this.$emit('updateResult', this.game.id, this.result)
       }
     },
