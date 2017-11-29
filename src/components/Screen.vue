@@ -7,15 +7,14 @@
 </template>
 
 <script>
-
 export default {
   name: 'Screen',
   data () {
     return {
-    all: [
+      all: [
         {
-          id: guest1,
-          team: t1,
+          id: 'guest1',
+          team: 't1',
           g1: 1,
           g2: 4,
           g3: 5,
@@ -24,8 +23,8 @@ export default {
           g6: 2
         },
         {
-          id:  guest2,
-          team: t2,
+          id: 'guest2',
+          team: 't2',
           g1: 1,
           g2: 4,
           g3: 5,
@@ -34,8 +33,8 @@ export default {
           g6: 2
         },
         {
-          id: guest3,
-          team: t1,
+          id: 'guest3',
+          team: 't1',
           g1: 1,
           g2: 4,
           g3: 5,
@@ -43,7 +42,7 @@ export default {
           g5: 3,
           g6: 2
         }
-    ]
+      ]
     }
   },
   computed: {

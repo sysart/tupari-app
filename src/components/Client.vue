@@ -39,14 +39,14 @@
 </template>
 
 <script>
-import Start from "./Start";
-import Game from "./Game";
-import { mapState } from "vuex";
-import { userRef$, scoreboard } from "@/firebase";
-import { GAMES } from "@/stuff";
+import Start from './Start'
+import Game from './Game'
+import { mapState } from 'vuex'
+import { userRef$ } from '@/firebase'
+import { GAMES } from '@/stuff'
 
 export default {
-  name: "Client",
+  name: 'Client',
 
   components: {
     Start,
@@ -54,37 +54,37 @@ export default {
   },
 
   computed: {
-    isLoggedIn() {
-      return this.user && this.user.name;
+    isLoggedIn () {
+      return this.user && this.user.name
     },
-    games() {
-      const results = (this.user && this.user.games) || {};
+    games () {
+      const results = (this.user && this.user.games) || {}
       return GAMES.map(game => {
         return {
           ...game,
           result: results[game.id]
-        };
-      });
+        }
+      })
     },
-    ...mapState(["user"])
+    ...mapState(['user'])
   },
 
-  data() {
+  data () {
     return {
       selectedGame: null
-    };
+    }
   },
 
   methods: {
-    updateResult(gameId, result) {
-      this.$store.dispatch("updateResult", { game: gameId, result });
-      this.selectedGame = null;
+    updateResult (gameId, result) {
+      this.$store.dispatch('updateResult', { game: gameId, result })
+      this.selectedGame = null
     },
-    leaveSession() {
-      this.$store.dispatch("leaveSession");
+    leaveSession () {
+      this.$store.dispatch('leaveSession')
     },
-    getImgUrl(pic) {
-    return require('../assets/'+pic)
+    getImgUrl (pic) {
+      return require('../assets/' + pic)
     }
   },
 
@@ -102,7 +102,7 @@ export default {
     this.subscription.unsubscribe()
     this.$store.dispatch('unbindRef', 'user')
   }
-};
+}
 </script>
 
 <style scoped>

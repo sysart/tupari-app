@@ -47,8 +47,8 @@ export default {
         this.$emit('updateResult', this.game.id, this.result)
       }
     },
-    getImgUrl(pic) {
-      return require('../assets/'+pic)
+    getImgUrl (pic) {
+      return require('../assets/' + pic)
     }
   }
 }

@@ -20,7 +20,8 @@ export default {
     join () {
       const name = this.name.trim()
       const session = this.session.trim()
-      const secret = this.secret.trim();
+      const secret = this.secret.trim()
+
       if (name && session) {
         this.$store.dispatch('join', {
           name,
