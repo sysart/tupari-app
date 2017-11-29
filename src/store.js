@@ -23,9 +23,9 @@ export default new Vuex.Store({
       console.log('höhö', key, ref)
       bindFirebaseRef(key, ref)
     }),
-    unbindRef: firebaseAction(({ unbindFirebaseRef }, key) => {
+    unbindRef: firebaseAction(({ unbindFirebaseRef, commit }, key) => {
       unbindFirebaseRef(key)
-      this.commit('clear', key)
+      commit('clear', key)
     }),
     join: firebaseAction((context, { name, session }) => {
       return join(session).then(ref => {

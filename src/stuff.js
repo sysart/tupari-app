@@ -69,6 +69,8 @@ export const GAMES = [
   }
 ]
 
+export const GAME_IDS = _.map(GAMES, game => game.id)
+
 export function timeToSeconds (time) {
   const [, minutes, seconds,, milliseconds] = time.match(/^(\d)\.(\d{2})(,(\d{1,3}))?$/)
   return parseInt(minutes, 10) * 60 + parseInt(seconds, 10) + (milliseconds ? parseInt(milliseconds, 10) / 1000 : 0)
