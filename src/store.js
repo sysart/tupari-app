@@ -20,7 +20,6 @@ export default new Vuex.Store({
   },
   actions: {
     bindRef: firebaseAction(({ commit, bindFirebaseRef }, { key, ref }) => {
-      console.log('höhö', key, ref)
       bindFirebaseRef(key, ref)
     }),
     unbindRef: firebaseAction(({ unbindFirebaseRef, commit }, key) => {
