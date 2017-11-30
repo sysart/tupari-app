@@ -4,7 +4,7 @@ import firebase from 'firebase'
 import { Observable } from 'rxjs'
 
 const storedSession = storedValue('session')
-const storedTeam = storedValue('team')
+const storedTeam = storedValue('joukkueenimi')
 
 export const db = firebase.initializeApp({
   apiKey: 'AIzaSyCS6Uc837o3JrF3sbla3JAyAVrk5il_ePY',

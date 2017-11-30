@@ -65,7 +65,15 @@ export const GAMES = [
     img: 'nopeus.svg',
     inputMode: 'number',
     inputLabel: 'Montako pistettä sait?',
-    min: 0
+    min: 0,
+    scoreMap: {
+      1: 100,
+      2: 1000,
+      3: 2000,
+      4: 20000,
+      5: 40000,
+      6: 50000
+    }
   }
 ]
 
@@ -80,15 +88,16 @@ export function getScore (gameId, result) {
   const game = GAMES.find(game => game.id === gameId)
   if (!game || !game.scoreMap) return null
 
-  if (game.inputMode === 'time') result = timeToSeconds(result)
+  // if (game.inputMode === 'time') result = timeToSeconds(result)
 
   const score = _(game.scoreMap)
     .pickBy((targetResult, score) => {
-      if (game.inputMode === 'time') {
+      return result >= targetResult
+/*       if (game.inputMode === 'time') {
         return result <= timeToSeconds(targetResult)
       } else {
         return result >= targetResult
-      }
+      } */
     })
     .map((_, score) => parseInt(score))
     .max()

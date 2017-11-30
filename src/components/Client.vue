@@ -1,39 +1,43 @@
 <template>
-  <div >
-    <Start v-if="!isLoggedIn"/>
+  <v-content>
+    <v-container>
+      <div>
+        <Start v-if="!isLoggedIn"/>
 
-      <div v-if="isLoggedIn && selectedGame == null" class="buttonWrap">
-        <div class="menubar">
-          {{user.name}}
-        </div>
-        <v-container fluid grid-list-md>
-          <v-layout row wrap class="games">
-            <v-flex d-flex xs6 sm6 md2 child-flex
-            v-for="game in games" :key="game.id"
-            @click="selectedGame = game.id"
-            class="gameButton">
-              <v-card dark elevation-15>
-                <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
-                <v-card-text>
-                  {{game.score || '&nbsp;'}}
-                </v-card-text>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-btn @click="leaveSession">Leave Session</v-btn>
+          <div v-if="isLoggedIn && selectedGame == null" class="buttonWrap">
+            <div class="menubar">
+              {{user.name}}
+            </div>
+            <v-container fluid grid-list-md>
+              <v-layout row wrap class="games">
+                <v-flex d-flex xs6 sm6 md2 child-flex
+                v-for="game in games" :key="game.id"
+                @click="selectedGame = game.id"
+                class="gameButton">
+                  <v-card dark elevation-15>
+                    <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
+                    <v-card-text>
+                      {{game.score || '&nbsp;'}}
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <v-btn @click="leaveSession">Leave Session</v-btn>
+          </div>
+
+          <Game
+            v-for="game in games"
+            :key="game.id"
+            v-if="isLoggedIn && selectedGame == game.id"
+            :previousResult="game.result || game.score"
+            :game="game"
+            @updateResult="updateResult"
+            @back="selectedGame = null"
+          />
       </div>
-
-      <Game
-        v-for="game in games"
-        :key="game.id"
-        v-if="isLoggedIn && selectedGame == game.id"
-        :previousResult="game.result || game.score"
-        :game="game"
-        @updateResult="updateResult"
-        @back="selectedGame = null"
-      />
-  </div>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -134,5 +138,10 @@ export default {
   display: flex;
   justify-content: center;
   width: 100px;
+  page-break-after: always; /* CSS 2.1 syntax */
+  break-after: always; /* New syntax */
+}
+.gameButton:nth-child(2n) {
+  
 }
 </style>
