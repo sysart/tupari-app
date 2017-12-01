@@ -5,6 +5,7 @@
     :label="label"
     v-mask="['#.##,###']"
     :masked="true"
+    dark
   />
 </template>
 

@@ -5,6 +5,7 @@
     :label="label"
     :min="min"
     :max="max"
+    dark
   />
 </template>
 

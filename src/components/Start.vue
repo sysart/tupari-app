@@ -1,8 +1,8 @@
 <template>
-  <form @submit.prevent="join">
-    <v-text-field label="Name" v-model="name" />
-    <v-text-field label="Session" v-model="session" />
-    <v-btn @click="join">Join</v-btn>
+  <form @submit.prevent="join" dark class="text-xs-center register">
+    <v-text-field label="Name" v-model="name" dark />
+    <!--<v-text-field label="Session" v-model="session" dark />-->
+    <button @click="join" class="bigButton">Join</button>
   </form>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   data () {
     return {
       name: '',
-      session: '',
+      session: 'sysart',
       secret: 'perrier'
     }
   },
@@ -33,3 +33,29 @@ export default {
   }
 }
 </script>
+
+<style>
+.register {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.register * {
+max-height: 20vh;
+}
+.primary--text {
+    color: #fff !important;
+}
+.bigButton {
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+  width: 100%;
+}
+
+</style>
+
