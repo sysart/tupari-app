@@ -8,6 +8,10 @@
               <v-text-field label="Name" v-model="team.name" />
               <v-btn @click="update(team)">Update</v-btn>
               <v-btn color="error" @click="remove(team)">Remove</v-btn>
+              <h2>Members ({{team.members && Object.keys(team.members).length}}):</h2>
+              <div v-for="member in team.members" :key="member['.key']">
+                {{member.name}}
+              </div>
             </v-form>
           </v-container>
         </v-card>
