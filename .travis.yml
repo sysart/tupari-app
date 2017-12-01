@@ -9,7 +9,7 @@ deploy:
   secret_access_key:
     secure: u0QBfMSRsKt3rifSb9bIf3Vo168Wn+MtmBrgmFlqqYvR68UAzs6GLJGZSn/6zbBv4jojXRS852lsJDJ/L1EgfUJkrAj8G0/CSiYPqruP/NEyzctn1+Yi1J3p3FEduQKs3FBxjg15QwpYiImQpN2i3Oevsa3u39/qEzviVR2XbJwV//4TdrH44jNaFSe4P5IoWfy8lmCwFRS9PvXAb+tU/a/E7Z7HGBlh3SrbReHkHWtdVLtRAQzJWiZlU22FD1y33R30mkir8OxXG3BjwOkWhyVlvEMYppTSKUwLHFn1MH5gxMvI5gOC+W+BXuUnYu8Zc7ZKH/6VlMYAGiKe0YMb+diZMkE1XS7n7xkRoNgcjD4/9GbHZCW+nzmCfIIjCz5En7lNJLRUoWL2GTsCnOOXCfgsqIPQ+Z/op51wVC9D6J3dLMrfsDsnHrJTodhf7kV52AHrMAjqmLEl2KrS6lcHkHdvBhAfrV0x1GnuGE8SCQiImGYxVx2KdJdF7mGVSXGUQmRUf2JecWiZZvGUrXaVtdQHYzNaUOH2iNXTDLZG/mlxrAfk8qGS6HVE7i2EUrW8ZsHKoD6lnC2MBExKe50SuNrc1Ex0DC5TDMT9oXTPDo7yn85mYbHTqnas/ArV3DHQP3E749ilqXnRc0ylhjyj7AYxQofFiddK+/D30eW5W+4=
   acl: public_read
-  bucket: tuparit
+  bucket: tuparit.sysart.io
   region: eu-central-1
   local_dir: dist
   skip_cleanup: true
