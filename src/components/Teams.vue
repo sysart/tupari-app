@@ -1,21 +1,64 @@
 <template>
-  <div>
-    mo
-  </div>
+  <v-container fluid grid-list-md>
+    <v-layout row wrap>
+      <v-flex xs12 sm6 v-for="team in teams" :key="team['.key']">
+        <v-card>
+          <v-container>
+            <v-form @submit.prevent="update(team)">
+              <v-text-field label="Name" v-model="team.name" />
+              <v-btn @click="update(team)">Update</v-btn>
+              <v-btn color="error" @click="remove(team)">Remove</v-btn>
+            </v-form>
+          </v-container>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <v-card>
+          <v-container>
+            <v-form @submit.prevent="create">
+              <v-text-field label="Name" v-model="name" />
+              <v-btn @click="create">Create</v-btn>
+            </v-form>
+          </v-container>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import { teamsRef } from '@/firebase'
+import { getTeamsRef } from '@/firebase'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Teams',
+  data () {
+    return {
+      name: ''
+    }
+  },
   computed: {
     session () {
       return this.$route.params.session
+    },
+    ...mapState(['teams'])
+  },
+  methods: {
+    create () {
+      this.$store.dispatch('createTeam', this.name)
+      this.name = ''
+    },
+    update (team) {
+      this.$store.dispatch('updateTeam', team)
+    },
+    remove (team) {
+      this.$store.dispatch('removeTeam', team)
     }
   },
-  created () {
-    this.$store.dispatch('bindRef', { key: 'teams', ref: teamsRef(this.session) })
+  mounted () {
+    this.$store.dispatch('bindRef', { key: 'teams', ref: getTeamsRef(this.session) })
   },
   beforeDestroy () {
     this.$store.dispatch('unbindRef', 'teams')

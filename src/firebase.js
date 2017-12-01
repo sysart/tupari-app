@@ -47,7 +47,11 @@ export const userRef = () => {
   return userRef$.first().toPromise()
 }
 
-export const teamsRef = () => {
+export const getTeamsRef = (session) => {
+  return db.ref(`${session}/teams`)
+}
+
+export const teamsRef = (session) => {
   return teamsRef$.first().toPromise()
 }
 
@@ -77,6 +81,10 @@ export const joinTeam = () => {
       return _.sample(teams)
     })
     .then(team => {
+      if (!team) {
+        throw new Error('Team not found')
+      }
+
       storedTeam.set(team.id)
       return team.id
     })
