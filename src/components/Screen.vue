@@ -1,57 +1,66 @@
 <template>
   <div class="wrapper">
+    <div class="column c1">
 
-    <div class="box logo">
-      <h2 class="session">{{sessionKey}}</h2>
-      <p class="slogan">kotikisat</p></div>
-    <div class="box livescore">
-      <div class="notification">
-        Notifikaatio
+      <div class="box slim trans logo">
+        <h2 class="session">{{sessionKey}}</h2>
+        <p class="slogan">kotikisat</p>
+      </div>
+
+      <div class="box trans livescore">
+                <div class="notification">
+          Mikko pussitti 4 palloa biljardissa
         </div>
-      
+        <div class="notification">
+          Sami ajoi rallia ja paransi tuloksensa 4:n pisteeseen
+        </div>
       </div>
-    <div class="box scoreboard">
-      <h2>Tulokset</h2>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <!-- <th><img :src="getImgUrl('koko.svg')"></th> -->
-            <th v-for="game in games" :key="game.id" class="events">
-              <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="teamScore in teamScores" :key="teamScore.name">
-          <td class="left" >{{teamScore.name}}</td>
-          <!-- <td>{{teamScore.members}}</td> -->
-          <td v-for="result in teamScore.results" :key="result.index" class="events">
-            {{result}}
-          </td>
-          <td class="right">{{teamScore.total}}</td>
-          </tr>
-        </tbody>
-      </table>
 
-      </div>
-    <div class="box stats">
-      <h2>Pelaajia yhteensä</h2>
-      <p class="huge">{{totalPlayers}}</p>
-      
     </div>
-    <div class="box mvps">
-      <h2>Top 3</h2>
-      <table class="top">
-        <tbody>
-          <tr v-for="player in bestPlayers" :key="player.index">
-            <td class="left name">{{player.name}}</td>
-            <td class="right">{{player.score}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="column c2">
+      <div class="box scoreboard">
+        <h2>Tulokset</h2>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <!-- <th><img :src="getImgUrl('koko.svg')"></th> -->
+              <th v-for="game in games" :key="game.id" class="events">
+                <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="teamScore in teamScores" :key="teamScore.name">
+            <td class="left" >{{teamScore.name}}</td>
+            <!-- <td>{{teamScore.members}}</td> -->
+            <td v-for="result in teamScore.results" :key="result.index" class="events">
+              {{result}}
+            </td>
+            <td class="right">{{teamScore.total}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <div class="row slim">
+        <div class="box stats">
+          <h2>Pelaajia yhteensä</h2>
+          <p class="huge">{{totalPlayers}}</p>
+        </div>
+        <div class="box top">
+          <h2>Top 3</h2>
+          <table class="top">
+            <tbody>
+              <tr v-for="player in bestPlayers" :key="player.index">
+                <td class="left name">{{player.name}}</td>
+                <td class="right">{{player.score}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -147,15 +156,66 @@ export default {
 </script>
 
 <style>
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+html, body {
+  margin:0;
 }
-
+.wrapper {
+display: flex;
+background: #2a323c;
+max-height: 100vh;
+  
+}
+/* Layout */
+.column {
+  flex: 1;
+  justify-content: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.row {
+  flex: 1;
+  display: flex;
+  max-height: 30vh;
+}
+.c1 {
+  max-width: 30vw;
+}
+.logo {
+  background: transparent;
+  justify-content: center;
+  flex-direction: column;
+}
+.trans {
+  background: transparent !important;
+}
+.session {
+  font-size: 9vmin;
+  line-height: 1em;
+}
+.slogan {
+  font-size: 2em;
+}
+.slim {
+  max-height: 30vh;
+}
+.box {
+  background: #323c48;
+  color: #fff;
+  flex: 1;
+  display:flex;
+  margin: 2vmin;
+  align-items: center;
+  justify-content:center;
+  flex-direction: column;
+}
+p {
+  margin-bottom: 0;
+}
 table {
   width: 80%;
+  font-size: 2vmin;
 }
 .top {
   width: 50%;
@@ -177,107 +237,30 @@ th,td {
   text-transform: capitalize;
 }
 .huge {
-  font-size: 6em;
+  font-size: 8vmin;
   line-height: 1em;
 }
 h2 {
+  font-size: 3vmin;
   font-weight: 100;
   color: #758190;
   text-transform: lowercase;
-  height: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.wrapper {
-  display: grid;
-  display: -ms-grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  -ms-grid-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  -ms-grid-rows: 1fr 1fr 1fr;
-  width: 100vw;
-  height: 100vh;
-  background: #2a323c;
-  padding: 2vmin;
-}
-
-.box {
-  background: #323c48;
-  color: #fff;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  font-size: 2em;
-  margin: 2vmin;
-}
-
-.logo {
-  grid-column-start: 1;
-  grid-row-start: 1;
-  -ms-grid-column: 1;
-  -ms-grid-row: 1;
-  background: transparent;
-  justify-content: center;
-}
-.session {
-  font-size: 4em;
-}
-.slogan {
-  font-size: 2em;
-}
-
-.livescore {
-  grid-column-start: 1;
-  grid-row-start: 2;
-  -ms-grid-column: 1;
-  -ms-grid-row: 2;
-  background: transparent;
-  overflow: hidden;
-  grid-row-end: 4;
-}
 .notification {
-  padding: 1em 0;
+  font-size: 2vmin;
+  padding: 2vmin 1vmin;
   text-align: center;
   background: #323c48;
   color: #fff;
   width: 100%;
-  margin: 1vmin 0;
+  margin: 0 0 1vmin;
 }
-.scoreboard {
-  grid-column-start: 2;
-  grid-row-start: 1;
-  -ms-grid-column: 2;
-  -ms-grid-row: 1;
-  grid-column-end: 4;
-  grid-row-end: 3;
-  -ms-grid-column-span: 2;
-  -ms-grid-row-span: 2;
-}
-
-.stats {
-  grid-column: 2;
-  grid-row-start: 3;
-  -ms-grid-column: 2;
-  -ms-grid-row: 3;
-}
-
-.mvps {
-  grid-column: 3;
-  grid-row-start: 3;
-  -ms-grid-column: 3;
-  -ms-grid-row: 3;
+.livescore {
+  justify-content: flex-start;
+  overflow: hidden;
 }
 
 </style>
