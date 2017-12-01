@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import { userRef, join, leaveSession } from '@/firebase'
+import { join, leaveSession } from '@/firebase'
 import { getScore } from '@/stuff'
 
 Vue.use(Vuex)
 
+const refs = {}
+
 export default new Vuex.Store({
   state: {
     user: null,
-    teams: null,
+    teams: [],
     session: null
   },
   mutations: {
@@ -20,9 +22,11 @@ export default new Vuex.Store({
   },
   actions: {
     bindRef: firebaseAction(({ commit, bindFirebaseRef }, { key, ref }) => {
+      refs[key] = ref
       bindFirebaseRef(key, ref)
     }),
     unbindRef: firebaseAction(({ unbindFirebaseRef, commit }, key) => {
+      delete refs[key]
       unbindFirebaseRef(key)
       commit('clear', key)
     }),
@@ -34,13 +38,22 @@ export default new Vuex.Store({
     updateResult: firebaseAction((context, { game, result }) => {
       const computedScore = getScore(game, result)
 
-      return userRef().then(ref => {
-        ref.child(`games/${game}`).set({
-          score: computedScore || result,
-          ...computedScore && {
-            result
-          }
-        })
+      return refs['user'].child(`games/${game}`).set({
+        score: computedScore || result,
+        ...computedScore && {
+          result
+        }
+      })
+    }),
+    updateTeam: firebaseAction((context, team) => {
+      refs['teams'].child(team['.key']).child('name').set(team.name)
+    }),
+    removeTeam: firebaseAction((context, team) => {
+      refs['teams'].child(team['.key']).remove()
+    }),
+    createTeam: firebaseAction((context, name) => {
+      refs['teams'].push({
+        name
       })
     }),
     leaveSession () {

@@ -19,7 +19,7 @@ export default {
   methods: {
     join () {
       const name = this.name.trim()
-      const session = this.session.trim()
+      const session = this.session.trim().toLowerCase()
       const secret = this.secret.trim()
 
       if (name && session) {
