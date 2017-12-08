@@ -1,9 +1,11 @@
 <template>
-  <form @submit.prevent="join" dark class="text-xs-center register">
-    <v-text-field label="Name" v-model="name" dark />
-    <!--<v-text-field label="Session" v-model="session" dark />-->
-    <button @click="join" class="bigButton">Join</button>
-  </form>
+  <div class="formWrap">
+    <form @submit.prevent="join" dark class="text-xs-center register">
+      <v-text-field label="Nimimerkki" v-model="name" dark />
+      <!--<v-text-field label="Session" v-model="session" dark />-->
+      <button @click="join" class="bigButton">Ilmoittaudu mukaan</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -34,9 +36,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.formWrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
 .register {
-  flex:1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,6 +57,8 @@ max-height: 20vh;
     color: #fff !important;
 }
 .bigButton {
+  background: #323c48;
+  color: #fff;
   height: 15vh;
   display: flex;
   justify-content: center;

@@ -3,7 +3,7 @@
     <div class="column c1">
 
       <div class="box slim trans logo">
-        <p class="slogan">{{sessionKey}}.</p>
+        <p class="slogan">{{sessionKey}}</p>
         <h2 class="session">sysart.io</h2>
         
       </div>
@@ -177,6 +177,18 @@ max-height: 100vh;
   flex-direction: column;
   justify-content: center;
 }
+.c1 {
+  padding-top: 1vmin;
+  padding-left: 1vmin;
+  padding-right: 0;
+  padding-bottom: 1vmin;
+}
+.c2 {
+  padding-top: 1vmin;
+  padding-left: 0;
+  padding-right: 1vmin;
+  padding-bottom: 1vmin;
+}
 .row {
   flex: 1;
   display: flex;
@@ -192,6 +204,7 @@ max-height: 100vh;
 }
 .trans {
   background: transparent !important;
+  border: 0 !important;
 }
 .session {
   font-size: 9vmin;
@@ -215,6 +228,7 @@ max-height: 100vh;
 }
 .box {
   background: #323c48;
+  border: 1px solid #48525d;
   color: #fff;
   flex: 1;
   display:flex;

@@ -1,55 +1,55 @@
 <template>
 
-  <div class="wrapper">
-    <Start v-if="!isLoggedIn"/>
+  <div class='wrapper'>
+    <Start v-if='!isLoggedIn'/>
 
-      <div v-if="isLoggedIn && selectedGame == null" class="mainMode">
-        <div class="infoBar">
-          <span class="userName">{{user.name}}</span>
+      <div v-if='isLoggedIn && selectedGame == null' class='mainMode'>
+        <div class='infoBar'>
+          <span class='userName'>{{user.name}}</span>
           
         </div>
-        <div class="gameSelect">
+        <div class='gameSelect'>
           <div
-          v-for="game in games" :key="game.id"
-          @click="selectedGame = game.id"
-          class="gameButton">
+          v-for='game in games' :key='game.id'
+          @click='selectedGame = game.id'
+          class='gameButton'>
             
-              <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
-              <span class="gameResult">
+              <img :src='getImgUrl(game.img)' v-bind:alt='game.name'>
+              <span class='gameResult'>
                 {{game.score || '&nbsp;'}}
               </span>
             </v-card>
           </div>
         </div>
-      <div class="regards">
-        <h2 class="session">sysart</h2>
-        <p class="slogan">tuparit</p>
+      <div class='regards'>
+        <h2 class='session'>sysart</h2>
+        <p class='slogan'>tuparit</p>
       </div>
-        <!-- <v-btn @click="leaveSession">Leave Session</v-btn> -->
+        <!-- <v-btn @click='leaveSession'>Leave Session</v-btn> -->
       </div>
 
       <Game
-        v-for="game in games"
-        :key="game.id"
-        v-if="isLoggedIn && selectedGame == game.id"
-        :previousResult="game.result || game.score"
-        :game="game"
-        @updateResult="updateResult"
-        @back="selectedGame = null"
+        v-for='game in games'
+        :key='game.id'
+        v-if='isLoggedIn && selectedGame == game.id'
+        :previousResult='game.result || game.score'
+        :game='game'
+        @updateResult='updateResult'
+        @back='selectedGame = null'
       />
 
   </div>
 </template>
 
 <script>
-import Start from "./Start";
-import Game from "./Game";
-import { mapState } from "vuex";
-import { userRef$ } from "@/firebase";
-import { GAMES } from "@/stuff";
+import Start from './Start'
+import Game from './Game'
+import { mapState } from 'vuex'
+import { userRef$ } from '@/firebase'
+import { GAMES } from '@/stuff'
 
 export default {
-  name: "Client",
+  name: 'Client',
 
   components: {
     Start,
@@ -57,57 +57,57 @@ export default {
   },
 
   computed: {
-    isLoggedIn() {
-      return this.user && this.user.name;
+    isLoggedIn () {
+      return this.user && this.user.name
     },
-    games() {
-      const results = (this.user && this.user.games) || {};
+    games () {
+      const results = (this.user && this.user.games) || {}
       return GAMES.map(game => {
-        const result = results[game.id];
+        const result = results[game.id]
         return {
           ...game,
           score: result && result.score,
           result: result && result.result
-        };
-      });
+        }
+      })
     },
-    ...mapState(["user"])
+    ...mapState(['user'])
   },
 
-  data() {
+  data () {
     return {
       selectedGame: null
-    };
-  },
-
-  methods: {
-    updateResult(gameId, result) {
-      this.$store.dispatch("updateResult", { game: gameId, result });
-      this.selectedGame = null;
-    },
-    leaveSession() {
-      this.$store.dispatch("leaveSession");
-    },
-    getImgUrl(pic) {
-      return require("../assets/" + pic);
     }
   },
 
-  created() {
-    this.subscription = userRef$.subscribe(ref => {
-      if (ref) {
-        this.$store.dispatch("bindRef", { key: "user", ref });
-      } else {
-        this.$store.dispatch("unbindRef", "user");
-      }
-    });
+  methods: {
+    updateResult (gameId, result) {
+      this.$store.dispatch('updateResult', { game: gameId, result })
+      this.selectedGame = null
+    },
+    leaveSession () {
+      this.$store.dispatch('leaveSession')
+    },
+    getImgUrl (pic) {
+      return require('../assets/' + pic)
+    }
   },
 
-  beforeDestroy() {
-    this.subscription.unsubscribe();
-    this.$store.dispatch("unbindRef", "user");
+  created () {
+    this.subscription = userRef$.subscribe(ref => {
+      if (ref) {
+        this.$store.dispatch('bindRef', { key: 'user', ref })
+      } else {
+        this.$store.dispatch('unbindRef', 'user')
+      }
+    })
+  },
+
+  beforeDestroy () {
+    this.subscription.unsubscribe()
+    this.$store.dispatch('unbindRef', 'user')
   }
-};
+}
 </script>
 
 <style scoped>
@@ -128,7 +128,7 @@ export default {
   height: 15vh;
 }
 
-.u {
+.infoValue {
   color: #fff;
   font-size: 3em;
 }
