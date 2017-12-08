@@ -64,9 +64,7 @@ export default new Vuex.Store({
 
       return gameRef.set({
         score,
-        ...computedScore && {
-          result
-        }
+        result
       })
     }),
     updateTeam: firebaseAction((context, team) => {

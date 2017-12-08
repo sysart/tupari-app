@@ -9,7 +9,7 @@
       </div>
 
       <div class="box trans livescore">
-        <div v-if="messageList">
+        <div v-if="session && session.messages">
           <div v-for="message of messageList" :key="message['.key']" class="notification">
             {{message.content}}
           </div>
@@ -149,7 +149,7 @@ export default {
         .value()
     },
     messageList () {
-      return this.session && this.session.messages && this.session.messages
+      return Object.values(this.session.messages).reverse()
     },
     ...mapState(['session'])
   },
