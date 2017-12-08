@@ -19,10 +19,10 @@ export const scoreboard = db.ref('sysart')
 
 const user$ = Observable.fromPromise(firebase.auth().signInAnonymously())
 
-export const userRef$ = Observable.combineLatest(user$, storedSession.stream, storedTeam.stream)
-  .map(([user, session, team]) => {
-    if (user && session && team) {
-      return db.ref(`${session}/teams/${team}/members/${user.uid}`)
+export const sessionRef$ = storedSession.stream
+  .map(session => {
+    if (session) {
+      return db.ref(`${session}`)
     } else {
       return null
     }
@@ -30,29 +30,55 @@ export const userRef$ = Observable.combineLatest(user$, storedSession.stream, st
   .publishReplay(1)
   .refCount()
 
-export const teamsRef$ = storedSession.stream
-  .map(session => {
-    if (session) {
-      return db.ref(`${session}/teams`)
+export const teamRef$ = Observable.combineLatest(sessionRef$, storedTeam.stream)
+  .map(([sessionRef, team]) => {
+    if (sessionRef && team) {
+      return sessionRef.child(`teams/${team}`)
+    } else {
+      return null
+    }
+  })
+  .publishReplay(1)
+  .refCount()
+
+export const userRef$ = Observable.combineLatest(user$, teamRef$)
+  .map(([user, teamRef]) => {
+    if (user && teamRef) {
+      return teamRef.child(`members/${user.uid}`)
+    } else {
+      return null
+    }
+  })
+  .publishReplay(1)
+  .refCount()
+
+export const teamsRef$ = sessionRef$
+  .map(sessionRef => {
+    if (sessionRef) {
+      return sessionRef.child('teams')
     } else {
       return null
     }
   })
 
-export const sessionRef = (session) => {
-  return db.ref(`${session}`)
+export const sessionRef = () => {
+  return sessionRef$.first().toPromise()
 }
 
 export const userRef = () => {
   return userRef$.first().toPromise()
 }
 
-export const getTeamsRef = (session) => {
-  return db.ref(`${session}/teams`)
-}
-
 export const teamsRef = (session) => {
   return teamsRef$.first().toPromise()
+}
+
+export const getSessionRef = (session) => {
+  return db.ref(`${session}`)
+}
+
+export const getTeamsRef = (session) => {
+  return db.ref(`${session}/teams`)
 }
 
 export const leaveSession = () => {
@@ -70,6 +96,7 @@ export const joinTeam = () => {
         .map((team, teamId) => {
           return {
             id: teamId,
+            name: team.name,
             members: team.members ? Object.keys(team.members).length : 0
           }
         })
@@ -84,13 +111,28 @@ export const joinTeam = () => {
       if (!team) {
         throw new Error('Team not found')
       }
-
       storedTeam.set(team.id)
-      return team.id
+      return team
     })
 }
 
-export const join = (session) => {
+export const join = (session, name) => {
   storedSession.set(session)
-  return joinTeam().then(() => userRef())
+  return joinTeam()
+    .then((team) => {
+      return userRef().then(userRef => {
+        userRef.child('name').set(name)
+        addMessage(`${name} liittyi joukkueeseen ${team.name}`)
+      })
+    })
+}
+
+export const addMessage = (message, extra = {}) => {
+  sessionRef$.filter(v => v).first().toPromise().then(sessionRef => {
+    sessionRef.child('messages').push({
+      createdAt: Date.now(),
+      content: message,
+      ...extra
+    })
+  })
 }

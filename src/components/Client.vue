@@ -44,8 +44,9 @@
 import Start from './Start'
 import Game from './Game'
 import { mapState } from 'vuex'
-import { userRef$ } from '@/firebase'
+import { userRef$, teamRef$ } from '@/firebase'
 import { GAMES } from '@/stuff'
+import { Observable } from 'rxjs'
 
 export default {
   name: 'Client',
@@ -93,11 +94,13 @@ export default {
   },
 
   created () {
-    this.subscription = userRef$.subscribe((ref) => {
-      if (ref) {
-        this.$store.dispatch('bindRef', { key: 'user', ref })
+    this.subscription = Observable.combineLatest(userRef$, teamRef$).subscribe(([userRef, teamRef]) => {
+      if (userRef && teamRef) {
+        this.$store.dispatch('bindRef', { key: 'user', ref: userRef })
+        this.$store.dispatch('bindRef', { key: 'team', ref: teamRef })
       } else {
         this.$store.dispatch('unbindRef', 'user')
+        this.$store.dispatch('unbindRef', 'team')
       }
     })
   },
@@ -142,6 +145,6 @@ export default {
   break-after: always; /* New syntax */
 }
 .gameButton:nth-child(2n) {
-  
+
 }
 </style>

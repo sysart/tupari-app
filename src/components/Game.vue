@@ -44,7 +44,7 @@ export default {
   methods: {
     updateResult () {
       if (this.result !== null) {
-        this.$emit('updateResult', this.game.id, this.result)
+        this.$emit('updateResult', this.game, this.result)
       }
     },
     getImgUrl (pic) {

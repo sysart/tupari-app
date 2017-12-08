@@ -6,6 +6,7 @@
           <v-container>
             <v-form @submit.prevent="update(team)">
               <v-text-field label="Name" v-model="team.name" />
+              <v-text-field label="Emoji" v-model="team.emoji" />
               <v-btn @click="update(team)">Update</v-btn>
               <v-btn color="error" @click="remove(team)">Remove</v-btn>
               <h2>Members ({{team.members && Object.keys(team.members).length}}):</h2>

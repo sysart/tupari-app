@@ -8,11 +8,10 @@
       </div>
 
       <div class="box trans livescore">
-                <div class="notification">
-          Mikko pussitti 4 palloa biljardissa
-        </div>
-        <div class="notification">
-          Sami ajoi rallia ja paransi tuloksensa 4:n pisteeseen
+        <div v-if="messageList">
+          <div v-for="message of messageList" :key="message['.key']" class="notification">
+            {{message.content}}
+          </div>
         </div>
       </div>
 
@@ -33,7 +32,7 @@
           </thead>
           <tbody>
             <tr v-for="teamScore in teamScores" :key="teamScore.name">
-            <td class="left" >{{teamScore.name}}</td>
+            <td class="left" >{{teamScore.emoji}} {{teamScore.name}}</td>
             <!-- <td>{{teamScore.members}}</td> -->
             <td v-for="result in teamScore.results" :key="result.index" class="events">
               {{result}}
@@ -65,7 +64,7 @@
 </template>
 
 <script>
-import { sessionRef } from '@/firebase'
+import { getSessionRef } from '@/firebase'
 import { mapState } from 'vuex'
 import * as _ from 'lodash'
 import { GAMES, GAME_IDS } from '@/stuff'
@@ -110,6 +109,7 @@ export default {
 
           return {
             name: team.name,
+            emoji: team.emoji,
             members: team.members ? Object.keys(team.members).length : 0,
             results,
             total
@@ -144,10 +144,13 @@ export default {
         .take(3)
         .value()
     },
+    messageList () {
+      return this.session && this.session.messages && this.session.messages
+    },
     ...mapState(['session'])
   },
   mounted () {
-    this.$store.dispatch('bindRef', { key: 'session', ref: sessionRef(this.sessionKey) })
+    this.$store.dispatch('bindRef', { key: 'session', ref: getSessionRef(this.sessionKey) })
   },
   beforeDestroy () {
     this.$store.dispatch('unbindRef', 'session')
@@ -163,7 +166,7 @@ html, body {
 display: flex;
 background: #2a323c;
 max-height: 100vh;
-  
+
 }
 /* Layout */
 .column {

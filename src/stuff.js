@@ -88,16 +88,15 @@ export function getScore (gameId, result) {
   const game = GAMES.find(game => game.id === gameId)
   if (!game || !game.scoreMap) return null
 
-  // if (game.inputMode === 'time') result = timeToSeconds(result)
+  if (game.inputMode === 'time') result = timeToSeconds(result)
 
   const score = _(game.scoreMap)
     .pickBy((targetResult, score) => {
-      return result >= targetResult
-/*       if (game.inputMode === 'time') {
+      if (game.inputMode === 'time') {
         return result <= timeToSeconds(targetResult)
       } else {
         return result >= targetResult
-      } */
+      }
     })
     .map((_, score) => parseInt(score))
     .max()
