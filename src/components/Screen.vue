@@ -3,8 +3,9 @@
     <div class="column c1">
 
       <div class="box slim trans logo">
-        <h2 class="session">{{sessionKey}}</h2>
-        <p class="slogan">kotikisat</p>
+        <p class="slogan">{{sessionKey}}</p>
+        <h2 class="session">sysart.io</h2>
+
       </div>
 
       <div class="box trans livescore">
@@ -17,13 +18,16 @@
 
     </div>
     <div class="column c2">
+      <!--<div class="box infoBar">
+        <h2>puhelimeen: <span class="address">sysart.io/{{sessionKey}}</span></h2>
+      </div>-->
       <div class="box scoreboard">
         <h2>Tulokset</h2>
         <table>
           <thead>
             <tr>
               <th></th>
-              <!-- <th><img :src="getImgUrl('koko.svg')"></th> -->
+              <th><img :src="getImgUrl('koko.svg')"></th>
               <th v-for="game in games" :key="game.id" class="events">
                 <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
               </th>
@@ -33,7 +37,7 @@
           <tbody>
             <tr v-for="teamScore in teamScores" :key="teamScore.name">
             <td class="left" >{{teamScore.emoji}} {{teamScore.name}}</td>
-            <!-- <td>{{teamScore.members}}</td> -->
+            <td>{{teamScore.members}}</td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
               {{result}}
             </td>
@@ -162,12 +166,13 @@ export default {
 html, body {
   margin:0;
 }
-.wrapper {
-display: flex;
-background: #2a323c;
-max-height: 100vh;
 
+.wrapper {
+  display: flex;
+  background: #2a323c;
+  max-height: 100vh;
 }
+
 /* Layout */
 .column {
   flex: 1;
@@ -177,38 +182,73 @@ max-height: 100vh;
   flex-direction: column;
   justify-content: center;
 }
+
+.c1 {
+  padding-top: 1vmin;
+  padding-left: 1vmin;
+  padding-right: 0;
+  padding-bottom: 1vmin;
+}
+
+.c2 {
+  padding-top: 1vmin;
+  padding-left: 0;
+  padding-right: 1vmin;
+  padding-bottom: 1vmin;
+}
+
 .row {
   flex: 1;
   display: flex;
   max-height: 30vh;
 }
+
 .c1 {
   max-width: 30vw;
 }
+
 .logo {
   background: transparent;
   justify-content: center;
   flex-direction: column;
 }
+
 .trans {
   background: transparent !important;
+  border: 0 !important;
 }
+
 .session {
   font-size: 9vmin;
   line-height: 1em;
 }
+
 .slogan {
   font-size: 2em;
 }
+
 .slim {
   max-height: 30vh;
 }
+
+.infoBar {
+  max-height: 10vh;
+  color: #323c48;
+  background-color: #fff !important;
+  font-size: 1vmin
+}
+
+.address {
+  color: #2a323c;
+  font-weight: bold;
+}
 .box {
   background: #323c48;
+  border: 1px solid #48525d;
   color: #fff;
   flex: 1;
   display:flex;
-  margin: 2vmin;
+  margin: 1vmin;
   align-items: center;
   justify-content:center;
   flex-direction: column;
@@ -228,7 +268,7 @@ table {
 }
 th,td {
   text-align: center;
-  padding: 1vmin;
+  padding: .2vmin;
 }
 .left {
   text-align: left;

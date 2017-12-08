@@ -1,9 +1,11 @@
 <template>
-  <form @submit.prevent="join">
-    <v-text-field label="Name" v-model="name" />
-    <v-text-field label="Session" v-model="session" />
-    <v-btn @click="join">Join</v-btn>
-  </form>
+  <div class="formWrap">
+    <form @submit.prevent="join" dark class="text-xs-center register">
+      <v-text-field label="Nimimerkki" v-model="name" dark />
+      <!--<v-text-field label="Session" v-model="session" dark />-->
+      <button @click="join" class="bigButton">Ilmoittaudu mukaan</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -12,7 +14,7 @@ export default {
   data () {
     return {
       name: '',
-      session: '',
+      session: 'sysart',
       secret: 'perrier'
     }
   },
@@ -33,3 +35,37 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.formWrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.register * {
+max-height: 20vh;
+}
+.primary--text {
+    color: #fff !important;
+}
+.bigButton {
+  background: #323c48;
+  color: #fff;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+  width: 100%;
+}
+
+</style>
+

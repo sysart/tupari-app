@@ -11,7 +11,9 @@ const refs = {}
 const addMessage = (state, message) => {
   message = message.replace('USER', state.user.name)
   addFirebaseMessage(message, {
-    emoji: state.team.emoji
+    ...state.team.emoji && {
+      emoji: state.team.emoji
+    }
   })
 }
 

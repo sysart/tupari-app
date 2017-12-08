@@ -1,43 +1,44 @@
 <template>
-  <v-content>
-    <v-container>
-      <div>
-        <Start v-if="!isLoggedIn"/>
 
-          <div v-if="isLoggedIn && selectedGame == null" class="buttonWrap">
-            <div class="menubar">
-              {{user.name}}
-            </div>
-            <v-container fluid grid-list-md>
-              <v-layout row wrap class="games">
-                <v-flex d-flex xs6 sm6 md2 child-flex
-                v-for="game in games" :key="game.id"
-                @click="selectedGame = game.id"
-                class="gameButton">
-                  <v-card dark elevation-15>
-                    <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
-                    <v-card-text>
-                      {{game.score || '&nbsp;'}}
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </v-container>
-            <v-btn @click="leaveSession">Leave Session</v-btn>
+  <div class='wrapper'>
+    <Start v-if='!isLoggedIn'/>
+
+      <div v-if='isLoggedIn && selectedGame == null' class='mainMode'>
+        <div class='infoBar'>
+          <span class='userName'>{{user.name}}</span>
+
+        </div>
+        <div class='gameSelect'>
+          <div
+          v-for='game in games' :key='game.id'
+          @click='selectedGame = game.id'
+          class='gameButton'>
+
+              <img :src='getImgUrl(game.img)' v-bind:alt='game.name'>
+              <span class='gameResult'>
+                {{game.score || '&nbsp;'}}
+              </span>
+            </v-card>
           </div>
-
-          <Game
-            v-for="game in games"
-            :key="game.id"
-            v-if="isLoggedIn && selectedGame == game.id"
-            :previousResult="game.result || game.score"
-            :game="game"
-            @updateResult="updateResult"
-            @back="selectedGame = null"
-          />
+        </div>
+      <div class='regards'>
+        <h2 class='session'>sysart</h2>
+        <p class='slogan'>tuparit</p>
       </div>
-    </v-container>
-  </v-content>
+        <!-- <v-btn @click='leaveSession'>Leave Session</v-btn> -->
+      </div>
+
+      <Game
+        v-for='game in games'
+        :key='game.id'
+        v-if='isLoggedIn && selectedGame == game.id'
+        :previousResult='game.result || game.score'
+        :game='game'
+        @updateResult='updateResult'
+        @back='selectedGame = null'
+      />
+
+  </div>
 </template>
 
 <script>
@@ -113,38 +114,80 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  background: #2a323c !important;
+  padding: 0 4vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .grid-list-md {
   padding: 0;
 }
-.menubar {
+.infoBar {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 15vh;
 }
 
-.card {
-  background: linear-gradient(to bottom, #FF8818, #F06712);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column
+.infoValue {
+  color: #fff;
+  font-size: 3em;
 }
 .card img {
   padding: 10px;
 }
 .card__text {
-    padding: 10px;
-    text-align: center;
+  padding: 10px;
+  text-align: center;
 }
 .gameButton {
+  flex: 1;
   display: flex;
   justify-content: center;
-  width: 100px;
-  page-break-after: always; /* CSS 2.1 syntax */
-  break-after: always; /* New syntax */
+  min-width: 40vw;
+  background-color: #323c48 !important;
+  display: flex;
+  margin: 2vmin;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.gameButton:nth-child(2n) {
-
+.gameButton img {
+  height: 40%;
+}
+.gameSelect {
+  flex:1;
+  display: flex;
+  flex-wrap: wrap;
+}
+.regards {
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:1em;
+}
+.session {
+  font-size: 3em;
+  font-weight: 100;
+  line-height: 1em;
+  color: #323c48;
+}
+.gameResult {
+  color: #fff;
+  padding: 2vh 0 0;
+}
+.slogan {
+  font-size: 1em;
+  color: #fff;
+  margin: 0;
+}
+.mainMode {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>
