@@ -8,13 +8,7 @@
 
       </div>
 
-      <div class="box trans livescore">
-        <div v-if="session && session.messages">
-          <div v-for="message of messageList" :key="message['.key']" class="notification">
-            {{message.content}}
-          </div>
-        </div>
-      </div>
+      <Messages :messages="session && session.messages"/>
 
     </div>
     <div class="column c2">
@@ -72,9 +66,13 @@ import { getSessionRef } from '@/firebase'
 import { mapState } from 'vuex'
 import * as _ from 'lodash'
 import { GAMES, GAME_IDS } from '@/stuff'
+import Messages from './Messages'
 
 export default {
   name: 'Screen',
+  components: {
+    Messages
+  },
   data () {
     return {
       games: GAMES
@@ -147,9 +145,6 @@ export default {
         .reverse()
         .take(3)
         .value()
-    },
-    messageList () {
-      return Object.values(this.session.messages).reverse()
     },
     ...mapState(['session'])
   },
