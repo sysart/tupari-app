@@ -28,7 +28,6 @@ export default new Router({
     },
     {
       path: '/:session',
-      name: 'client',
       component: Client,
       children: [
         {
