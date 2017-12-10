@@ -135,8 +135,9 @@ export const join = (session, name) => {
     })
     .then(([team, user]) => {
       addMessage(MESSAGE_TYPES.JOIN_TEAM, {
-        team,
-        user
+        team: team.name,
+        emoji: team.emoji || null,
+        user: user.name
       })
     })
 }

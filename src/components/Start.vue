@@ -1,11 +1,13 @@
 <template>
-  <div class="formWrap">
-    <form @submit.prevent="join" dark class="text-xs-center register">
-      <v-text-field label="Nimimerkki" v-model="name" dark />
-      <!--<v-text-field label="Session" v-model="session" dark />-->
-      <button class="bigButton">Ilmoittaudu mukaan</button>
-    </form>
-  </div>
+  <Wrapper>
+    <div class="formWrap">
+      <form @submit.prevent="join" dark class="text-xs-center register">
+        <v-text-field label="Nimimerkki" v-model="name" dark />
+        <!--<v-text-field label="Session" v-model="session" dark />-->
+        <button class="bigButton">Ilmoittaudu mukaan</button>
+      </form>
+    </div>
+  </Wrapper>
 </template>
 
 <script>
@@ -29,6 +31,13 @@ export default {
           name,
           session,
           secret
+        }).then(() => {
+          this.$router.replace({
+            name: 'home',
+            params: {
+              session
+            }
+          })
         })
       }
     }

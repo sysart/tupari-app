@@ -11,15 +11,9 @@ const refs = {}
 const createMessage = (state, type, data) => {
   addMessage(type, {
     ...data,
-    user: {
-      id: state.user['.key'],
-      name: state.user.name
-    },
-    team: {
-      id: state.team['.key'],
-      name: state.team.name,
-      emoji: state.team.emoji
-    }
+    user: state.user.name,
+    team: state.team.name,
+    emoji: state.team.emoji || null
   })
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="gameSelected">
-      <button class="bigButton back" @click="$emit('back')">
+      <button class="bigButton back" @click="$router.push({ name: 'home' })">
         <img :src="getImgUrl('takaisin.svg')" >
       </button>
       <div class="hero">
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { GAMES } from '@/stuff'
+import { mapState } from 'vuex'
 import TimeInput from './TimeInput'
 import NumberInput from './NumberInput'
 
@@ -32,19 +34,38 @@ export default {
     TimeInput,
     NumberInput
   },
-  props: {
-    previousResult: [String, Number],
-    game: Object
-  },
   data () {
     return {
       result: null
     }
   },
+  computed: {
+    game () {
+      const gameId = this.$route.params.game
+      const game = GAMES.find(game => game.id === gameId)
+      const results = (this.user && this.user.games) || {}
+      const result = results[gameId]
+
+      return {
+        ...game,
+        score: result && result.score,
+        result: result && result.result
+      }
+    },
+    previousResult () {
+      return this.game && this.game.result
+    },
+    ...mapState(['user'])
+  },
   methods: {
     updateResult () {
       if (this.result !== null) {
-        this.$emit('updateResult', this.game, this.result)
+        this.$store.dispatch('updateResult', { game: this.game, result: this.result })
+          .then(() => {
+            this.$router.push({
+              name: 'home'
+            })
+          })
       }
     },
     getImgUrl (pic) {
