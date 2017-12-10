@@ -16,6 +16,11 @@
         <TimeInput v-model="result" v-if="game.inputMode == 'time'" :label="game.inputLabel" dark/>
         <NumberInput v-model="result" v-if="game.inputMode == 'number'" :label="game.inputLabel" :min="game.min" :max="game.max" dark />
       </div>
+      <div v-if="game.scoreMap">
+        <div v-for="(result, score) in game.scoreMap" :key="score">
+          <strong>{{score}}</strong> {{result}}
+        </div>
+      </div>
       <button class="bigButton done" :disabled="result === null">Päivitä</button>
       <!-- <v-btn type="button" @click="$emit('back')">Back</v-btn> -->
     </v-form>
