@@ -3,7 +3,7 @@
     <form @submit.prevent="join" dark class="text-xs-center register">
       <v-text-field label="Nimimerkki" v-model="name" dark />
       <!--<v-text-field label="Session" v-model="session" dark />-->
-      <button @click="join" class="bigButton">Ilmoittaudu mukaan</button>
+      <button class="bigButton">Ilmoittaudu mukaan</button>
     </form>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-} 
+}
 
 .register {
   display: flex;

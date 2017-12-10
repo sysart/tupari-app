@@ -1,3 +1,4 @@
+import { MESSAGE_TYPES } from './stuff'
 import * as _ from 'lodash'
 import storedValue from '@/utils/storedValue'
 import firebase from 'firebase'
@@ -87,16 +88,15 @@ export const leaveSession = () => {
 
 export const joinTeam = () => {
   return teamsRef()
-    .then(teamRef => {
-      return teamRef.once('value')
+    .then(teamsRef => {
+      return teamsRef.once('value').then(ds => ds.val())
     })
-    .then(ds => ds.toJSON())
     .then(teams => {
       return _(teams)
-        .map((team, teamId) => {
+        .map((team, key) => {
           return {
-            id: teamId,
-            name: team.name,
+            ...team,
+            id: key,
             members: team.members ? Object.keys(team.members).length : 0
           }
         })
@@ -120,19 +120,33 @@ export const join = (session, name) => {
   storedSession.set(session)
   return joinTeam()
     .then((team) => {
-      return userRef().then(userRef => {
-        userRef.child('name').set(name)
-        addMessage(`${name} liittyi joukkueeseen ${team.name}`)
+      return Promise.all([team, userRef()])
+    })
+    .then(([team, userRef]) => {
+      userRef.child('name').set(name)
+      return Promise.all([
+        team,
+        userRef.once('value')
+          .then(v => ({
+            ...v.toJSON(),
+            id: userRef.key
+          }))
+      ])
+    })
+    .then(([team, user]) => {
+      addMessage(MESSAGE_TYPES.JOIN_TEAM, {
+        team,
+        user
       })
     })
 }
 
-export const addMessage = (message, extra = {}) => {
+export const addMessage = (type, data = {}) => {
   sessionRef$.filter(v => v).first().toPromise().then(sessionRef => {
     sessionRef.child('messages').push({
       createdAt: Date.now(),
-      content: message,
-      ...extra
+      type: type,
+      ...data
     })
   })
 }

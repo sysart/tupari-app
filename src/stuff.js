@@ -103,3 +103,8 @@ export function getScore (gameId, result) {
 
   return score || 0
 }
+
+export const MESSAGE_TYPES = {
+  JOIN_TEAM: 'JOIN_TEAM',
+  RESULT: 'RESULT'
+}

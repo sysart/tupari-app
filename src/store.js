@@ -1,17 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import { join, leaveSession, addMessage as addFirebaseMessage } from '@/firebase'
-import { getScore } from '@/stuff'
+import { join, leaveSession, addMessage } from '@/firebase'
+import { getScore, MESSAGE_TYPES } from '@/stuff'
 
 Vue.use(Vuex)
 
 const refs = {}
 
-const addMessage = (state, message) => {
-  message = message.replace('USER', state.user.name)
-  addFirebaseMessage(message, {
-    ...state.team.emoji && {
+const createMessage = (state, type, data) => {
+  addMessage(type, {
+    ...data,
+    user: {
+      id: state.user['.key'],
+      name: state.user.name
+    },
+    team: {
+      id: state.team['.key'],
+      name: state.team.name,
       emoji: state.team.emoji
     }
   })
@@ -48,18 +54,17 @@ export default new Vuex.Store({
       const computedScore = getScore(game.id, result)
       const score = computedScore || result
 
-      if (game.score === undefined) {
-        if (computedScore) {
-          addMessage(state, `USER pelasi ${game.name} peliä ja sai tuloksen ${result}, jolla ansaitsi joukkueelleen ${score} pistettä`)
-        } else {
-          addMessage(state, `USER pelasi ${game.name} peliä ja sai ${score} pistettä`)
-        }
-      } else if (score > game.score) {
-        if (computedScore) {
-          addMessage(state, `USER pelasi ${game.name} peliä taas ja sai paremman tuloksen ${result}, jolla ansaitsi joukkueelleen ${score - game.score} lisäpistettä`)
-        } else {
-          addMessage(state, `USER pelasi ${game.name} peliät taas ja sai ${score - game.score} lisäpistettä`)
-        }
+      if (game.score === undefined || score > game.score) {
+        createMessage(state, MESSAGE_TYPES.RESULT, {
+          ...game.result && {
+            prevResult: game.result
+          },
+          ...game.score && {
+            prevScore: game.score
+          },
+          result,
+          score
+        })
       }
 
       return gameRef.set({
