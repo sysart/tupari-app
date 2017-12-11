@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import { join, leaveSession, addMessage } from '@/firebase'
+import { addMessage } from '@/firebase'
 import { getScore, MESSAGE_TYPES } from '@/stuff'
 
 Vue.use(Vuex)
@@ -9,7 +9,8 @@ Vue.use(Vuex)
 const refs = {}
 
 const createMessage = (state, type, data) => {
-  addMessage(type, {
+  const sessionRef = refs.user.parent.parent.parent.parent
+  addMessage(sessionRef, type, {
     ...data,
     user: state.user.name,
     team: state.team.name,
@@ -25,12 +26,24 @@ export default new Vuex.Store({
     session: null
   },
   mutations: {
+    setTeam (state, team) {
+      state.team = team
+    },
+    clearTeam (state) {
+      state.team = null
+    },
     clear (state, key) {
       state[key] = null
     },
     ...firebaseMutations
   },
   actions: {
+    setRef ({ commit }, { key, ref }) {
+      refs[key] = ref
+    },
+    unsetRef ({ commit }, key) {
+      delete refs[key]
+    },
     bindRef: firebaseAction(({ commit, bindFirebaseRef }, { key, ref }) => {
       refs[key] = ref
       bindFirebaseRef(key, ref)
@@ -39,9 +52,6 @@ export default new Vuex.Store({
       delete refs[key]
       unbindFirebaseRef(key)
       commit('clear', key)
-    }),
-    join: firebaseAction((context, { name, session }) => {
-      return join(session, name)
     }),
     updateResult: firebaseAction(({ state }, { game, result }) => {
       const gameRef = refs['user'].child(`games/${game.id}`)
@@ -78,10 +88,7 @@ export default new Vuex.Store({
       refs['teams'].push({
         name
       })
-    }),
-    leaveSession () {
-      leaveSession()
-    }
+    })
   },
   getters: {
 

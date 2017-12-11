@@ -1,11 +1,6 @@
 import { MESSAGE_TYPES } from './stuff'
-import * as _ from 'lodash'
-import storedValue from '@/utils/storedValue'
+import _ from 'lodash'
 import firebase from 'firebase'
-import { Observable } from 'rxjs'
-
-const storedSession = storedValue('session')
-const storedTeam = storedValue('joukkueenimi')
 
 export const db = firebase.initializeApp({
   apiKey: 'AIzaSyCS6Uc837o3JrF3sbla3JAyAVrk5il_ePY',
@@ -16,138 +11,117 @@ export const db = firebase.initializeApp({
   messagingSenderId: '886633615657'
 }).database()
 
-export const scoreboard = db.ref('sysart')
+const getUser = () => firebase.auth().signInAnonymously()
 
-const user$ = Observable.fromPromise(firebase.auth().signInAnonymously())
-
-export const sessionRef$ = storedSession.stream
-  .map(session => {
-    if (session) {
-      return db.ref(`${session}`)
-    } else {
-      return null
-    }
-  })
-  .publishReplay(1)
-  .refCount()
-
-export const teamRef$ = Observable.combineLatest(sessionRef$, storedTeam.stream)
-  .map(([sessionRef, team]) => {
-    if (sessionRef && team) {
-      return sessionRef.child(`teams/${team}`)
-    } else {
-      return null
-    }
-  })
-  .publishReplay(1)
-  .refCount()
-
-export const userRef$ = Observable.combineLatest(user$, teamRef$)
-  .map(([user, teamRef]) => {
-    if (user && teamRef) {
-      return teamRef.child(`members/${user.uid}`)
-    } else {
-      return null
-    }
-  })
-  .publishReplay(1)
-  .refCount()
-
-export const teamsRef$ = sessionRef$
-  .map(sessionRef => {
-    if (sessionRef) {
-      return sessionRef.child('teams')
-    } else {
-      return null
-    }
-  })
-
-export const sessionRef = () => {
-  return sessionRef$.first().toPromise()
+export const getTeamsRef = (sessionId) => {
+  return db.ref(`${sessionId}/teams`)
 }
 
-export const userRef = () => {
-  return userRef$.first().toPromise()
+export const getSessionRef = (sessionId) => {
+  return db.ref(`${sessionId}`)
 }
 
-export const teamsRef = (session) => {
-  return teamsRef$.first().toPromise()
-}
+export const attach = (sessionId) => {
+  return getUser().then(user => {
+    const sessionRef = getSessionRef(sessionId)
+    return getSession(sessionRef)
+      .then(session => {
+        const teamId = findUsersTeam(session, user.uid)
 
-export const getSessionRef = (session) => {
-  return db.ref(`${session}`)
-}
+        if (!teamId) {
+          throw new Error('user not joined')
+        }
 
-export const getTeamsRef = (session) => {
-  return db.ref(`${session}/teams`)
-}
+        const teamRef = sessionRef.child(`teams/${teamId}`)
+        const userRef = teamRef.child(`members/${user.uid}`)
 
-export const leaveSession = () => {
-  storedSession.set(null)
-}
-
-export const joinTeam = () => {
-  return teamsRef()
-    .then(teamsRef => {
-      return teamsRef.once('value').then(ds => ds.val())
-    })
-    .then(teams => {
-      return _(teams)
-        .map((team, key) => {
+        return Promise.all([
+          teamRef.child('name').once('value').then(ds => ds.toJSON()),
+          teamRef.child('emoji').once('value').then(ds => ds.toJSON())
+        ]).then(([name, emoji]) => {
           return {
-            ...team,
-            id: key,
-            members: team.members ? Object.keys(team.members).length : 0
+            team: {
+              id: teamId,
+              name,
+              emoji
+            },
+            userRef
           }
         })
-        .groupBy(t => t.members)
-        .map(v => v)
-        .first()
-    })
-    .then(teams => {
-      return _.sample(teams)
-    })
-    .then(team => {
-      if (!team) {
-        throw new Error('Team not found')
-      }
-      storedTeam.set(team.id)
-      return team
-    })
-}
-
-export const join = (session, name) => {
-  storedSession.set(session)
-  return joinTeam()
-    .then((team) => {
-      return Promise.all([team, userRef()])
-    })
-    .then(([team, userRef]) => {
-      userRef.child('name').set(name)
-      return Promise.all([
-        team,
-        userRef.once('value')
-          .then(v => ({
-            ...v.toJSON(),
-            id: userRef.key
-          }))
-      ])
-    })
-    .then(([team, user]) => {
-      addMessage(MESSAGE_TYPES.JOIN_TEAM, {
-        team: team.name,
-        emoji: team.emoji || null,
-        user: user.name
       })
+  })
+}
+
+export const getSession = (sessionRef) => {
+  return sessionRef.once('value')
+    .then(ds => ds.toJSON())
+    .then(session => {
+      if (session === null || !session.teams) {
+        throw new Error('session not found')
+      }
+      return session
     })
 }
 
-export const addMessage = (type, data = {}) => {
-  sessionRef$.filter(v => v).first().toPromise().then(sessionRef => {
-    sessionRef.child('messages').push({
-      createdAt: Date.now(),
-      type: type,
-      ...data
+export const findUsersTeam = (session, userId) => {
+  return _.findKey(session.teams, (team) => {
+    return team.members && team.members[userId]
+  })
+}
+
+export const join = (sessionId, name) => {
+  return getUser()
+    .then((user) => {
+      const sessionRef = getSessionRef(sessionId)
+
+      return getSession(sessionRef)
+        .then(session => {
+          const teamId = findUsersTeam(session, user.uid)
+          if (!teamId) {
+            const team = joinTeam(sessionRef, session, user.uid)
+            addMessage(sessionRef, MESSAGE_TYPES.JOIN_TEAM, {
+              team: team.name,
+              emoji: team.emoji || null,
+              user: name
+            })
+            return team.id
+          } else {
+            return teamId
+          }
+        })
+        .then((teamId) => {
+          const userRef = sessionRef.child(`teams/${teamId}/members/${user.uid}`)
+          userRef.child('name').set(name)
+        })
     })
+}
+
+export const joinTeam = (sessionRef, session, userId) => {
+  const team = _.sample(
+    _(session.teams)
+      .map((team, key) => {
+        return {
+          ...team,
+          id: key,
+          members: team.members ? Object.keys(team.members).length : 0
+        }
+      })
+      .groupBy(t => t.members)
+      .map(v => v)
+      .first()
+  )
+
+  if (!team) {
+    throw new Error('Team not found')
+  }
+
+  return team
+}
+
+export const addMessage = (sessionRef, type, data = {}) => {
+  sessionRef.child('messages').push({
+    createdAt: Date.now(),
+    type: type,
+    ...data
   })
 }

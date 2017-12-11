@@ -11,34 +11,31 @@
 </template>
 
 <script>
+import { join } from '@/firebase'
+
 export default {
   name: 'Start',
   data () {
     return {
       name: '',
-      session: 'sysart',
-      secret: 'perrier'
+      session: 'sysart'
     }
   },
   methods: {
     join () {
       const name = this.name.trim()
       const session = this.session.trim().toLowerCase()
-      const secret = this.secret.trim()
 
       if (name && session) {
-        this.$store.dispatch('join', {
-          name,
-          session,
-          secret
-        }).then(() => {
-          this.$router.replace({
-            name: 'home',
-            params: {
-              session
-            }
+        join(session, name)
+          .then(() => {
+            this.$router.replace({
+              name: 'home',
+              params: {
+                session
+              }
+            })
           })
-        })
       }
     }
   }

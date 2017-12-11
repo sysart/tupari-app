@@ -6,9 +6,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { userRef$, teamRef$ } from '@/firebase'
-
-import { Observable } from 'rxjs'
+import { attach } from '@/firebase'
 
 export default {
   name: 'Client',
@@ -23,20 +21,27 @@ export default {
     }
   },
 
-  created () {
-    this.subscription = Observable.combineLatest(userRef$, teamRef$).subscribe(([userRef, teamRef]) => {
-      if (userRef && teamRef) {
-        this.$store.dispatch('bindRef', { key: 'user', ref: userRef })
-        this.$store.dispatch('bindRef', { key: 'team', ref: teamRef })
-      } else {
-        this.$store.dispatch('unbindRef', 'user')
-        this.$store.dispatch('unbindRef', 'team')
+  watch: {
+    user (newUser, oldUser) {
+      if (newUser && oldUser && oldUser.name && !newUser.name) {
+        this.$router.replace({ name: 'start' })
       }
-    })
+    }
+  },
+
+  mounted () {
+    attach(this.$route.params.session)
+      .then(({ userRef, team }) => {
+        this.$store.commit('setTeam', team)
+        this.$store.dispatch('bindRef', { key: 'user', ref: userRef })
+      }, (error) => {
+        console.error(error)
+        this.$router.replace({ name: 'start' })
+      })
   },
 
   beforeDestroy () {
-    this.subscription.unsubscribe()
+    this.$store.commit('clearTeam')
     this.$store.dispatch('unbindRef', 'user')
   }
 }
