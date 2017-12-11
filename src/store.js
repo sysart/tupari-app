@@ -67,7 +67,8 @@ export default new Vuex.Store({
             prevScore: game.score
           },
           result,
-          score
+          score,
+          game: game.name
         })
       }
 
