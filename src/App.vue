@@ -6,7 +6,7 @@
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
 @include md-register-theme("default", (
-  primary: #00ff00,
+  primary: #fff,
   accent: #ff0000,
   theme: dark
 ));
