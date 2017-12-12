@@ -66,7 +66,7 @@ export default {
         }
       })
     },
-    ...mapState(['user','team'])
+    ...mapState(['user', 'team'])
   },
 
   methods: {

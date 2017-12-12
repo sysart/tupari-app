@@ -2,8 +2,10 @@
   <div class="box trans livescore">
     <div v-if="messages">
       <div v-for="message of list" :key="message['.key']" class="notification">
-        {{message.emoji}}
         {{getContent(message)}}
+        <div class="team-name">
+          #{{message.team}}
+        </div>
       </div>
     </div>
   </div>
@@ -44,3 +46,27 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.notification {
+  position: relative;
+  font-size: 14px;
+  padding: 2vmin 1vmin;
+  text-align: center;
+  background: #323c48;
+  color: #fff;
+  width: 100%;
+  margin: 0 0 1vmin;
+}
+
+.team-name {
+  opacity: 0.6;
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  bottom: 0;
+}
+</style>
+

@@ -106,7 +106,7 @@ export default {
 }
 
 .md-card {
-  margin: 4px;
+  margin: 16px;
   vertical-align: top;
 }
 
