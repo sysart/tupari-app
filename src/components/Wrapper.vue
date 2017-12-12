@@ -20,7 +20,6 @@ export default {
 <style scoped>
 .wrapper {
   background: #2a323c;
-  padding: 0 4vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
