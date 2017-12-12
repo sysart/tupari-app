@@ -56,7 +56,7 @@ export default new Vuex.Store({
     updateResult: firebaseAction(({ state }, { game, result }) => {
       const gameRef = refs['user'].child(`games/${game.id}`)
       const computedScore = getScore(game.id, result)
-      const score = computedScore || result
+      const score = computedScore !== null ? computedScore : result
 
       if (game.score === undefined || score > game.score) {
         createMessage(state, MESSAGE_TYPES.RESULT, {
