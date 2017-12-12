@@ -1,7 +1,30 @@
 <template>
   <div class="home">
     <div class="infoBar">
-      <span class="userName">{{user && user.name}}</span>
+      <div class="infoBox">
+        <label>joukkue</label>
+        <span>{{team && team.name}}</span>
+      </div>
+      <div class="infoBox">
+        <label>joukkuepisteet</label>
+        <span>Joukkueesi</span>
+      </div>
+      <div class="infoBox">
+        <label>minä</label>
+        <span>{{user && user.name}}</span>
+      </div>
+      <div class="infoBox">
+        <label>minun pisteet</label>
+        <span>XX</span>
+      </div>
+      <div class="infoBox">
+        <label>pelaajia yhteensä</label>
+        <span>XX</span>
+      </div>
+      <div class="infoBox">
+        <label>pelaajia joukkueessasi</label>
+        <span>XX</span>
+      </div>
     </div>
 
     <div class="gameSelect">
@@ -43,7 +66,7 @@ export default {
         }
       })
     },
-    ...mapState(['user'])
+    ...mapState(['user','team'])
   },
 
   methods: {
@@ -67,7 +90,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 15vh;
+  height: 30vh;
+  flex-wrap: wrap;
 }
 
 .infoValue {
@@ -81,6 +105,22 @@ export default {
   padding: 10px;
   text-align: center;
 }
+.infoBox {
+  min-width:50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.infoBox label{
+  font-size: .8em;
+  color: #758190;
+}
+.infoBox span{
+  font-size: 1.4em;
+  color: #fff;
+}
+
 .gameSelect {
   flex:1;
   display: flex;
