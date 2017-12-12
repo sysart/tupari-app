@@ -154,9 +154,6 @@ form {
   width: 80%;
   height: 80px;
 }
-:disabled {
-  display: none;
-}
 .primary--text {
     color: #fff !important;
 }

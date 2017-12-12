@@ -2,17 +2,6 @@
   <router-view></router-view>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-    }
-  },
-  created () {
-  }
-}
-</script>
-
 <style lang="scss">
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
@@ -24,4 +13,3 @@ export default {
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
 </style>
-
