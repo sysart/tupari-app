@@ -132,7 +132,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding:1em;
+  margin: 2em;
 }
 .session {
   font-size: 3em;
