@@ -12,9 +12,6 @@
 
     </div>
     <div class="column c2">
-      <!--<div class="box infoBar">
-        <h2>puhelimeen: <span class="address">sysart.io/{{sessionKey}}</span></h2>
-      </div>-->
       <div class="box scoreboard">
         <h2>Tulokset</h2>
         <table>
@@ -157,7 +154,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 html, body {
   margin:0;
 }
@@ -224,13 +221,6 @@ html, body {
 
 .slim {
   max-height: 30vh;
-}
-
-.infoBar {
-  max-height: 10vh;
-  color: #323c48;
-  background-color: #fff !important;
-  font-size: 1vmin
 }
 
 .address {
