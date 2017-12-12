@@ -1,25 +1,33 @@
 <template>
   <div class="box trans livescore">
     <div v-if="messages">
-      <div v-for="message of list" :key="message['.key']" class="notification">
-        {{getContent(message)}}
-        <div class="team-name">
-          #{{message.team}}
+      <transition-group name="list" tag="div">
+        <div v-for="message of list" :key="message.id" class="notification">
+          {{getContent(message)}}
+          <div class="team-name">
+            #{{message.team}}
+          </div>
         </div>
-      </div>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script>
 import { MESSAGE_TYPES } from '@/stuff'
+import _ from 'lodash'
 
 export default {
   name: 'Messages',
   props: ['messages'],
   computed: {
     list () {
-      return Object.values(this.messages).reverse().slice(0, 5)
+      return _.map(this.messages, (message, key) => {
+        return {
+          id: key,
+          ...message
+        }
+      }).reverse().slice(0, 20)
     }
   },
   methods: {
@@ -51,6 +59,7 @@ export default {
 .notification {
   position: relative;
   font-size: 20px;
+  line-height: 1.5em;
   padding: 2vmin 1vmin;
   text-align: center;
   background: #323c48;
@@ -67,5 +76,17 @@ export default {
   right: 0;
   text-align: center;
   bottom: 0;
+}
+
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
+.list-enter-to {
+  max-height: 200px;
 }
 </style>

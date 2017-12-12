@@ -282,5 +282,9 @@ h2 {
   overflow: hidden;
 }
 
+.scoreboard {
+  line-height: 2em;
+}
+
 </style>
 
