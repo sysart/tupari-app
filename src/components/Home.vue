@@ -132,13 +132,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2em;
+  margin: 0;
 }
 .session {
   font-size: 3em;
   font-weight: 100;
   line-height: 1em;
   color: #323c48;
+  margin: 0;
 }
 .slogan {
   font-size: 1em;

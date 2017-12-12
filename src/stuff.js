@@ -17,7 +17,7 @@ export const GAMES = [
     name: 'Tiimi',
     img: 'tiimi.svg',
     inputMode: 'number',
-    inputLabel: 'Syötä hashtagi',
+    inputLabel: 'Kontaktit',
     prevResult: 'JOTAIN?!',
     min: 0,
     max: 6

@@ -120,7 +120,7 @@ export default {
 }
 
 .gameName {
-  color: #758190;
+  color: #fff;
   flex: 1;
   text-align: center;
 }
