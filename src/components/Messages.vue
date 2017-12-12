@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
 .notification {
   position: relative;
-  font-size: 14px;
+  font-size: 20px;
   padding: 2vmin 1vmin;
   text-align: center;
   background: #323c48;
@@ -69,4 +69,3 @@ export default {
   bottom: 0;
 }
 </style>
-

@@ -243,7 +243,7 @@ p {
 }
 table {
   width: 80%;
-  font-size: 2vmin;
+  font-size: 20px;
 }
 .top {
   width: 50%;
