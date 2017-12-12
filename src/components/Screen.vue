@@ -30,7 +30,7 @@
           </thead>
           <tbody>
             <tr v-for="teamScore in teamScores" :key="teamScore.name">
-            <td class="left" >{{teamScore.emoji}} {{teamScore.name}}</td>
+            <td class="left" >{{teamScore.name}}</td>
             <td>{{teamScore.members}}</td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
               {{result}}
@@ -286,15 +286,6 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.notification {
-  font-size: 2vmin;
-  padding: 2vmin 1vmin;
-  text-align: center;
-  background: #323c48;
-  color: #fff;
-  width: 100%;
-  margin: 0 0 1vmin;
 }
 .livescore {
   justify-content: flex-start;
