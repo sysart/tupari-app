@@ -4,7 +4,7 @@
       <v-flex xs12 sm6 v-for="team in teams" :key="team['.key']">
         <v-card>
           <v-container>
-            <v-form @submit.prevent="update(team)">
+            <form @submit.prevent="update(team)">
               <v-text-field label="Name" v-model="team.name" />
               <v-text-field label="Emoji" v-model="team.emoji" />
               <v-btn @click="update(team)">Update</v-btn>
@@ -13,7 +13,7 @@
               <div v-for="member in team.members" :key="member['.key']">
                 {{member.name}}
               </div>
-            </v-form>
+            </form>
           </v-container>
         </v-card>
       </v-flex>
@@ -22,10 +22,10 @@
       <v-flex xs12>
         <v-card>
           <v-container>
-            <v-form @submit.prevent="create">
+            <form @submit.prevent="create">
               <v-text-field label="Name" v-model="name" />
               <v-btn @click="create">Create</v-btn>
-            </v-form>
+            </form>
           </v-container>
         </v-card>
       </v-flex>

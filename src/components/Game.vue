@@ -1,25 +1,23 @@
 <template>
   <div class="gameSelected">
-      
-      <div class="hero">
-        <button class="back" @click="$router.push({ name: 'home' })">
-        <img :src="getImgUrl('takaisin.svg')" >
-      </button>
-        <!-- <img :src="getImgUrl(game.img)" v-bind:alt="game.name"> -->
-        <h2 class="gameName">{{game.name}}</h2>
-      </div>
-
+    <div class="hero">
+      <button class="back" @click="$router.push({ name: 'home' })">
+      <img :src="getImgUrl('takaisin.svg')" >
+    </button>
+      <h2 class="gameName">{{game.name}}</h2>
+    </div>
     <div class="previous" v-if="previousResult">
       Aikaisempi tulos: {{previousResult}}
     </div>
-    <v-form @submit.prevent="updateResult" novalidate class="text-xs-center" dark>
+    <form @submit.prevent="updateResult" novalidate class="text-xs-center" dark>
       <div>
         <TimeInput v-model="result" v-if="game.inputMode == 'time'" :label="game.inputLabel" dark/>
         <NumberInput v-model="result" v-if="game.inputMode == 'number'" :label="game.inputLabel" :min="game.min" :max="game.max" dark />
       </div>
-      <button class="bigButton done" :disabled="result === null">Päivitä</button>
-      <!-- <v-btn type="button" @click="$emit('back')">Back</v-btn> -->
-    </v-form>
+      <md-button type="submit" class="md-raised md-primary" :disabled="result === null">
+        Päivitä
+      </md-button>
+    </form>
     <div class="information">
       <div v-if="game.info">
           <p>{{game.info}}</p>

@@ -1,12 +1,13 @@
 <template>
-  <v-text-field
-    type="number"
-    v-model="value"
-    :label="label"
-    :min="min"
-    :max="max"
-    dark
-  />
+  <md-field>
+    <label>{{label}}</label>
+    <md-input
+      type="number"
+      :min="min"
+      :max="max"
+      v-model="value"
+    ></md-input>
+  </md-field>
 </template>
 
 <script>

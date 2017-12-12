@@ -1,10 +1,14 @@
 <template>
-  <Wrapper>
+  <Wrapper background="no">
     <div class="formWrap">
       <form @submit.prevent="join" dark class="text-xs-center register">
-        <v-text-field label="Nimimerkki" v-model="name" dark />
-        <!--<v-text-field label="Session" v-model="session" dark />-->
-        <button class="bigButton">Ilmoittaudu mukaan</button>
+        <md-field>
+          <label>Nimimerkki</label>
+          <md-input v-model="name"></md-input>
+        </md-field>
+        <md-button type="submit" class="md-raised md-primary">
+          Ilmoittaudu mukaan
+        </md-button>
       </form>
     </div>
   </Wrapper>

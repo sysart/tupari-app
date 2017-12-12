@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.css'
-
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
 import App from './App'
 import store from './store'
 import router from './router'
@@ -10,7 +9,7 @@ import Wrapper from './components/Wrapper'
 
 sync(store, router)
 
-Vue.use(Vuetify)
+Vue.use(VueMaterial)
 
 Vue.config.productionTip = false
 

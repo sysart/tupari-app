@@ -1,12 +1,13 @@
 <template>
-  <v-text-field
-    v-model="value"
-    type="tel"
-    :label="label"
-    v-mask="['#.##,###']"
-    :masked="true"
-    dark
-  />
+  <md-field>
+    <label>{{label}}</label>
+    <md-input
+      type="tel"
+      v-mask="['#.##,###']"
+      :masked="true"
+      v-model="value"
+    ></md-input>
+  </md-field>
 </template>
 
 <script>
