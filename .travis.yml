@@ -13,3 +13,6 @@ deploy:
   region: eu-central-1
   local_dir: dist
   skip_cleanup: true
+cache:
+  directories:
+    - node_modules
