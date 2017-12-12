@@ -31,6 +31,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  box-shadow: 4px 2px 10px rgba(0,0,0,0.3) ;
 }
 .gameButton img {
   height: 40%;

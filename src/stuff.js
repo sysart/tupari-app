@@ -6,16 +6,17 @@ export const GAMES = [
     name: 'Golf',
     img: 'golf.svg',
     inputMode: 'number',
-    inputLabel: 'Montako puttia upotit?',
+    inputLabel: 'Tulos',
     min: 0,
-    max: 6
+    max: 6,
+    info: 'Käytössäsi on kuusi palloa. Saat niin monta pistettä kuin saat upotettua putteja.'
   },
   {
     id: 'team',
     name: 'Tiimi',
     img: 'tiimi.svg',
     inputMode: 'number',
-    inputLabel: 'Löysitkö joukkueesi?',
+    inputLabel: 'Syötä hashtagi',
     min: 0,
     max: 6
   },
@@ -24,7 +25,7 @@ export const GAMES = [
     name: 'Ralli',
     img: 'ralli.svg',
     inputMode: 'time',
-    inputLabel: 'Kuinka nopeasti ajoit kierroksen?',
+    inputLabel: 'Kierrosaika',
     scoreMap: {
       1: '2.00,000',
       2: '1.50,000',
@@ -39,16 +40,17 @@ export const GAMES = [
     name: 'Biljardi',
     img: 'biljardi.svg',
     inputMode: 'number',
-    inputLabel: 'Montako palloa sait pussitettua?',
+    inputLabel: 'Syötä',
     min: 0,
-    max: 6
+    max: 6,
+    info: 'Pussita niin monta palloa kuin saat yhdellä lyöntivuorolla. Saat aloittaa mistä vaan. Saat jokaisesta pussitetusta pallosta yhden pisteen. Kiven eli valkoisen pallon mennessä pussiin vähennetään yksi piste.'
   },
   {
     id: 'vr',
-    name: 'VR',
+    name: 'Virtuaalipeli',
     img: 'vr.svg',
     inputMode: 'number',
-    inputLabel: 'Montako pistettä sait?',
+    inputLabel: 'Syötä kierrosaika',
     min: 0,
     scoreMap: {
       1: 100,
@@ -64,7 +66,7 @@ export const GAMES = [
     name: 'Nopeuspeli',
     img: 'nopeus.svg',
     inputMode: 'number',
-    inputLabel: 'Montako pistettä sait?',
+    inputLabel: 'Syötä pistemäärä?',
     min: 0,
     scoreMap: {
       1: 100,

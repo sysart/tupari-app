@@ -1,29 +1,38 @@
 <template>
   <div class="gameSelected">
-      <button class="bigButton back" @click="$router.push({ name: 'home' })">
+      
+      <div class="hero">
+        <button class="back" @click="$router.push({ name: 'home' })">
         <img :src="getImgUrl('takaisin.svg')" >
       </button>
-      <div class="hero">
-        <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
-        <h2>{{game.name}}</h2>
+        <!-- <img :src="getImgUrl(game.img)" v-bind:alt="game.name"> -->
+        <h2 class="gameName">{{game.name}}</h2>
       </div>
 
-    <div v-if="previousResult">
-      Previous result {{previousResult}}
+    <div class="previous" v-if="previousResult">
+      Aikaisempi tulos: {{previousResult}}
     </div>
     <v-form @submit.prevent="updateResult" novalidate class="text-xs-center" dark>
       <div>
         <TimeInput v-model="result" v-if="game.inputMode == 'time'" :label="game.inputLabel" dark/>
         <NumberInput v-model="result" v-if="game.inputMode == 'number'" :label="game.inputLabel" :min="game.min" :max="game.max" dark />
       </div>
-      <div v-if="game.scoreMap">
-        <div v-for="(result, score) in game.scoreMap" :key="score">
-          <strong>{{score}}</strong> {{result}}
-        </div>
-      </div>
       <button class="bigButton done" :disabled="result === null">Päivitä</button>
       <!-- <v-btn type="button" @click="$emit('back')">Back</v-btn> -->
     </v-form>
+    <div class="information">
+      <div v-if="game.info">
+          <p>{{game.info}}</p>
+      </div>
+      <div class="scoreMap" v-if="game.scoreMap">
+        <h2>Pistejakauma</h2>
+        <div v-for="(result, score) in game.scoreMap" :key="score">
+           <span>{{result}}</span>
+           ->
+           <span>{{score}}p</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -80,16 +89,9 @@ export default {
 }
 </script>
 <style scoped>
-.bigButton {
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 15vh;
-  width: 100%;
-}
+
 .gameSelected {
-  color: #fff;
+  color: #bbb;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -98,31 +100,61 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 20px;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  flex-direction: column
+  flex-direction: row;
 }
 h2 {
-  color: #fff;
+  color: #758190;
+}
+.gameName {
+    flex: 1;
+    text-align: center;
+}
+form {
+  background-color: #323c48 !important;
+  padding: 20px;
+}
+.scoreMap {
+  text-align: center;
+}
+.scoreMap span {
+  padding: 2px 10px;
+  font-size: 1.2em;
+}
+.previous {
+  text-align: center;
+  color:758190;
+  margin:0 0 10px;
+}
+.input-group__input input {
+  background: blue !important;
+  text-align: center !important;
 }
 .back {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 15vh;
+  height: 80px;
+  width: 80px;
   background: #323c48;
-  margin: 4vmin 0 0;
+  border-radius: 50%;
 }
 .back img {
   height: 40%;
 }
+.information {
+  margin: 40px 0;
+  padding: 20px;
+  color: #fff;
+  background: #2a323c;
+}
 .done {
-  background: #323c48;
-  position: absolute;
-  left: 0;
-  bottom: 0;
+  background: #fff;
+  color: #323c48;
   margin: 4vmin;
-  width: 92vw;
+  width: 80%;
+  height: 80px;
 }
 :disabled {
   display: none;
