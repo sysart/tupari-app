@@ -7,7 +7,7 @@
 
 @include md-register-theme("default", (
   primary: #fff,
-  accent: #ff0000,
+  accent: #323c48,
   theme: dark
 ));
 

@@ -10,6 +10,10 @@
           Ilmoittaudu mukaan
         </md-button>
       </form>
+      <div class="regards">
+        <h2 class="session">sysart</h2>
+        <p class="slogan">tuparit</p>
+      </div>
     </div>
   </Wrapper>
 </template>
@@ -51,7 +55,8 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
 .register {
@@ -75,6 +80,26 @@ max-height: 20vh;
   align-items: center;
   height: 15vh;
   width: 100%;
+}
+.regards {
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:1em;
+}
+.session {
+  font-size: 3em;
+  font-weight: 100;
+  line-height: 1em;
+  color: #323c48;
+  margin:0;
+}
+.slogan {
+  font-size: 1em;
+  color: #fff;
+  margin: 0;
 }
 
 </style>
