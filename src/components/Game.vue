@@ -1,17 +1,18 @@
 <template>
   <div class="gameSelected">
-    <div class="hero">
+    <div class="gameHero">
+      <div class="gameHeroBackground" :style="{ backgroundImage: `url('${imageUrl}')` }"></div>
       <button class="back" @click="$router.push({ name: 'home' })">
-        <img src="/static/images/takaisin.svg" >
+        <img src="/static/images/takaisin.svg">
       </button>
       <h2 class="gameName">{{game.name}}</h2>
     </div>
 
-    <form @submit.prevent="updateResult" novalidate v-if="game.id != 'meet'">
+    <form @submit.prevent="updateResult" novalidate v-if="game.id != 'meet'" class="gameResultForm">
       <md-card class="md-accent">
         <md-card-content>
           <div class="previous" v-if="previousResult">
-            {{game.prevResult}}: {{previousResult}}
+            {{game.prevResult}}: <strong>{{previousResult}}</strong>
           </div>
           <div>
             <TimeInput v-model="result" v-if="game.inputMode == 'time'" :label="game.inputLabel" />
@@ -127,7 +128,10 @@ export default {
         }
       }
     },
-    ...mapState(['user'])
+    ...mapState(['user']),
+    imageUrl () {
+      return `/static/images/${this.game.img}`
+    }
   },
   methods: {
     updateResult () {
@@ -144,7 +148,9 @@ export default {
       this.$store.dispatch('meet', parseInt(this.code, 10))
         .then((otherUser) => {
           const result = Object.keys(this.user.meets || {}).length + 1
-          this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
+          if (result <= 6) {
+            this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
+          }
         }, (error) => {
           this.errorMessage = error.message
         })
@@ -156,7 +162,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .gameSelected {
   color: #bbb;
   height: 100vh;
@@ -164,24 +170,39 @@ export default {
   flex-direction: column;
 }
 
-.md-card {
-  margin: 16px;
-  vertical-align: top;
-}
-
-.hero {
+.gameHero {
+  position: relative;
   display: flex;
   flex-direction: row;
-  padding: 20px;
+  margin: 0 0 1.5em;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
 }
 
+.gameHeroBackground {
+  z-index: 1;
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: contain;
+  opacity: 0.2;
+}
+
 .gameName {
+  font-size: 2rem;
+  position: relative;
+  z-index: 2;
+  margin: 0 1rem;
   color: #fff;
   flex: 1;
-  text-align: center;
+  text-align: right;
 }
 
 .input-group__input input {
@@ -190,6 +211,8 @@ export default {
 }
 
 .back {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -209,5 +232,35 @@ export default {
   margin: 4vmin;
   width: 80%;
   height: 80px;
+}
+
+.gameResultForm {
+  margin: 0 0 1.5em;
+
+  .md-card {
+    vertical-align: top;
+    background-color: rgba(50, 60, 72, 0.9);
+    box-shadow: 4px 2px 10px rgba(0,0,0,0.3);
+    border: 1px solid #48525d;
+  }
+
+  .md-card-content {
+    padding: 1em 1em 0;
+
+    &:last-of-type {
+      padding-bottom: 16px;
+    }
+  }
+
+  .md-card-actions {
+    padding: 0 1em 1em;
+  }
+
+  .previous {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    text-align: center;
+  }
 }
 </style>
