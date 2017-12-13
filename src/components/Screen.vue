@@ -13,7 +13,6 @@
     </div>
     <div class="column c2">
       <div class="box scoreboard">
-        <h2>Tulokset</h2>
         <table>
           <thead>
             <tr>
