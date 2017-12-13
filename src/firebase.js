@@ -37,14 +37,14 @@ export const attach = (sessionId) => {
 
         return teamRef.child('name').once('value').then(ds => ds.toJSON())
           .then((name) => {
-          return {
-            team: {
-              id: teamId,
-              name
-            },
-            userRef
-          }
-        })
+            return {
+              team: {
+                id: teamId,
+                name
+              },
+              userRef
+            }
+          })
       })
   })
 }
