@@ -3,9 +3,9 @@
     <div class="column c1">
 
       <div class="box slim trans logo">
+        <img src="../assets/logo.png">
         <p class="slogan">avaa</p>
         <h2 class="session">tuparit.sysart.io</h2>
-
       </div>
 
       <Messages :messages="session && session.messages"/>
@@ -220,6 +220,12 @@ html, body {
   flex-direction: column;
 }
 
+.logo img {
+  max-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .trans {
   background: transparent !important;
   border: 0 !important;
@@ -282,6 +288,7 @@ th,td {
 .huge {
   font-size: 8vmin;
   line-height: 1em;
+  margin: 0;
 }
 h2 {
   font-size: 3vmin;
@@ -291,6 +298,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 0;
 }
 .livescore {
   justify-content: flex-start;
