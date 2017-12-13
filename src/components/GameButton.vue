@@ -13,7 +13,7 @@ export default {
   props: ['game'],
   computed: {
     imageUrl () {
-      return require(`../assets/${this.game.img}`)
+      return `/static/images/${this.game.img}`
     }
   }
 }
