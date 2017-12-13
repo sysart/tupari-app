@@ -2,28 +2,12 @@
   <div class="home">
     <div class="infoBar">
       <div class="infoBox">
-        <label>joukkue</label>
+        <label>{{user && user.name}}</label>
         <span>{{team && team.name}}</span>
       </div>
       <div class="infoBox">
-        <label>joukkuepisteet</label>
-        <span>Joukkueesi</span>
-      </div>
-      <div class="infoBox">
-        <label>minä</label>
-        <span>{{user && user.name}}</span>
-      </div>
-      <div class="infoBox">
-        <label>minun pisteet</label>
-        <span>XX</span>
-      </div>
-      <div class="infoBox">
-        <label>pelaajia yhteensä</label>
-        <span>XX</span>
-      </div>
-      <div class="infoBox">
-        <label>pelaajia joukkueessasi</label>
-        <span>XX</span>
+        <label>pisteet</label>
+        <span>{{totalScore}}</span>
       </div>
     </div>
 
@@ -65,6 +49,12 @@ export default {
           result: result && result.result
         }
       })
+    },
+    totalScore () {
+      return Object.values(this.user.games || {})
+        .reduce((total, game) => {
+          return total + game.score
+        }, 0)
     },
     ...mapState(['user', 'team'])
   },
