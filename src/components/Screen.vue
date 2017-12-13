@@ -26,7 +26,9 @@
           <tbody>
             <tr v-for="teamScore in teamScores" :key="teamScore.name">
             <td class="left" >{{teamScore.name}}
-              <div class="members"><img v-for="member in teamScore.members" :key="member.index" src="/static/images/koko.svg"></div>
+              <div class="members">
+                <img v-for="n in teamScore.members" :key="n" src="/static/images/koko.svg">
+              </div>
             </td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
               {{result}}
@@ -221,9 +223,8 @@ table {
   height: 20px;
   bottom: 0;
 }
-.members img{
+.members img {
   height: 15px;
-  position: absolute;
   margin-right: 5px;
 }
 tr {

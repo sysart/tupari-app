@@ -1,9 +1,12 @@
 <template>
-  <div class="gameButton" @click="$emit('click')">
+  <div class="gameButton" :class="{ played: game.score }" @click="$emit('click')">
     <img :src="imageUrl" v-bind:alt="game.name">
     <p>{{game.name}}</p>
     <span class="gameResult">
-      {{game.score}}
+      <span v-for="n in 6" :key="n" v-if="game.score">
+        <md-icon class="star" v-if="n <= game.score">star</md-icon>
+        <md-icon class="star_border" v-else>star_border</md-icon>
+      </span>
     </span>
   </div>
 </template>
@@ -20,7 +23,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .gameButton {
   flex: 1;
   display: flex;
@@ -34,6 +37,10 @@ export default {
   flex-direction: column;
   box-shadow: 4px 2px 10px rgba(0,0,0,0.3);
   border: 1px solid #48525d;
+
+  &.played {
+    background-color: rgba(100, 60, 100, 0.9);
+  }
 }
 /* .gameButton img,
 .gameButton p,
@@ -55,6 +62,21 @@ export default {
   color: #fff;
   line-height: 1;
   min-height: .875rem;
+
+  .md-icon {
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
+    font-size: 12px !important;
+  }
   /* padding: 2vh 0 0; */
+}
+
+.star {
+  color: #ffff00 !important;
+}
+
+.star_border {
+  color: rgba(0, 0, 0, 0.25) !important;
 }
 </style>
