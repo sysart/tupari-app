@@ -107,9 +107,8 @@ export function getScore (gameId, result) {
 
 export const sanitize = input => {
   return sanitizeHtml(input, {
-    allowedTags: [ 'strong', 'a' ],
+    allowedTags: [ 'strong', 'small' ],
     allowedAttributes: {
-      'a': [ 'href' ]
     }
   })
 }
@@ -117,5 +116,6 @@ export const sanitize = input => {
 export const MESSAGE_TYPES = {
   JOIN_TEAM: 'JOIN_TEAM',
   RESULT: 'RESULT',
-  MEET: 'MEET'
+  MEET: 'MEET',
+  CHAT: 'CHAT'
 }

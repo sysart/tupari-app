@@ -19,6 +19,9 @@
         :game="game"
       />
     </div>
+
+    <md-button class="chatButton" @click="$router.push({ name: 'chat' })">Tsätti</md-button>
+
     <div class="regards">
       <h2 class="session">sysart</h2>
       <p class="slogan">tuparit</p>
@@ -150,5 +153,9 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.chatButton {
+  align-self: center;
 }
 </style>

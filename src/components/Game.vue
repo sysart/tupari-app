@@ -1,12 +1,6 @@
 <template>
   <div class="gameSelected">
-    <div class="gameHero">
-      <div class="gameHeroBackground" :style="{ backgroundImage: `url('${imageUrl}')` }"></div>
-      <button class="back" @click="$router.push({ name: 'home' })">
-        <img src="/static/images/takaisin.svg">
-      </button>
-      <h2 class="gameName">{{game.name}}</h2>
-    </div>
+    <PageHeader :title="game.name" :image="game.img" backTo="home" />
 
     <form @submit.prevent="updateResult" novalidate v-if="game.id != 'meet'" class="gameResultForm">
       <md-card class="md-accent">
@@ -87,13 +81,15 @@ import { mapState } from 'vuex'
 import TimeInput from './TimeInput'
 import NumberInput from './NumberInput'
 import ScoreInput from './ScoreInput'
+import PageHeader from './PageHeader'
 
 export default {
   name: 'Game',
   components: {
     TimeInput,
     NumberInput,
-    ScoreInput
+    ScoreInput,
+    PageHeader
   },
   data () {
     return {
@@ -128,10 +124,7 @@ export default {
         }
       }
     },
-    ...mapState(['user']),
-    imageUrl () {
-      return `/static/images/${this.game.img}`
-    }
+    ...mapState(['user'])
   },
   methods: {
     updateResult () {
@@ -172,60 +165,9 @@ export default {
   flex-direction: column;
 }
 
-.gameHero {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  margin: 0 0 1.5em;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-}
-
-.gameHeroBackground {
-  z-index: 1;
-  content: '';
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: contain;
-  opacity: 0.2;
-}
-
-.gameName {
-  font-size: 2rem;
-  position: relative;
-  z-index: 2;
-  margin: 0 1rem;
-  color: #fff;
-  flex: 1;
-  text-align: right;
-}
-
 .input-group__input input {
   background: blue !important;
   text-align: center !important;
-}
-
-.back {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
-  width: 80px;
-  background: #323c48;
-  border-radius: 50%;
-}
-
-.back img {
-  height: 40%;
 }
 
 .done {
