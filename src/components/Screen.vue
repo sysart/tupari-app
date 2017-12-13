@@ -108,7 +108,6 @@ export default {
 
           return {
             name: team.name,
-            emoji: team.emoji,
             members: team.members ? Object.keys(team.members).length : 0,
             results,
             total
@@ -154,7 +153,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 html, body {
   margin:0;
 }
@@ -239,13 +238,6 @@ html, body {
   max-height: 30vh;
 }
 
-.infoBar {
-  max-height: 10vh;
-  color: #323c48;
-  background-color: #fff !important;
-  font-size: 1vmin
-}
-
 .address {
   color: #2a323c;
   font-weight: bold;
@@ -266,7 +258,7 @@ p {
 }
 table {
   width: 80%;
-  font-size: 2vmin;
+  font-size: 20px;
 }
 .top {
   width: 50%;
@@ -303,6 +295,10 @@ h2 {
 .livescore {
   justify-content: flex-start;
   overflow: hidden;
+}
+
+.scoreboard {
+  line-height: 2em;
 }
 
 </style>

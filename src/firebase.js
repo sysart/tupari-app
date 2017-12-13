@@ -35,15 +35,12 @@ export const attach = (sessionId) => {
         const teamRef = sessionRef.child(`teams/${teamId}`)
         const userRef = teamRef.child(`members/${user.uid}`)
 
-        return Promise.all([
-          teamRef.child('name').once('value').then(ds => ds.toJSON()),
-          teamRef.child('emoji').once('value').then(ds => ds.toJSON())
-        ]).then(([name, emoji]) => {
+        return teamRef.child('name').once('value').then(ds => ds.toJSON())
+          .then((name) => {
           return {
             team: {
               id: teamId,
-              name,
-              emoji
+              name
             },
             userRef
           }
@@ -81,7 +78,6 @@ export const join = (sessionId, name) => {
             const team = joinTeam(sessionRef, session, user.uid)
             addMessage(sessionRef, MESSAGE_TYPES.JOIN_TEAM, {
               team: team.name,
-              emoji: team.emoji || null,
               user: name
             })
             return team.id

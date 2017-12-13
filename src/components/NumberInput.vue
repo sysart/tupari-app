@@ -5,6 +5,7 @@
       type="number"
       :min="min"
       :max="max"
+      step="1"
       v-model="value"
     ></md-input>
   </md-field>
