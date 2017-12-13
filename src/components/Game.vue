@@ -57,13 +57,11 @@
       </md-card-content>
     </md-card>
 
-    <md-card class="md-primary" v-if="game.scoreMap">
+    <md-card class="md-accent" v-if="game.scoreMap">
       <md-card-content>
-        <h2>Pistejakauma</h2>
         <div v-for="(result, score) in game.scoreMap" :key="score">
-            <span>{{result}}</span>
-            ->
-            <span>{{score}}p</span>
+          <Stars :value="parseInt(score, 10)"/>
+          {{result}}
         </div>
       </md-card-content>
     </md-card>
@@ -82,6 +80,7 @@ import TimeInput from './TimeInput'
 import NumberInput from './NumberInput'
 import ScoreInput from './ScoreInput'
 import PageHeader from './PageHeader'
+import Stars from './Stars'
 
 export default {
   name: 'Game',
@@ -89,7 +88,8 @@ export default {
     TimeInput,
     NumberInput,
     ScoreInput,
-    PageHeader
+    PageHeader,
+    Stars
   },
   data () {
     return {

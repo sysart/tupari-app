@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="container">
     <PageHeader title="Tsätti" backTo="home" />
 
     <form @submit.prevent="send">
-      <md-card>
+      <md-card class="md-accent">
         <md-card-content>
           <md-field>
             <label>Message</label>
@@ -19,8 +19,10 @@
       </md-card>
     </form>
 
-    <div v-for="message in chatMessages" :key="message['.key']">
-      <strong>&lt;{{message.user}}&gt;</strong> {{message.message}}
+    <div class="messages">
+      <div v-for="message in chatMessages" :key="message['.key']">
+        <strong>&lt;{{message.user}}&gt;</strong> {{message.message}}
+      </div>
     </div>
   </div>
 </template>
