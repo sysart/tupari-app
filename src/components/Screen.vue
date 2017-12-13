@@ -108,7 +108,6 @@ export default {
 
           return {
             name: team.name,
-            emoji: team.emoji,
             members: team.members ? Object.keys(team.members).length : 0,
             results,
             total

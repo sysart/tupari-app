@@ -13,8 +13,7 @@ const createMessage = (state, type, data) => {
   addMessage(sessionRef, type, {
     ...data,
     user: state.user.name,
-    team: state.team.name,
-    emoji: state.team.emoji || null
+    team: state.team.name
   })
 }
 
@@ -80,7 +79,6 @@ export default new Vuex.Store({
     updateTeam: firebaseAction((context, team) => {
       const teamRef = refs['teams'].child(team['.key'])
       teamRef.child('name').set(team.name)
-      teamRef.child('emoji').set(team.emoji)
     }),
     removeTeam: firebaseAction((context, team) => {
       refs['teams'].child(team['.key']).remove()

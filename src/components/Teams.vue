@@ -9,12 +9,6 @@
               v-model="team.name"
             ></md-input>
           </md-field>
-          <md-field>
-            <label>Emoji</label>
-            <md-input
-              v-model="team.emoji"
-            ></md-input>
-          </md-field>
           <md-button class="md-raised md-primary" @click="update(team)">Update</md-button>
           <md-button class="md-raised md-accent" @click="remove(team)">Remove</md-button>
           <h2>Members ({{team.members && Object.keys(team.members).length}}):</h2>
