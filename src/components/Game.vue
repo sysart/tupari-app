@@ -144,7 +144,9 @@ export default {
       this.$store.dispatch('meet', parseInt(this.code, 10))
         .then((otherUser) => {
           const result = Object.keys(this.user.meets || {}).length + 1
-          this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
+          if (result <= 6) {
+            this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
+          }
         }, (error) => {
           this.errorMessage = error.message
         })

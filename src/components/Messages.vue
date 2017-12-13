@@ -68,6 +68,7 @@ export default {
   color: #fff;
   width: 100%;
   margin: 0 0 1vmin;
+  transition: all 1s;
 }
 
 .team-name {
@@ -80,15 +81,11 @@ export default {
   bottom: 0;
 }
 
-.list-enter-active, .list-leave-active {
-  transition: all 1s;
-}
 .list-enter, .list-leave-to {
   opacity: 0;
-  max-height: 0;
 }
 
-.list-enter-to {
-  max-height: 200px;
+.list-move {
+  transition: transform 0.5s;
 }
 </style>
