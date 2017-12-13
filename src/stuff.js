@@ -12,7 +12,7 @@ export const GAMES = [
   },
   {
     id: 'meet',
-    name: '** KEKSI NIMI **',
+    name: '** KEKSI NIMI **', // TODO
     img: 'tiimi.svg',
     info: 'Tutustu toisiin ihmisiin ja kysy niiden salaista koodia'
   },
@@ -106,5 +106,6 @@ export function getScore (gameId, result) {
 
 export const MESSAGE_TYPES = {
   JOIN_TEAM: 'JOIN_TEAM',
-  RESULT: 'RESULT'
+  RESULT: 'RESULT',
+  MEET: 'MEET'
 }

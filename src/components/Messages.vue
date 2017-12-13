@@ -33,6 +33,8 @@ export default {
   methods: {
     getContent (message) {
       switch (message.type) {
+        case MESSAGE_TYPES.MEET:
+          return `${message.user} tapasi ${message.otherName}`
         case MESSAGE_TYPES.JOIN_TEAM:
           return `${message.user} liittyi joukkueeseen ${message.team}`
         case MESSAGE_TYPES.RESULT:

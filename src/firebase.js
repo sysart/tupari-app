@@ -138,7 +138,7 @@ export const findUserByCode = (userRef, code) => {
       })
 
       if (!otherUser) {
-        throw new Error('user not found')
+        throw new Error('*** HENKILÖÄ EI LÖYDY ***') // TODO
       }
 
       return {
