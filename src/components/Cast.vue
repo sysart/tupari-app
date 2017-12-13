@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { isAvailable } from '@/cast'
+
 export default {
   name: 'Cast',
   computed: {
@@ -10,15 +12,16 @@ export default {
       return '<button is="google-cast-button"></button>'
     }
   },
-  mounted () {
-    window['__onGCastApiAvailable'] = function (isAvailable) {
-      console.log('cast', isAvailable)
+  methods: {
+    init () {
       cast.framework.CastContext.getInstance().setOptions({ // eslint-disable-line no-undef
         receiverApplicationId: '3BCD22C3',
         autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED // eslint-disable-line no-undef
       })
     }
+  },
+  mounted () {
+    isAvailable.then(() => this.init())
   }
 }
 </script>
-
