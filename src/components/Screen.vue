@@ -31,9 +31,9 @@
               </div>
             </td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
-              {{result}}
+              {{result}}<span class="percent">%</span>
             </td>
-            <td class="right">{{teamScore.total}}p</td>
+            <td class="right">{{teamScore.total}}<span class="percent">%</span></td>
             </tr>
           </tbody>
         </table>
@@ -44,7 +44,7 @@
           <p class="huge">{{totalPlayers}}</p>
         </div>
         <div class="box top">
-          <h2>Top 3</h2>
+          <h2>Top 5</h2>
           <table class="top">
             <tbody>
               <tr v-for="player in bestPlayers" :key="player.index">
@@ -276,5 +276,9 @@ h2 {
   line-height: 2em;
 }
 
+.percent {
+  font-size: 0.5em;
+  color: #aaa;
+}
 </style>
 

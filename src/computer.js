@@ -12,7 +12,7 @@ export const teamScores = (session) => {
           return score + _.get(member, `games[${gameId}].score`, 0)
         }, 0)
 
-        return Math.round(gameScore / memberCount)
+        return Math.round(gameScore / memberCount / 6 * 100)
       })
 
       const total = results.reduce((sum, score) => sum + score, 0)
@@ -31,7 +31,7 @@ export const teamScores = (session) => {
     .value()
 }
 
-export const bestPlayers = (session) => {
+export const bestPlayers = (session, count = 5) => {
   return _(session.teams)
     .flatMap(team => {
       return _.values(team.members)
@@ -49,7 +49,7 @@ export const bestPlayers = (session) => {
     .reverse()
     .sortBy(['score'])
     .reverse()
-    .take(3)
+    .take(count)
     .value()
 }
 
