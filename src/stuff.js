@@ -5,11 +5,9 @@ export const GAMES = [
     id: 'golf',
     name: 'Golf',
     img: 'golf.svg',
-    inputMode: 'number',
+    inputMode: 'score',
     inputLabel: 'Tulos',
     prevResult: 'Edellinen tulos',
-    min: 0,
-    max: 6,
     info: 'Käytössäsi on kuusi palloa. Saat niin monta pistettä kuin saat upotettua putteja.'
   },
   {
@@ -42,11 +40,9 @@ export const GAMES = [
     id: 'biljardi',
     name: 'Biljardi',
     img: 'biljardi.svg',
-    inputMode: 'number',
+    inputMode: 'score',
     inputLabel: 'Tulos',
     prevResult: 'Edellinen tulos',
-    min: 0,
-    max: 6,
     info: 'Pussita niin monta palloa kuin saat yhdellä lyöntivuorolla. Saat aloittaa mistä vaan. Saat jokaisesta pussitetusta pallosta yhden pisteen. Kiven eli valkoisen pallon mennessä pussiin vähennetään yksi piste.'
   },
   {

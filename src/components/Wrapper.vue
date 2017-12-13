@@ -23,7 +23,6 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  
 }
 
 .background {

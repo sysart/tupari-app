@@ -14,11 +14,12 @@
             {{game.prevResult}}: {{previousResult}}
           </div>
           <div>
-            <TimeInput v-model="result" v-if="game.inputMode == 'time'" :label="game.inputLabel" dark/>
-            <NumberInput v-model="result" v-if="game.inputMode == 'number'" :label="game.inputLabel" :min="game.min" :max="game.max" dark />
+            <TimeInput v-model="result" v-if="game.inputMode == 'time'" :label="game.inputLabel" />
+            <NumberInput v-model="result" v-if="game.inputMode == 'number'" :label="game.inputLabel" :min="game.min" :max="game.max" />
+            <ScoreInput @input="updateResult" v-model="result" v-if="game.inputMode == 'score'" :label="game.inputLabel" />
           </div>
         </md-card-content>
-        <md-card-actions>
+        <md-card-actions v-if="game.inputMode != 'score'">
           <md-button type="submit" class="md-raised md-primary" :disabled="result === null">
             Päivitä
           </md-button>
@@ -50,12 +51,14 @@ import { GAMES } from '@/stuff'
 import { mapState } from 'vuex'
 import TimeInput from './TimeInput'
 import NumberInput from './NumberInput'
+import ScoreInput from './ScoreInput'
 
 export default {
   name: 'Game',
   components: {
     TimeInput,
-    NumberInput
+    NumberInput,
+    ScoreInput
   },
   data () {
     return {
