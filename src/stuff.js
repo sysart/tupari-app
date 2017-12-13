@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import sanitizeHtml from 'sanitize-html'
 
 export const GAMES = [
   {
@@ -102,6 +103,15 @@ export function getScore (gameId, result) {
     .max()
 
   return score || 0
+}
+
+export const sanitize = input => {
+  return sanitizeHtml(input, {
+    allowedTags: [ 'strong', 'a' ],
+    allowedAttributes: {
+      'a': [ 'href' ]
+    }
+  })
 }
 
 export const MESSAGE_TYPES = {

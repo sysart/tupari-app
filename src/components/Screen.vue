@@ -60,10 +60,10 @@
 <script>
 import { getSessionRef } from '@/firebase'
 import { mapState } from 'vuex'
-import * as _ from 'lodash'
-import { GAMES, GAME_IDS } from '@/stuff'
+import { GAMES } from '@/stuff'
 import Messages from './Messages'
 import Wrapper from './Wrapper'
+import * as computer from '@/computer'
 
 export default {
   name: 'Screen',
@@ -87,61 +87,15 @@ export default {
     },
     totalPlayers () {
       if (!this.session) return null
-
-      return _(this.session.teams)
-      .filter(team => team.members)
-        .reduce((sum, team) => {
-          return sum + Object.keys(team.members).length
-        }, 0)
+      return computer.totalPlayers(this.session)
     },
     teamScores () {
       if (!this.session) return null
-
-      return _(this.session.teams)
-        .map((team) => {
-          const results = GAME_IDS.map(gameId => {
-            return _.reduce(team.members, (score, member) => {
-              return score + _.get(member, `games[${gameId}].score`, 0)
-            }, 0)
-          })
-
-          const total = results.reduce((sum, score) => sum + score, 0)
-
-          return {
-            name: team.name,
-            members: team.members ? Object.keys(team.members).length : 0,
-            results,
-            total
-          }
-        })
-      .sortBy(['name'])
-      .reverse()
-      .sortBy(['total'])
-      .reverse()
-      .value()
+      return computer.teamScores(this.session)
     },
     bestPlayers () {
       if (!this.session) return null
-
-      return _(this.session.teams)
-        .flatMap(team => {
-          return _.values(team.members)
-        })
-        .map(member => {
-          const score = member.games ? _.reduce(member.games, (score, game) => {
-            return score + game.score
-          }, 0) : 0
-          return {
-            name: member.name,
-            score
-          }
-        })
-        .sortBy(['name'])
-        .reverse()
-        .sortBy(['score'])
-        .reverse()
-        .take(3)
-        .value()
+      return computer.bestPlayers(this.session)
     },
     ...mapState(['session'])
   },

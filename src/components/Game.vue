@@ -136,12 +136,14 @@ export default {
   methods: {
     updateResult () {
       if (this.result !== null) {
-        this.$store.dispatch('updateResult', { game: this.game, result: this.result })
-          .then(() => {
-            this.$router.push({
-              name: 'home'
-            })
-          })
+        const game = this.game
+        const result = this.result
+
+        this.$router.push({
+          name: 'home'
+        })
+
+        this.$store.dispatch('updateResult', { game, result })
       }
     },
     meet () {

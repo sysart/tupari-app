@@ -3,7 +3,7 @@
     <div v-if="messages">
       <transition-group name="list" tag="div">
         <div v-for="message of list" :key="message.id" class="notification">
-          {{getContent(message)}}
+          <span v-html="getContent(message)"></span>
           <div class="team-name">
             #{{message.team}}
           </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { MESSAGE_TYPES } from '@/stuff'
+import { MESSAGE_TYPES, sanitize } from '@/stuff'
 import _ from 'lodash'
 
 export default {
@@ -32,26 +32,33 @@ export default {
   },
   methods: {
     getContent (message) {
+      let content = ''
       switch (message.type) {
         case MESSAGE_TYPES.MEET:
-          return `${message.user} tapasi ${message.otherName}`
+          content = `<strong>${message.user}</strong> tapasi <strong>${message.otherName}</strong>`
+          break
         case MESSAGE_TYPES.JOIN_TEAM:
-          return `${message.user} liittyi joukkueeseen ${message.team}`
+          content = `<strong>${message.user}</strong> liittyi joukkueeseen <strong>${message.team}</strong>`
+          break
         case MESSAGE_TYPES.RESULT:
           if (message.prevScore) {
             if (message.score === message.result) {
-              return `${message.user} paransi ${message.game} pelissä ja sai ${message.score} pistettä`
+              content = `<strong>${message.user}</strong> paransi ${message.game} pelissä ja sai <strong>${message.score}</strong> pistettä`
             } else {
-              return `${message.user} paransi ${message.game} pelissä ${message.result} tuloksella, jolla saa ${message.score} pistettä`
+              content = `<strong>${message.user}</strong> paransi ${message.game} pelissä ja sai <strong>${message.score}</strong> pistettä tuloksella <strong>${message.result}</strong>`
             }
           } else {
             if (message.score === message.result) {
-              return `${message.user} sai ${message.game} pelissä ${message.score} pistettä`
+              content = `<strong>${message.user}</strong> sai ${message.game} pelissä <strong>${message.score}</strong> pistettä`
             } else {
-              return `${message.user} sai ${message.game} pelissä ${message.result} tuloksen, jolla saa ${message.score} pistettä`
+              content = `<strong>${message.user}</strong> sai ${message.game} pelissä <strong>${message.score}</strong> pistettä tuloksella <strong>${message.result}</strong>`
             }
           }
+          break
+        default:
+          content = 'Jotain tapahtui'
       }
+      return sanitize(content)
     }
   }
 }
@@ -65,10 +72,14 @@ export default {
   padding: 30px 40px;
   text-align: center;
   background: #323c48;
-  color: #fff;
+  color: #e0e0e0;
   width: 100%;
   margin: 0 0 1vmin;
   transition: all 1s;
+}
+
+.notification /deep/ strong {
+  color: #fff;
 }
 
 .team-name {
