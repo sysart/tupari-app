@@ -64,7 +64,6 @@ import { mapState } from 'vuex'
 import * as _ from 'lodash'
 import { GAMES, GAME_IDS } from '@/stuff'
 import Messages from './Messages'
-import { initReceiver } from '@/cast'
 
 export default {
   name: 'Screen',
@@ -147,7 +146,6 @@ export default {
   },
   mounted () {
     this.$store.dispatch('bindRef', { key: 'session', ref: getSessionRef(this.sessionKey) })
-    initReceiver()
   },
   beforeDestroy () {
     this.$store.dispatch('unbindRef', 'session')

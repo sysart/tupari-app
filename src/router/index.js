@@ -6,7 +6,6 @@ import Screen from '@/components/Screen'
 import Teams from '@/components/Teams'
 import Game from '@/components/Game'
 import Home from '@/components/Home'
-import Cast from '@/components/Cast'
 
 Vue.use(Router)
 
@@ -16,11 +15,6 @@ export default new Router({
       path: '/',
       name: 'start',
       component: Start
-    },
-    {
-      path: '/cast',
-      name: 'cast',
-      component: Cast
     },
     {
       path: '/:session/screen',
