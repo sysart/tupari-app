@@ -1,5 +1,5 @@
 <template>
-  <Wrapper background="no">
+  <Wrapper>
     <div class="formWrap">
       <form @submit.prevent="join" dark class="text-xs-center register">
         <md-field>

@@ -2,7 +2,7 @@
   <div class="gameSelected">
     <div class="hero">
       <button class="back" @click="$router.push({ name: 'home' })">
-        <img :src="getImgUrl('takaisin.svg')" >
+        <img src="/static/images/takaisin.svg" >
       </button>
       <h2 class="gameName">{{game.name}}</h2>
     </div>
@@ -93,9 +93,6 @@ export default {
             })
           })
       }
-    },
-    getImgUrl (pic) {
-      return require('../assets/' + pic)
     }
   }
 }

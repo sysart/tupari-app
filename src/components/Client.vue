@@ -39,9 +39,9 @@ export default {
 
   mounted () {
     attach(this.$route.params.session)
-      .then(({ userRef, team }) => {
-        this.$store.commit('setTeam', team)
+      .then(({ userRef, teamRef }) => {
         this.$store.dispatch('bindRef', { key: 'user', ref: userRef })
+        this.$store.dispatch('bindRef', { key: 'team', ref: teamRef })
       }, (error) => {
         console.error(error)
         this.$router.replace({ name: 'start' })
@@ -49,8 +49,8 @@ export default {
   },
 
   beforeDestroy () {
-    this.$store.commit('clearTeam')
     this.$store.dispatch('unbindRef', 'user')
+    this.$store.dispatch('unbindRef', 'team')
   },
 
   beforeRouteUpdate (to, from, next) {

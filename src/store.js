@@ -25,12 +25,6 @@ export default new Vuex.Store({
     session: null
   },
   mutations: {
-    setTeam (state, team) {
-      state.team = team
-    },
-    clearTeam (state) {
-      state.team = null
-    },
     clear (state, key) {
       state[key] = null
     },

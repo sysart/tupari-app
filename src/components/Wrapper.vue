@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :class="classes">
+  <div class="wrapper">
     <slot></slot>
   </div>
 </template>
@@ -21,21 +21,19 @@ export default {
 .wrapper {
   background: #2a323c;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
-.background {
-  background-image: url('../assets/bgAnim.svg');
+  background-image: url('/static/images/bgAnim.svg');
   background-position: 0px 0px;
 	background-repeat: repeat-x;
 
-	animation: animatedBackground 60s linear infinite;
+	animation: animatedBackground 120s linear infinite;
   background-repeat: no-repeat;
   background-size: auto 60vh;
 }
+
 @keyframes animatedBackground {
-	from { background-position: 0 0; }
-	to { background-position: 100% 0; }
+	0% { background-position: 0 0; }
+	50% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
 }
 </style>

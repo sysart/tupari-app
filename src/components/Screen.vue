@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <Wrapper>
     <div class="column c1">
 
       <div class="box slim trans logo">
@@ -18,7 +18,7 @@
           <thead>
             <tr>
               <th></th>
-              <th><img :src="getImgUrl('koko.svg')"></th>
+              <th><img src="/static/images/koko.svg"></th>
               <th v-for="game in games" :key="game.id" class="events">
                 <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
               </th>
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </Wrapper>
 </template>
 
 <script>
@@ -64,11 +64,13 @@ import { mapState } from 'vuex'
 import * as _ from 'lodash'
 import { GAMES, GAME_IDS } from '@/stuff'
 import Messages from './Messages'
+import Wrapper from './Wrapper'
 
 export default {
   name: 'Screen',
   components: {
-    Messages
+    Messages,
+    Wrapper
   },
   data () {
     return {
@@ -77,7 +79,7 @@ export default {
   },
   methods: {
     getImgUrl (pic) {
-      return require('../assets/' + pic)
+      return `/static/images/${pic}`
     }
   },
   computed: {
@@ -160,15 +162,7 @@ html, body {
 
 .wrapper {
   display: flex;
-  background: #2a323c;
   max-height: 100vh;
-  background-image: url('../assets/bgAnim.svg');
-  background-position: 0px 0px;
-	background-repeat: repeat-x;
-
-	animation: animatedBackground 60s linear infinite;
-  background-repeat: no-repeat;
-  background-size: auto 60vh;
 }
 
 @keyframes animatedBackground {
