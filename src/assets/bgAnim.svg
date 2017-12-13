@@ -1,0 +1,12 @@
+<svg width="2247" height="103" viewBox="0 0 2247 103" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>bgAnim</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-13586 -3003)">
+<g id="bgAnim">
+<use xlink:href="#path0_fill" transform="translate(13586 3003)" fill="#3F4D5E"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 336.814 69.7657L 0 84.2437L 0 0L 2247 0L 2247 84.2437L 1994.57 103L 1799 71.144L 1576.24 64.5831L 1301.61 89.5916L 1057.82 69.7657L 748.812 71.144L 544.286 41.8462L 336.814 69.7657Z"/>
+</defs>
+</svg>

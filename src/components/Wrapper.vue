@@ -23,12 +23,20 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  
 }
 
 .background {
-  background-image: url('../assets/bgShape.svg');
-  background-position: center top;
+  background-image: url('../assets/bgAnim.svg');
+  background-position: 0px 0px;
+	background-repeat: repeat-x;
+
+	animation: animatedBackground 60s linear infinite;
   background-repeat: no-repeat;
-  background-size: 150vmin;
+  background-size: auto 60vh;
+}
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
 }
 </style>

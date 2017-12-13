@@ -3,7 +3,7 @@
     <div class="formWrap">
       <form @submit.prevent="join" dark class="text-xs-center register">
         <md-field>
-          <label>Nimimerkki</label>
+          <label>Nimi</label>
           <md-input v-model="name"></md-input>
         </md-field>
         <md-button type="submit" class="md-raised md-primary">

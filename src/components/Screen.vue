@@ -3,8 +3,8 @@
     <div class="column c1">
 
       <div class="box slim trans logo">
-        <p class="slogan">{{sessionKey}}</p>
-        <h2 class="session">sysart.io</h2>
+        <p class="slogan">avaa</p>
+        <h2 class="session">tuparit.sysart.io</h2>
 
       </div>
 
@@ -12,9 +12,6 @@
 
     </div>
     <div class="column c2">
-      <!--<div class="box infoBar">
-        <h2>puhelimeen: <span class="address">sysart.io/{{sessionKey}}</span></h2>
-      </div>-->
       <div class="box scoreboard">
         <h2>Tulokset</h2>
         <table>
@@ -166,6 +163,22 @@ html, body {
   display: flex;
   background: #2a323c;
   max-height: 100vh;
+  background-image: url('../assets/bgAnim.svg');
+  background-position: 0px 0px;
+	background-repeat: repeat-x;
+
+	animation: animatedBackground 60s linear infinite;
+  background-repeat: no-repeat;
+  background-size: auto 60vh;
+}
+
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
+.session {
+  font-size: 50px !important;
+  margin: 0;
 }
 
 /* Layout */
@@ -238,7 +251,7 @@ html, body {
   font-weight: bold;
 }
 .box {
-  background: #323c48;
+  background: rgba(50, 60, 72, 0.9);
   border: 1px solid #48525d;
   color: #fff;
   flex: 1;
