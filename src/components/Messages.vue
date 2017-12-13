@@ -60,7 +60,7 @@ export default {
   position: relative;
   font-size: 20px;
   line-height: 1.5em;
-  padding: 2vmin 1vmin;
+  padding: 30px 40px;
   text-align: center;
   background: #323c48;
   color: #fff;

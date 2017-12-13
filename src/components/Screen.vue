@@ -5,7 +5,7 @@
       <div class="box slim trans logo">
         <img src="/static/images/logo.png">
         <p class="slogan">avaa</p>
-        <h2 class="session">tuparit.sysart.io</h2>
+        <h2 class="session">sysart.io</h2>
       </div>
 
       <Messages :messages="session && session.messages"/>
@@ -18,7 +18,6 @@
           <thead>
             <tr>
               <th></th>
-              <th><img src="/static/images/koko.svg"></th>
               <th v-for="game in games" :key="game.id" class="events">
                 <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
               </th>
@@ -27,12 +26,13 @@
           </thead>
           <tbody>
             <tr v-for="teamScore in teamScores" :key="teamScore.name">
-            <td class="left" >{{teamScore.name}}</td>
-            <td>{{teamScore.members}}</td>
+            <td class="left" >{{teamScore.name}}
+              <div class="members"><img v-for="member in teamScore.members" :key="member.index" src="/static/images/koko.svg"></div>
+            </td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
               {{result}}
             </td>
-            <td class="right">{{teamScore.total}}</td>
+            <td class="right">{{teamScore.total}}p</td>
             </tr>
           </tbody>
         </table>
@@ -48,7 +48,7 @@
             <tbody>
               <tr v-for="player in bestPlayers" :key="player.index">
                 <td class="left name">{{player.name}}</td>
-                <td class="right">{{player.score}}</td>
+                <td class="right">{{player.score}}p</td>
               </tr>
             </tbody>
           </table>
@@ -257,8 +257,27 @@ p {
   margin-bottom: 0;
 }
 table {
-  width: 80%;
-  font-size: 20px;
+  width: 85%;
+  height: 80%;
+  font-size: 30px;
+  line-height: 30px;
+  border-collapse: collapse;
+}
+.members {
+  width: 100%;
+  height: 20px;
+  bottom: 0;
+}
+.members img{
+  height: 15px;
+  position: absolute;
+  margin-right: 5px;
+}
+tr {
+  padding: 10px 0;
+}
+td {
+  border-bottom: 1px solid #fff;
 }
 .top {
   width: 50%;
