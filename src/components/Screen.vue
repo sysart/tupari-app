@@ -3,7 +3,7 @@
     <div class="column c1">
 
       <div class="box slim trans logo">
-        <img src="../assets/logo.png">
+        <img src="/static/images/logo.png">
         <p class="slogan">avaa</p>
         <h2 class="session">tuparit.sysart.io</h2>
       </div>

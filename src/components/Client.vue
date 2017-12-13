@@ -1,5 +1,5 @@
 <template>
-  <Wrapper>
+  <Wrapper v-if="validUser">
     <transition :name="transitionName">
       <router-view class="router-view"></router-view>
     </transition>
@@ -14,6 +14,9 @@ export default {
   name: 'Client',
 
   computed: {
+    validUser () {
+      return this.user && this.user.name
+    },
     ...mapState(['user'])
   },
 

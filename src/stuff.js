@@ -11,14 +11,10 @@ export const GAMES = [
     info: 'Käytössäsi on kuusi palloa. Saat niin monta pistettä kuin saat upotettua putteja.'
   },
   {
-    id: 'team',
-    name: 'Tiimi',
+    id: 'meet',
+    name: '** KEKSI NIMI **',
     img: 'tiimi.svg',
-    inputMode: 'number',
-    inputLabel: 'Kontaktit',
-    prevResult: 'JOTAIN?!',
-    min: 0,
-    max: 6
+    info: 'Tutustu toisiin ihmisiin ja kysy niiden salaista koodia'
   },
   {
     id: 'ralli',

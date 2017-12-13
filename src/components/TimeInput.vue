@@ -7,6 +7,7 @@
       :masked="true"
       v-model="value"
     ></md-input>
+    <span class="md-helper-text">Kirjoita aika ilman pisteitä: 123 -> 1.23</span>
   </md-field>
 </template>
 

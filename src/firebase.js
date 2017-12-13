@@ -85,6 +85,7 @@ export const join = (sessionId, name) => {
         .then((teamId) => {
           const userRef = sessionRef.child(`teams/${teamId}/members/${user.uid}`)
           userRef.child('name').set(name)
+          userRef.child('code').set(1000 + Math.floor(Math.random() * 9000))
         })
     })
 }
@@ -117,4 +118,32 @@ export const addMessage = (sessionRef, type, data = {}) => {
     type: type,
     ...data
   })
+}
+
+export const findUserByCode = (userRef, code) => {
+  const userId = userRef.key
+  const teamsRef = userRef.parent.parent.parent
+
+  return teamsRef.once('value').then(ds => ds.toJSON())
+    .then(teams => {
+      const members = _.reduce(teams, (all, team) => {
+        return {
+          ...all,
+          ...(team.members || {})
+        }
+      }, {})
+
+      const otherUser = _.find(members, (member, memberId) => {
+        return memberId !== userId && member.code === code
+      })
+
+      if (!otherUser) {
+        throw new Error('user not found')
+      }
+
+      return {
+        name: otherUser.name,
+        code: otherUser.code
+      }
+    })
 }

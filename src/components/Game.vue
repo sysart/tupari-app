@@ -7,7 +7,7 @@
       <h2 class="gameName">{{game.name}}</h2>
     </div>
 
-    <form @submit.prevent="updateResult" novalidate >
+    <form @submit.prevent="updateResult" novalidate v-if="game.id != 'meet'">
       <md-card class="md-accent">
         <md-card-content>
           <div class="previous" v-if="previousResult">
@@ -22,6 +22,26 @@
         <md-card-actions v-if="game.inputMode != 'score'">
           <md-button type="submit" class="md-raised md-primary" :disabled="result === null">
             Päivitä
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </form>
+
+    <form @submit.prevent="meet" novalidate v-if="game.id == 'meet'">
+      <md-card class="md-accent" >
+        <md-card-content>
+          <h1>{{user && user.code}}</h1>
+          <div v-if="user.meets">
+            Persons met:
+            <div v-for="(meet, meetKey) in user.meets" :key="meetKey">
+              {{meet.name}}
+            </div>
+          </div>
+          <NumberInput v-model="code" label="Koodi" :min="1000" :max="9999" />
+        </md-card-content>
+        <md-card-actions>
+          <md-button type="submit" class="md-raised md-primary" :disabled="code === null">
+            Tutustu
           </md-button>
         </md-card-actions>
       </md-card>
@@ -62,7 +82,8 @@ export default {
   },
   data () {
     return {
-      result: null
+      result: null,
+      code: null
     }
   },
   computed: {
@@ -93,10 +114,19 @@ export default {
             })
           })
       }
+    },
+    meet () {
+      this.$store.dispatch('meet', this.code)
+        .then(() => {
+          console.log('found')
+        }, () => {
+          console.log('not found')
+        })
     }
   }
 }
 </script>
+
 <style scoped>
 .gameSelected {
   color: #bbb;
