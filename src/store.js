@@ -50,12 +50,17 @@ export default new Vuex.Store({
       commit('clear', key)
     }),
 
-    updateResult: firebaseAction(({ state }, { game, result }) => {
+    updateResult: firebaseAction(({ state }, { game, result, otherUser }) => {
       const gameRef = refs['user'].child(`games/${game.id}`)
       const computedScore = getScore(game.id, result)
       const score = computedScore !== null ? computedScore : result
 
-      if (game.score === undefined || score > game.score) {
+      if (game.id === 'meet') {
+        createMessage(state, MESSAGE_TYPES.MEET, {
+          otherName: otherUser.name,
+          game: game.name
+        })
+      } else if (game.score === undefined || score > game.score) {
         createMessage(state, MESSAGE_TYPES.RESULT, {
           ...game.result && {
             prevResult: game.result
@@ -79,15 +84,14 @@ export default new Vuex.Store({
       const existingCodes = Object.values(state.user.meets || {}).map(u => u.code)
 
       if (existingCodes.indexOf(code) !== -1) {
-        return Promise.reject(new Error('code added already'))
+        return Promise.reject(new Error('*** OLET JO TAVANNU ***')) // TODO
       }
 
       const userRef = refs['user']
       return findUserByCode(userRef, code)
         .then((otherUser) => {
           return userRef.child('meets').push(otherUser)
-        }, (error) => {
-          console.error(error)
+            .then(() => otherUser)
         })
     }),
 

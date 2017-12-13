@@ -32,15 +32,24 @@
         <md-card-content>
           <h1>{{user && user.code}}</h1>
           <div v-if="user.meets">
-            Persons met:
+            Olet tavannut:
             <div v-for="(meet, meetKey) in user.meets" :key="meetKey">
               {{meet.name}}
             </div>
           </div>
-          <NumberInput v-model="code" label="Koodi" :min="1000" :max="9999" />
+          <md-field>
+            <label>Koodi</label>
+            <md-input
+              type="number"
+              :min="1000"
+              :max="9999"
+              :step="1"
+              v-model="code"
+            ></md-input>
+          </md-field>
         </md-card-content>
         <md-card-actions>
-          <md-button type="submit" class="md-raised md-primary" :disabled="code === null">
+          <md-button type="submit" class="md-raised md-primary" :disabled="!code">
             Tutustu
           </md-button>
         </md-card-actions>
@@ -63,6 +72,11 @@
         </div>
       </md-card-content>
     </md-card>
+
+    <md-snackbar md-position="center" :md-duration="4000" :md-active.sync="showError" md-persistent>
+      <span>{{errorMessage}}</span>
+      <md-button class="md-accent" @click="errorMessage = null">Sulje</md-button>
+    </md-snackbar>
   </div>
 </template>
 
@@ -83,7 +97,8 @@ export default {
   data () {
     return {
       result: null,
-      code: null
+      code: null,
+      errorMessage: null
     }
   },
   computed: {
@@ -102,6 +117,16 @@ export default {
     previousResult () {
       return this.game && this.game.result
     },
+    showError: {
+      get () {
+        return !!this.errorMessage
+      },
+      set (value) {
+        if (!value) {
+          this.errorMessage = null
+        }
+      }
+    },
     ...mapState(['user'])
   },
   methods: {
@@ -116,11 +141,15 @@ export default {
       }
     },
     meet () {
-      this.$store.dispatch('meet', this.code)
+      this.$store.dispatch('meet', parseInt(this.code, 10))
+        .then((otherUser) => {
+          const result = Object.keys(this.user.meets || {}).length + 1
+          this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
+        }, (error) => {
+          this.errorMessage = error.message
+        })
         .then(() => {
-          console.log('found')
-        }, () => {
-          console.log('not found')
+          this.code = ''
         })
     }
   }
