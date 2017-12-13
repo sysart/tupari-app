@@ -11,10 +11,13 @@ export default {
     }
   },
   mounted () {
-    cast.framework.CastContext.getInstance().setOptions({ // eslint-disable-line no-undef
-      receiverApplicationId: '3BCD22C3',
-      autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED // eslint-disable-line no-undef
-    })
+    window['__onGCastApiAvailable'] = function (isAvailable) {
+      console.log('cast', isAvailable)
+      cast.framework.CastContext.getInstance().setOptions({ // eslint-disable-line no-undef
+        receiverApplicationId: '3BCD22C3',
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED // eslint-disable-line no-undef
+      })
+    }
   }
 }
 </script>
