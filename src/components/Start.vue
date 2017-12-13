@@ -29,6 +29,17 @@ export default {
       session: 'sysart'
     }
   },
+  mounted () {
+    const session = localStorage.getItem('session')
+    if (session) {
+      this.$router.replace({
+        name: 'home',
+        params: {
+          session
+        }
+      })
+    }
+  },
   methods: {
     join () {
       const name = this.name.trim()
@@ -37,6 +48,7 @@ export default {
       if (name && session) {
         join(session, name)
           .then(() => {
+            localStorage.setItem('session', session)
             this.$router.replace({
               name: 'home',
               params: {
