@@ -28,6 +28,7 @@ export default {
 .scoreContainer {
   display: flex;
   flex-wrap: wrap;
+  margin: -4px;
 }
 
 .buttonContainer {
