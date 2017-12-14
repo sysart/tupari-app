@@ -9,13 +9,13 @@ export const GAMES = [
     inputMode: 'score',
     inputLabel: 'Tulos',
     prevResult: 'Edellinen tulos',
-    info: 'Käytössäsi on kuusi palloa. Saat niin monta pistettä kuin saat upotettua putteja.'
+    info: 'Käytössäsi on kuusi palloa. Ensin putataan lähempään reikään. Kolmesta onnistumisesta eteenpäin putataan kauempaan reikään. Saat niin monta pistettä kuin saat upotettua putteja.'
   },
   {
     id: 'meet',
     name: 'Tapailu',
     img: 'tapailu.svg',
-    info: 'Tutustu toisiin ihmisiin ja kysy heidän salaista koodia'
+    info: 'Jokaiselle kilpailijalle arvotaan numero. Utele muiden kilpailijoiden salaiset numerot ansaitaksesi pisteitä. Maksimi pisteet: 6 (Saat silti tavata lisää uusia ihmisiä)'
   },
   {
     id: 'ralli',
@@ -50,6 +50,7 @@ export const GAMES = [
     inputLabel: 'Pisteet',
     prevResult: 'Edelliset pisteet',
     min: 0,
+    info: 'Laita virtuaalilasit päähän ja osoita uutta peliä. Ammu vihollisia minkä kerkiät ja pysyttele hengissä. Syötä lopuksi pelistä saamasi pisteet.',
     scoreMap: {
       1: 100,
       2: 1000,
@@ -67,6 +68,7 @@ export const GAMES = [
     inputLabel: 'Pisteet',
     prevResult: 'Edelliset pisteet',
     min: 0,
+    info: 'Reagoi pelin nappeihin siinä järjestyksessä kun ne syttyvät. Kirjaa näytöllä lukevat pisteet',
     scoreMap: {
       1: 0,
       2: 40,

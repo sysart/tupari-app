@@ -25,7 +25,11 @@
     <form @submit.prevent="meet" novalidate v-if="game.id == 'meet'" class="gameResultForm">
       <md-card class="md-accent" >
         <md-card-content>
+          <div class="code-container">
+          <h3>Salainen koodisi on:</h3>
           <h1>{{user && user.code}}</h1>
+          </div>
+   
           <div v-if="user.meets">
             Olet tavannut:
             <div v-for="(meet, meetKey) in user.meets" :key="meetKey">
@@ -33,7 +37,7 @@
             </div>
           </div>
           <md-field>
-            <label>Koodi</label>
+            <label>Kilpailijan koodi...</label>
             <md-input
               type="number"
               :min="1000"
@@ -203,6 +207,11 @@ export default {
     margin-bottom: 1rem;
     line-height: 1.5;
     text-align: center;
+  }
+  .code-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 }
 </style>

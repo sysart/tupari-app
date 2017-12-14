@@ -7,7 +7,7 @@
       :masked="true"
       v-model="value"
     ></md-input>
-    <span class="md-helper-text">Kirjoita aika ilman pisteitä: 123 -> 1.23</span>
+    <span class="md-helper-text">Syötä käyttämällä pelkästään numeroita.<br>Esim 050123 -> 0.50,123 </span>
   </md-field>
 </template>
 
