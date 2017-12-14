@@ -45,9 +45,9 @@
           </div>
           <div class="statBox">
             <h2>Joukkueita</h2>
-            <p class="huge">{{teamScores.length}}</p>
+            <p class="huge">{{teamScores && teamScores.length}}</p>
           </div>
-          
+
         </div>
         <div class="box top">
           <Scroller>

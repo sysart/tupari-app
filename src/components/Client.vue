@@ -48,6 +48,7 @@ export default {
         this.$store.dispatch('bindRef', { key: 'team', ref: teamRef })
       }, (error) => {
         console.error(error)
+        localStorage.removeItem('session')
         this.$router.replace({ name: 'start' })
       })
   },

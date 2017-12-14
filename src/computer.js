@@ -40,6 +40,7 @@ export const bestPlayers = (session, count = 20) => {
     .flatMap(team => {
       return _.values(team.members)
     })
+    .filter(member => !member.host)
     .map(member => {
       const score = member.games ? _.reduce(member.games, (score, game) => {
         return score + game.score

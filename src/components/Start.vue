@@ -6,7 +6,8 @@
           <label>Nimi</label>
           <md-input v-model="name"></md-input>
         </md-field>
-        <md-button type="submit" class="md-raised md-primary">
+        <md-checkbox v-model="host" class="md-primary sysart-check">Sysarttilainen</md-checkbox>
+        <md-button type="submit" :disabled="joining" class="md-raised md-primary">
           Ilmoittaudu mukaan
         </md-button>
       </form>
@@ -26,7 +27,9 @@ export default {
   data () {
     return {
       name: '',
-      session: 'sysart'
+      session: 'sysart',
+      joining: false,
+      host: false
     }
   },
   mounted () {
@@ -45,8 +48,9 @@ export default {
       const name = this.name.trim()
       const session = this.session.trim().toLowerCase()
 
-      if (name && session) {
-        join(session, name)
+      if (name && session && !this.joining) {
+        this.joining = true
+        join(session, name, this.host)
           .then(() => {
             localStorage.setItem('session', session)
             this.$router.replace({
@@ -63,6 +67,11 @@ export default {
 </script>
 
 <style scoped>
+.sysart-check {
+  position: absolute;
+  bottom: 0;
+}
+
 .formWrap {
   height: 100%;
   display: flex;
