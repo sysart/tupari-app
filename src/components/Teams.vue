@@ -31,6 +31,7 @@
         </form>
       </md-card-content>
     </md-card>
+    <md-button class="md-raised" @click="clear">Clear Session</md-button>
     <div>
       <ul>
         <li>Palveluväylä</li>
@@ -40,6 +41,7 @@
         <li>Tekoäly</li>
         <li>Iso Data</li>
         <li>Lohkoketju</li>
+        <li>Pilvipalvelu</li>
       </ul>
     </div>
   </div>
@@ -72,6 +74,11 @@ export default {
     },
     remove (team) {
       this.$store.dispatch('removeTeam', team)
+    },
+    clear () {
+      if (confirm('Oletko aivan varma?')) {
+        this.$store.dispatch('clear')
+      }
     }
   },
   mounted () {

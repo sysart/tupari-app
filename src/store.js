@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import { addMessage, findUserByCode } from '@/firebase'
+import { addMessage, findUserByCode, clear } from '@/firebase'
 import { getScore, MESSAGE_TYPES } from '@/stuff'
 
 Vue.use(Vuex)
@@ -119,6 +119,10 @@ export default new Vuex.Store({
       refs['teams'].push({
         name
       })
+    }),
+
+    clear: firebaseAction((context) => {
+      clear(refs['teams'].parent)
     })
   },
   getters: {

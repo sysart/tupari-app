@@ -154,3 +154,15 @@ export const findUserByCode = (userRef, code) => {
       }
     })
 }
+
+export const clear = (sessionRef) => {
+  sessionRef.child('messages').set(null)
+
+  sessionRef.once('value', ds => {
+    ds.child('teams').forEach(team => {
+      team.child('members').forEach(member => {
+        member.ref.set(null)
+      })
+    })
+  })
+}
