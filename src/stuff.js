@@ -26,7 +26,7 @@ export const GAMES = [
     prevResult: 'Edellinen kierrosaika',
     scoreMap: {
       1: '1.10,000',
-      2: '0.58.000',
+      2: '0.58,000',
       3: '0.53,583',
       4: '0.51,700',
       5: '0.49,000',
