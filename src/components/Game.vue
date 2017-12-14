@@ -66,6 +66,12 @@
       </md-card-content>
     </md-card>
 
+    <md-card class="md-accent" v-if="scoreboard && scoreboard.length">
+      <md-card-content>
+        <ScoreBoard :scoreboard="scoreboard"/>
+      </md-card-content>
+    </md-card>
+
     <md-snackbar md-position="center" :md-duration="4000" :md-active.sync="showError" md-persistent>
       <span>{{errorMessage}}</span>
       <md-button class="md-accent" @click="errorMessage = null">Sulje</md-button>
@@ -81,6 +87,9 @@ import NumberInput from './NumberInput'
 import ScoreInput from './ScoreInput'
 import PageHeader from './PageHeader'
 import Stars from './Stars'
+import { getSession, getSessionRef } from '@/firebase'
+import { gameScoreboard } from '@/computer'
+import ScoreBoard from './ScoreBoard'
 
 export default {
   name: 'Game',
@@ -89,13 +98,15 @@ export default {
     NumberInput,
     ScoreInput,
     PageHeader,
-    Stars
+    Stars,
+    ScoreBoard
   },
   data () {
     return {
       result: null,
       code: null,
-      errorMessage: null
+      errorMessage: null,
+      scoreboard: null
     }
   },
   computed: {
@@ -125,6 +136,12 @@ export default {
       }
     },
     ...mapState(['user'])
+  },
+  mounted () {
+    getSession(getSessionRef(this.$route.params.session))
+      .then(session => {
+        this.scoreboard = gameScoreboard(session, this.game.id)
+      })
   },
   methods: {
     updateResult () {
