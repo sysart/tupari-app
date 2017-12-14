@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import { addMessage, findUserByCode, clear } from '@/firebase'
 import { getScore, MESSAGE_TYPES } from '@/stuff'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
@@ -96,7 +97,12 @@ export default new Vuex.Store({
       return findUserByCode(userRef, code)
         .then((otherUser) => {
           return userRef.child('meets').push(otherUser)
-            .then(() => otherUser)
+            .then(() => {
+              return {
+                otherUser,
+                result: Math.min(6, _.get(state.user, 'games.meet.result', 0) + 1)
+              }
+            })
         })
     }),
 

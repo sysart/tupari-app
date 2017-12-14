@@ -158,11 +158,8 @@ export default {
     },
     meet () {
       this.$store.dispatch('meet', parseInt(this.code, 10))
-        .then((otherUser) => {
-          const result = Object.keys(this.user.meets || {}).length + 1
-          if (result <= 6) {
-            this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
-          }
+        .then(({ otherUser, result }) => {
+          this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
         }, (error) => {
           this.errorMessage = error.message
         })
