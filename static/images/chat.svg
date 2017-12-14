@@ -1,0 +1,18 @@
+<svg width="52" height="49" viewBox="0 0 52 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>chat</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-416 134)">
+<g id="chat">
+<g id="Group">
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(416 -134)" fill="#2A323C"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 24.3L 2 24.3L 2 12.3L 0 12.3L 0 24.3ZM 48 9.3L 46 9.3L 46 0L 4 10.5L 4 26.1L 46 36.6L 46 27.3L 48 27.3C 50.2 27.3 52 25.1 52 22.3L 52 14.3C 52 11.5 50.2 9.3 48 9.3ZM 44 34L 6 24.5L 6 12.1L 44 2.6L 44 34ZM 50 22.3C 50 23.9 49.1 25.3 48 25.3L 46 25.3L 46 11.3L 48 11.3C 49.1 11.3 50 12.7 50 14.3L 50 22.3ZM 17 43.3C 17 45 15.7 46.3 14 46.3L 12 46.3C 10.3 46.3 9 45 9 43.3L 9 29.3L 7 29.3L 7 43.3C 7 46.1 9.2 48.3 12 48.3L 14 48.3C 16.8 48.3 19 46.1 19 43.3L 19 32.3L 17 32.3L 17 43.3Z"/>
+</defs>
+</svg>

@@ -215,13 +215,8 @@ table {
   margin: 4px 5px 0 0;
   bottom: 10%;
 }
-<<<<<<< HEAD
-.members img{
-  height: 10px;
-=======
 .members img {
   height: 15px;
->>>>>>> 06744bc70d86f4ee04e7367b6652451f036d0364
   margin-right: 5px;
 }
 
