@@ -4,7 +4,7 @@ import { GAME_IDS } from '@/stuff'
 export const teamScores = (session) => {
   const maxPlayers = _(session.teams)
     .filter((team) => team.members)
-    .reduce((sum, team) => sum + Object.keys(team.members).length, 0)
+    .reduce((max, team) => Math.max(max, Object.keys(team.members).length), 0)
 
   return _(session.teams)
     .filter((team) => team.members)
