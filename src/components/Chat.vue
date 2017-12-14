@@ -1,28 +1,30 @@
 <template>
-  <div class="container">
+  <div class="chatContainer">
     <PageHeader title="Tsätti" backTo="home" />
 
-    <form @submit.prevent="send">
-      <md-card class="md-accent">
-        <md-card-content>
-          <md-field>
-            <label>Message</label>
-            <md-input
-              v-model="message"
-              :maxlength="80"
-            ></md-input>
-          </md-field>
-        </md-card-content>
-        <md-card-actions>
-          <md-button type="submit" class="md-primary">Lähetä</md-button>
-        </md-card-actions>
-      </md-card>
-    </form>
+    <div class="chat" v-chat-scroll>
+      <form @submit.prevent="send" class="chatBar">
+        <md-card class="md-accent">
+          <md-card-content>
+            <md-field>
+              <label>Message</label>
+              <md-input
+                v-model="message"
+                :maxlength="80"
+              ></md-input>
+            </md-field>
+          </md-card-content>
+          <md-card-actions>
+            <md-button type="submit" class="md-primary">Lähetä</md-button>
+          </md-card-actions>
+        </md-card>
+      </form>
 
-    <div class="messages">
-      <div v-for="message in chatMessages" :key="message['.key']">
-        <strong>&lt;{{message.user}}&gt;</strong> {{message.message}}
-      </div>
+      <ul class="chatMessages">
+        <li v-for="message in chatMessages" :key="message['.key']">
+          <strong>{{message.user}}</strong> {{message.message}}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -74,6 +76,49 @@ export default {
 
 <style lang="scss" scoped>
 .md-card {
-  margin-bottom: 16px;
+  // margin-bottom: 16px;
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat {
+  flex: 1;
+  margin: 0 -1em calc(160px - 1em);
+  padding: 1em;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+.chatBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  .md-card {
+
+  }
+}
+
+.chatMessages {
+  flex: 1;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column-reverse;
+
+  & > li {
+    color: #222;
+  }
+
+  strong {
+    font-weight: 700;
+  }
 }
 </style>
