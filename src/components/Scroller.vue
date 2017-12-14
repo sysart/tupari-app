@@ -15,6 +15,8 @@
 }
 
 .moving-thing {
+  display: flex;
+  justify-content: center;
   margin: 8px;
   width: 100%;
   position: absolute;
