@@ -20,7 +20,9 @@
       />
     </div>
 
-    <md-button class="chatButton" @click="$router.push({ name: 'chat' })">Tsätti</md-button>
+    <div class="chatButton">
+      <md-button @click="$router.push({ name: 'chat' })"><img src="/static/images/chat.svg">Tsätti</md-button>
+    </div>
 
     <div class="regards">
       <h2 class="session">sysart</h2>
@@ -75,7 +77,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .grid-list-md {
   padding: 0;
 }
@@ -84,7 +86,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30vh;
+  height: 25vh;
   flex-wrap: wrap;
 }
 
@@ -124,6 +126,7 @@ export default {
   flex:1;
   display: flex;
   flex-wrap: wrap;
+  margin: -2vmin;
 }
 
 .regards {
@@ -156,6 +159,21 @@ export default {
 }
 
 .chatButton {
-  align-self: center;
+  margin-top: 16px;
+  background-color: #fff;
+  display: flex;
+  box-shadow: 4px 2px 10px rgba(0,0,0,0.3);
+  border: 1px solid #fff;
+
+  .md-button {
+    color: #222;
+    display: block;
+    width: 100%;
+  }
+
+  img {
+    max-height: 2rem;
+    margin-right: .5rem;
+  }
 }
 </style>
