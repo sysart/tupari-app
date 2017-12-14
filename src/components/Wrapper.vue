@@ -20,7 +20,7 @@ export default {
 <style scoped>
 .wrapper {
   background: #2a323c;
-  height: 100vh;
+  min-height: 100vh;
 
   background-image: url('/static/images/bgAnim.svg');
   background-position: 0px 0px;

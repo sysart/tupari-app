@@ -13,11 +13,6 @@
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
 
-.md-card {
-  overflow: hidden;
-}
-
-
 .md-tabs-content {
   background-color: #fff!important;
   color: #222!important;

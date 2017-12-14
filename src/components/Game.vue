@@ -174,7 +174,6 @@ export default {
 <style lang="scss" scoped>
 .gameSelected {
   color: #bbb;
-  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -193,6 +192,7 @@ export default {
 }
 
 .gameResultForm {
+  flex: 1;
   margin: 0 0 1.5em;
 
   .md-card {
