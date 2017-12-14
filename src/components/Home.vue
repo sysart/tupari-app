@@ -135,7 +135,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0;
+  margin: 4vmin 0 0;
 }
 
 .session {
@@ -153,13 +153,13 @@ export default {
 }
 
 .home {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .chatButton {
-  margin-top: 16px;
+  margin-top: 4vmin;
   background-color: #fff;
   display: flex;
   box-shadow: 4px 2px 10px rgba(0,0,0,0.3);

@@ -29,6 +29,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin: -4px;
+  overflow: hidden;
 }
 
 .buttonContainer {

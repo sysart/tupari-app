@@ -15,6 +15,7 @@
           <thead>
             <tr>
               <th></th>
+              <th></th>
               <th v-for="game in games" :key="game.id" class="events">
                 <img :src="getImgUrl(game.img)" v-bind:alt="game.name">
               </th>
@@ -22,7 +23,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="teamScore in teamScores" :key="teamScore.name">
+            <tr v-for="(teamScore, pos) in teamScores" :key="teamScore.name">
+            <td class="position">{{pos + 1}}</td>
             <td class="left" >
               <div class="teamName">
                 {{teamScore.name}}
@@ -229,6 +231,12 @@ table {
   line-height: 30px;
   border-collapse: collapse;
 }
+.position {
+  font-size: 30px;
+  padding-right: 20px;
+  font-weight: bold;
+  color: #758190;
+}
 .members {
   position: absolute;
   left:0;
@@ -242,7 +250,7 @@ table {
   margin-right: 5px;
 }
 
-tr:not(:last-child) {
+tbody td:not(:first-child):not(:last-child) {
   padding: 10px 0;
   border-bottom: 1px solid #fff;
 }

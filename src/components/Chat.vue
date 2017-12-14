@@ -85,7 +85,7 @@ export default {
   flex: 1;
   margin: 0 -1em calc(160px - 1em);
   padding: 1em;
-  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.3);
   background-color: #fff;
   overflow-y: auto;
 }
