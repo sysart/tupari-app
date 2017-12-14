@@ -6,6 +6,7 @@ import Screen from '@/components/Screen'
 import Teams from '@/components/Teams'
 import Game from '@/components/Game'
 import Home from '@/components/Home'
+import Chat from '@/components/Chat'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
           path: '',
           name: 'home',
           component: Home
+        },
+        {
+          path: 'chat',
+          name: 'chat',
+          component: Chat
         },
         {
           path: ':game',

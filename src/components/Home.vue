@@ -19,6 +19,9 @@
         :game="game"
       />
     </div>
+
+    <md-button class="chatButton" @click="$router.push({ name: 'chat' })">Tsätti</md-button>
+
     <div class="regards">
       <h2 class="session">sysart</h2>
       <p class="slogan">tuparit</p>
@@ -76,6 +79,7 @@ export default {
 .grid-list-md {
   padding: 0;
 }
+
 .infoBar {
   display: flex;
   justify-content: center;
@@ -88,13 +92,16 @@ export default {
   color: #fff;
   font-size: 3em;
 }
+
 .card img {
   padding: 10px;
 }
+
 .card__text {
   padding: 10px;
   text-align: center;
 }
+
 .infoBox {
   min-width:50%;
   display: flex;
@@ -102,10 +109,12 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .infoBox label{
   font-size: .8em;
   color: #758190;
 }
+
 .infoBox span{
   font-size: 1.4em;
   color: #fff;
@@ -116,6 +125,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+
 .regards {
   height: 15vh;
   display: flex;
@@ -124,6 +134,7 @@ export default {
   align-items: center;
   margin: 0;
 }
+
 .session {
   font-size: 3em;
   font-weight: 100;
@@ -131,14 +142,20 @@ export default {
   color: #323c48;
   margin: 0;
 }
+
 .slogan {
   font-size: 1em;
   color: #fff;
   margin: 0;
 }
+
 .home {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.chatButton {
+  align-self: center;
 }
 </style>

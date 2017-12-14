@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import sanitizeHtml from 'sanitize-html'
 
 export const GAMES = [
   {
@@ -104,8 +105,17 @@ export function getScore (gameId, result) {
   return score || 0
 }
 
+export const sanitize = input => {
+  return sanitizeHtml(input, {
+    allowedTags: [ 'strong', 'small' ],
+    allowedAttributes: {
+    }
+  })
+}
+
 export const MESSAGE_TYPES = {
   JOIN_TEAM: 'JOIN_TEAM',
   RESULT: 'RESULT',
-  MEET: 'MEET'
+  MEET: 'MEET',
+  CHAT: 'CHAT'
 }

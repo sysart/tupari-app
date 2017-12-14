@@ -21,6 +21,10 @@ export const getSessionRef = (sessionId) => {
   return db.ref(`${sessionId}`)
 }
 
+export const getMessagesRef = (sessionId) => {
+  return db.ref(`${sessionId}/messages`)
+}
+
 export const attach = (sessionId) => {
   return getUser().then(user => {
     const sessionRef = getSessionRef(sessionId)

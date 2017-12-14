@@ -22,11 +22,16 @@ export default new Vuex.Store({
     user: null,
     team: null,
     teams: [],
-    session: null
+    session: null,
+    messages: []
   },
   mutations: {
     clear (state, key) {
-      state[key] = null
+      if (state[key] && state[key].length) {
+        state[key] = []
+      } else {
+        state[key] = null
+      }
     },
     ...firebaseMutations
   },
@@ -94,6 +99,12 @@ export default new Vuex.Store({
             .then(() => otherUser)
         })
     }),
+
+    send: ({ state }, message) => {
+      createMessage(state, MESSAGE_TYPES.CHAT, {
+        message
+      })
+    },
 
     updateTeam: firebaseAction((context, team) => {
       const teamRef = refs['teams'].child(team['.key'])

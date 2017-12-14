@@ -35,6 +35,7 @@ export default {
   watch: {
     user (newUser, oldUser) {
       if (newUser && oldUser && oldUser.name && !newUser.name) {
+        localStorage.removeItem('session')
         this.$router.replace({ name: 'start' })
       }
     }

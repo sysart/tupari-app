@@ -24,12 +24,14 @@
           <tbody>
             <tr v-for="teamScore in teamScores" :key="teamScore.name">
             <td class="left" >{{teamScore.name}}
-              <div class="members"><img v-for="member in teamScore.members" :key="member.index" src="/static/images/koko.svg"></div>
+              <div class="members">
+                <img v-for="n in teamScore.members" :key="n" src="/static/images/koko.svg">
+              </div>
             </td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
-              {{result}}
+              {{result}}<span class="percent">%</span>
             </td>
-            <td class="right">{{teamScore.total}}p</td>
+            <td class="right">{{teamScore.total}}<span class="percent">%</span></td>
             </tr>
           </tbody>
         </table>
@@ -40,7 +42,7 @@
           <p class="huge">{{totalPlayers}}</p>
         </div>
         <div class="box top">
-          <h2>Top 3</h2>
+          <h2>Top 5</h2>
           <table class="top">
             <tbody>
               <tr v-for="player in bestPlayers" :key="player.index">
@@ -58,10 +60,10 @@
 <script>
 import { getSessionRef } from '@/firebase'
 import { mapState } from 'vuex'
-import * as _ from 'lodash'
-import { GAMES, GAME_IDS } from '@/stuff'
+import { GAMES } from '@/stuff'
 import Messages from './Messages'
 import Wrapper from './Wrapper'
+import * as computer from '@/computer'
 
 export default {
   name: 'Screen',
@@ -85,61 +87,15 @@ export default {
     },
     totalPlayers () {
       if (!this.session) return null
-
-      return _(this.session.teams)
-      .filter(team => team.members)
-        .reduce((sum, team) => {
-          return sum + Object.keys(team.members).length
-        }, 0)
+      return computer.totalPlayers(this.session)
     },
     teamScores () {
       if (!this.session) return null
-
-      return _(this.session.teams)
-        .map((team) => {
-          const results = GAME_IDS.map(gameId => {
-            return _.reduce(team.members, (score, member) => {
-              return score + _.get(member, `games[${gameId}].score`, 0)
-            }, 0)
-          })
-
-          const total = results.reduce((sum, score) => sum + score, 0)
-
-          return {
-            name: team.name,
-            members: team.members ? Object.keys(team.members).length : 0,
-            results,
-            total
-          }
-        })
-      .sortBy(['name'])
-      .reverse()
-      .sortBy(['total'])
-      .reverse()
-      .value()
+      return computer.teamScores(this.session)
     },
     bestPlayers () {
       if (!this.session) return null
-
-      return _(this.session.teams)
-        .flatMap(team => {
-          return _.values(team.members)
-        })
-        .map(member => {
-          const score = member.games ? _.reduce(member.games, (score, game) => {
-            return score + game.score
-          }, 0) : 0
-          return {
-            name: member.name,
-            score
-          }
-        })
-        .sortBy(['name'])
-        .reverse()
-        .sortBy(['score'])
-        .reverse()
-        .take(3)
-        .value()
+      return computer.bestPlayers(this.session)
     },
     ...mapState(['session'])
   },
@@ -259,8 +215,13 @@ table {
   margin: 4px 5px 0 0;
   bottom: 10%;
 }
+<<<<<<< HEAD
 .members img{
   height: 10px;
+=======
+.members img {
+  height: 15px;
+>>>>>>> 06744bc70d86f4ee04e7367b6652451f036d0364
   margin-right: 5px;
 }
 
@@ -318,5 +279,9 @@ h2 {
   line-height: 2em;
 }
 
+.percent {
+  font-size: 0.5em;
+  color: #aaa;
+}
 </style>
 
