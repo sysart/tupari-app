@@ -23,9 +23,10 @@
           </thead>
           <tbody>
             <tr v-for="teamScore in teamScores" :key="teamScore.name">
-            <td class="left" >{{teamScore.name}}
-              <div class="members">
-                <img v-for="n in teamScore.members" :key="n" src="/static/images/koko.svg">
+            <td class="left" >
+              <div class="teamName">
+                {{teamScore.name}}
+                <span class="members"><img v-for="n in teamScore.members" :key="n" src="/static/images/koko.svg"></span>
               </div>
             </td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
@@ -38,8 +39,15 @@
       </div>
       <div class="row slim">
         <div class="box stats">
-          <h2>Pelaajia yhteensä</h2>
-          <p class="huge">{{totalPlayers}}</p>
+          <div class="statBox">
+            <h2>Pelaajia</h2>
+            <p class="huge">{{totalPlayers}}</p>
+          </div>
+          <div class="statBox">
+            <h2>Joukkueita</h2>
+            <p class="huge">{{teamScores.length}}</p>
+          </div>
+          
         </div>
         <div class="box top">
           <Scroller>
@@ -160,6 +168,15 @@ html, body {
   display: flex;
   max-height: 30vh;
 }
+.teamName {
+  position: relative;
+}
+.box.stats {
+  justify-content: space-around;
+  align-items: space-around;
+  flex-direction: row !important;
+  text-align: center;
+}
 
 .c1 {
   max-width: 30vw;
@@ -214,13 +231,14 @@ table {
 }
 .members {
   position: absolute;
+  left:0;
   width: 100%;
-  height: 30px;
+  height: 20px;
   margin: 4px 5px 0 0;
-  bottom: 10%;
+  bottom: -10px;
 }
 .members img {
-  height: 15px;
+  height: 10px;
   margin-right: 5px;
 }
 
