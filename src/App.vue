@@ -22,9 +22,39 @@
     color: #222!important;
   }
 
+  #tab-results {
+    padding: 0;
+  }
+
+  .md-table-row {
+    display: flex;
+    flex-direction: row;
+
+    th,
+    td {
+      flex: 1;
+    }
+  }
+
   .md-table-head-container {
     height: 36px;
-    padding: 4px;
+    padding: 0px;
+  }
+
+  .md-table-cell-container {
+    padding: 6px 0 6px 0;
+  }
+
+  // .md-table-cell.md-numeric {
+
+  //   .md-table-cell-container {
+  //     max-width: 2rem;
+  //     padding: 6px 12px;
+  //   }
+  // }
+
+  .md-table .md-table-content {
+    overflow-x: hidden;
   }
 
   .md-table.md-theme-default .md-table-head {
