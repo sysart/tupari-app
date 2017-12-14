@@ -2,6 +2,10 @@ import * as _ from 'lodash'
 import { GAME_IDS } from '@/stuff'
 
 export const teamScores = (session) => {
+  const maxPlayers = _(session.teams)
+    .filter((team) => team.members)
+    .reduce((sum, team) => sum + Object.keys(team.members).length, 0)
+
   return _(session.teams)
     .filter((team) => team.members)
     .map((team) => {
@@ -12,7 +16,7 @@ export const teamScores = (session) => {
           return score + _.get(member, `games[${gameId}].score`, 0)
         }, 0)
 
-        return Math.round(gameScore / memberCount / 6 * 100)
+        return Math.round(gameScore / memberCount * maxPlayers)
       })
 
       const total = results.reduce((sum, score) => sum + score, 0)
@@ -31,7 +35,7 @@ export const teamScores = (session) => {
     .value()
 }
 
-export const bestPlayers = (session, count = 5) => {
+export const bestPlayers = (session, count = 20) => {
   return _(session.teams)
     .flatMap(team => {
       return _.values(team.members)
