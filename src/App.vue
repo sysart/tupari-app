@@ -16,4 +16,28 @@
 .md-card {
   overflow: hidden;
 }
+
+
+.md-tabs-content {
+  background-color: #fff!important;
+  color: #222!important;
+
+  .md-content {
+    background-color: #fff!important;
+    color: #222!important;
+  }
+
+  .md-table-head-container {
+    height: 36px;
+    padding: 4px;
+  }
+
+  .md-table.md-theme-default .md-table-head {
+    color: #000;
+  }
+
+  .md-table.md-theme-default .md-table-row td {
+    border-color: rgba(0, 0, 0, 0.2)!important;
+  }
+}
 </style>

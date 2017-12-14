@@ -54,6 +54,7 @@ export default {
   max-height: 2rem;
 }
 .gameButton p {
+  color: #fff;
   font-weight: 700;
   margin: 1vh 0;
   text-transform: uppercase;
