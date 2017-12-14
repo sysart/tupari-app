@@ -107,7 +107,7 @@ export function getScore (gameId, result) {
 
 export const sanitize = input => {
   return sanitizeHtml(input, {
-    allowedTags: [ 'strong', 'small' ],
+    allowedTags: [ 'strong', 'small', 'br' ],
     allowedAttributes: {
     }
   })
