@@ -7,6 +7,7 @@
           <img v-if="message.type === 'RESULT'" class="msgImg" :src="getImgUrl(message.game)">
           <img v-if="message.type === 'JOIN_TEAM'" class="msgImg" :src="getImgUrl('join')">
           <img v-if="message.type === 'CHAT'" class="msgImg" :src="getImgUrl('chat')">
+          <img v-if="message.type === 'MEET'" class="msgImg" :src="getImgUrl('tapailu')">
           </div>
           <div class="message" v-html="getContent(message)"></div>
           <div class="team-name">
@@ -37,30 +38,31 @@ export default {
   },
   methods: {
     getImgUrl (pic) {
+      pic.toLowerCase();
       return `/static/images/${pic}.svg`
     },
     getContent (message) {
       let content = ''
       switch (message.type) {
         case MESSAGE_TYPES.CHAT:
-          content = `<strong>${message.user}</strong> <br> ${message.message}`
+          content = `<strong>${message.user}</strong><br>fdsdf<br> ${message.message}`
           break
         case MESSAGE_TYPES.MEET:
-          return `${message.user} <br> tapasi ${message.otherName}`
+          return `${message.user}<br>tapasi ${message.otherName}`
         case MESSAGE_TYPES.JOIN_TEAM:
-          return `${message.user} <br> liittyi joukkueeseen ${message.team}`
+          return `${message.user}<br>liittyi joukkueeseen ${message.team}`
         case MESSAGE_TYPES.RESULT:
           if (message.prevScore) {
             if (message.score === message.result) {
-              return `${message.user} <br> ${message.score}p`
+              return `${message.user}<br><strong>${message.score}p</strong>`
             } else {
-              return `${message.user} <br> Tulos: ${message.result}<br> ${message.score}p`
+              return `${message.user}<br>Tulos: ${message.result}<br> <strong>${message.score}p</strong>`
             }
           } else {
             if (message.score === message.result) {
-              return `${message.user} <br> ${message.score}p`
+              return `${message.user}<br><strong>${message.score}p</strong>`
             } else {
-              return `${message.user} <br> Tulos: ${message.result}<br> ${message.score}p`
+              return `${message.user}<br>Tulos: ${message.result}<br> <strong> ${message.score}p</strong>`
             }
           }
         default:

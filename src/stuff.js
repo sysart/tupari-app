@@ -14,7 +14,7 @@ export const GAMES = [
   {
     id: 'meet',
     name: 'Tapailu', // TODO parempi?
-    img: 'tiimi.svg',
+    img: 'tapailu.svg',
     info: 'Tutustu toisiin ihmisiin ja kysy niiden salaista koodia'
   },
   {
@@ -45,7 +45,7 @@ export const GAMES = [
   {
     id: 'vr',
     name: 'Virtuaalipeli',
-    img: 'vr.svg',
+    img: 'virtuaalipeli.svg',
     inputMode: 'number',
     inputLabel: 'Pisteet',
     prevResult: 'Edelliset pisteet',
@@ -62,18 +62,18 @@ export const GAMES = [
   {
     id: 'nopeus',
     name: 'Nopeuspeli',
-    img: 'nopeus.svg',
+    img: 'nopeuspeli.svg',
     inputMode: 'number',
     inputLabel: 'Pisteet',
     prevResult: 'Edelliset pisteet',
     min: 0,
     scoreMap: {
-      1: 100,
-      2: 1000,
-      3: 2000,
-      4: 20000,
-      5: 40000,
-      6: 50000
+      1: 0,
+      2: 40,
+      3: 60,
+      4: 80,
+      5: 100,
+      6: 120
     }
   }
 ]

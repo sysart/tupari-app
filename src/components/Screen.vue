@@ -276,6 +276,7 @@ h2 {
 
 .percent {
   font-size: 0.5em;
+  line-height: 40px;
   color: #aaa;
 }
 </style>
