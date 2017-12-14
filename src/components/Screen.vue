@@ -30,9 +30,9 @@
               </div>
             </td>
             <td v-for="result in teamScore.results" :key="result.index" class="events">
-              {{result}}<span class="percent">%</span>
+              {{result}}<span class="smaller">sp</span>
             </td>
-            <td class="right">{{teamScore.total}}<span class="percent">%</span></td>
+            <td class="right">{{teamScore.total}}<span class="smaller">p</span></td>
             </tr>
           </tbody>
         </table>
@@ -50,15 +50,16 @@
           
         </div>
         <div class="box top">
-          <h2>Top 5</h2>
-          <table class="top">
-            <tbody>
-              <tr v-for="player in bestPlayers" :key="player.index">
-                <td class="left name">{{player.name}}</td>
-                <td class="right">{{player.score}}p</td>
-              </tr>
-            </tbody>
-          </table>
+          <Scroller>
+            <table class="top">
+              <tbody>
+                <tr v-for="(player, pos) in bestPlayers" :key="player.index">
+                  <td class="left name">{{pos + 1}}. {{player.name}}</td>
+                  <td class="right">{{player.score}}p</td>
+                </tr>
+              </tbody>
+            </table>
+          </Scroller>
         </div>
       </div>
     </div>
@@ -72,12 +73,14 @@ import { GAMES } from '@/stuff'
 import Messages from './Messages'
 import Wrapper from './Wrapper'
 import * as computer from '@/computer'
+import Scroller from './Scroller'
 
 export default {
   name: 'Screen',
   components: {
     Messages,
-    Wrapper
+    Wrapper,
+    Scroller
   },
   data () {
     return {
@@ -205,6 +208,7 @@ html, body {
   font-weight: bold;
 }
 .box {
+  position: relative;
   background: rgba(50, 60, 72, 0.9);
   border: 1px solid #48525d;
   color: #fff;
@@ -244,10 +248,6 @@ tr:not(:last-child) {
 }
 td {
   position: relative;
-}
-.top {
-  width: 50%;
-  height: initial
 }
 .top tr {
   border: 0;
@@ -292,7 +292,7 @@ h2 {
   line-height: 2em;
 }
 
-.percent {
+.smaller {
   font-size: 0.5em;
   line-height: 40px;
   color: #aaa;
