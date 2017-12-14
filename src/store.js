@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import { addMessage, findUserByCode } from '@/firebase'
+import { addMessage, findUserByCode, clear } from '@/firebase'
 import { getScore, MESSAGE_TYPES } from '@/stuff'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
@@ -89,14 +90,19 @@ export default new Vuex.Store({
       const existingCodes = Object.values(state.user.meets || {}).map(u => u.code)
 
       if (existingCodes.indexOf(code) !== -1) {
-        return Promise.reject(new Error('VILPPIÄ! Olet jo syöttänyt tämän henkilön numeron.')) // TODO parempi?
+        return Promise.reject(new Error('VILPPIÄ! Olet jo syöttänyt tämän henkilön numeron.'))
       }
 
       const userRef = refs['user']
       return findUserByCode(userRef, code)
         .then((otherUser) => {
           return userRef.child('meets').push(otherUser)
-            .then(() => otherUser)
+            .then(() => {
+              return {
+                otherUser,
+                result: Math.min(6, _.get(state.user, 'games.meet.result', 0) + 1)
+              }
+            })
         })
     }),
 
@@ -119,6 +125,10 @@ export default new Vuex.Store({
       refs['teams'].push({
         name
       })
+    }),
+
+    clear: firebaseAction((context) => {
+      clear(refs['teams'].parent)
     })
   },
   getters: {

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueChatScroll from 'vue-chat-scroll'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import App from './App'
@@ -10,6 +11,7 @@ import Wrapper from './components/Wrapper'
 sync(store, router)
 
 Vue.use(VueMaterial)
+Vue.use(VueChatScroll)
 
 Vue.config.productionTip = false
 

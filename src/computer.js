@@ -37,6 +37,7 @@ export const teamScores = (session) => {
 
 export const bestPlayers = (session, count = 20) => {
   return _(session.teams)
+    .filter(team => team.members)
     .flatMap(team => {
       return _.values(team.members)
     })
@@ -64,4 +65,33 @@ export const totalPlayers = (session) => {
     .reduce((sum, team) => {
       return sum + Object.keys(team.members).length
     }, 0)
+}
+
+export const gameScoreboard = (session, gameId) => {
+  return _(session.teams)
+    .filter(team => team.members)
+    .flatMap(team => {
+      return _(team.members)
+        .map((member, memberKey) => {
+          return {
+            ...member,
+            id: memberKey
+          }
+        })
+        .filter(member => member.games && member.games[gameId])
+        .map(member => {
+          return {
+            id: member.id,
+            name: member.name,
+            team: team.name,
+            result: member.games[gameId].result
+          }
+        })
+        .value()
+    })
+    .sortBy(['name'])
+    .reverse()
+    .sortBy(['result'])
+    .reverse()
+    .value()
 }

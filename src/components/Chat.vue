@@ -75,10 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.md-card {
-  // margin-bottom: 16px;
-}
-
 .chatContainer {
   display: flex;
   flex-direction: column;
@@ -99,10 +95,6 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-
-  .md-card {
-
-  }
 }
 
 .chatMessages {

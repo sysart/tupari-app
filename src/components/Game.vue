@@ -22,7 +22,7 @@
       </md-card>
     </form>
 
-    <form @submit.prevent="meet" novalidate v-if="game.id == 'meet'">
+    <form @submit.prevent="meet" novalidate v-if="game.id == 'meet'" class="gameResultForm">
       <md-card class="md-accent" >
         <md-card-content>
           <h1>{{user && user.code}}</h1>
@@ -51,20 +51,22 @@
       </md-card>
     </form>
 
-    <md-card class="md-primary" v-if="game.info">
-      <md-card-content>
-        <p>{{game.info}}</p>
-      </md-card-content>
-    </md-card>
-
-    <md-card class="md-accent" v-if="game.scoreMap">
-      <md-card-content>
-        <div v-for="(result, score) in game.scoreMap" :key="score">
-          <Stars :value="parseInt(score, 10)"/>
-          {{result}}
-        </div>
-      </md-card-content>
-    </md-card>
+    <section class="gameTabs">
+      <md-tabs class="md-primary" md-alignment="fixed">
+        <md-tab id="tab-help" md-label="Ohjeet" v-if="game.info">
+          <p>{{game.info}}</p>
+        </md-tab>
+        <md-tab id="tab-points" md-label="Pisteytys" v-if="game.scoreMap">
+          <div v-for="(result, score) in game.scoreMap" :key="score">
+            <Stars :value="parseInt(score, 10)"/>
+            {{result}}
+          </div>
+        </md-tab>
+        <md-tab id="tab-results" md-label="Tulokset" v-if="scoreboard && scoreboard.length">
+          <ScoreBoard :scoreboard="scoreboard"/>
+        </md-tab>
+      </md-tabs>
+    </section>
 
     <md-snackbar md-position="center" :md-duration="4000" :md-active.sync="showError" md-persistent>
       <span>{{errorMessage}}</span>
@@ -81,6 +83,9 @@ import NumberInput from './NumberInput'
 import ScoreInput from './ScoreInput'
 import PageHeader from './PageHeader'
 import Stars from './Stars'
+import { getSession, getSessionRef } from '@/firebase'
+import { gameScoreboard } from '@/computer'
+import ScoreBoard from './ScoreBoard'
 
 export default {
   name: 'Game',
@@ -89,13 +94,15 @@ export default {
     NumberInput,
     ScoreInput,
     PageHeader,
-    Stars
+    Stars,
+    ScoreBoard
   },
   data () {
     return {
       result: null,
       code: null,
-      errorMessage: null
+      errorMessage: null,
+      scoreboard: null
     }
   },
   computed: {
@@ -126,6 +133,12 @@ export default {
     },
     ...mapState(['user'])
   },
+  mounted () {
+    getSession(getSessionRef(this.$route.params.session))
+      .then(session => {
+        this.scoreboard = gameScoreboard(session, this.game.id)
+      })
+  },
   methods: {
     updateResult () {
       if (this.result !== null) {
@@ -141,11 +154,8 @@ export default {
     },
     meet () {
       this.$store.dispatch('meet', parseInt(this.code, 10))
-        .then((otherUser) => {
-          const result = Object.keys(this.user.meets || {}).length + 1
-          if (result <= 6) {
-            this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
-          }
+        .then(({ otherUser, result }) => {
+          this.$store.dispatch('updateResult', { game: this.game, result, otherUser })
         }, (error) => {
           this.errorMessage = error.message
         })
@@ -186,18 +196,6 @@ export default {
     background-color: rgba(50, 60, 72, 0.9);
     box-shadow: 4px 2px 10px rgba(0,0,0,0.3);
     border: 1px solid #48525d;
-  }
-
-  .md-card-content {
-    padding: 1em 1em 0;
-
-    &:last-of-type {
-      padding-bottom: 16px;
-    }
-  }
-
-  .md-card-actions {
-    padding: 0 1em 1em;
   }
 
   .previous {

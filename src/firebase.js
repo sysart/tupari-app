@@ -145,7 +145,7 @@ export const findUserByCode = (userRef, code) => {
       })
 
       if (!otherUser) {
-        throw new Error('VILPPIÄ! Syötit tuulesta temmatun numeron.') // TODO parempi
+        throw new Error('VILPPIÄ! Syötit tuulesta temmatun numeron.')
       }
 
       return {
@@ -153,4 +153,16 @@ export const findUserByCode = (userRef, code) => {
         code: otherUser.code
       }
     })
+}
+
+export const clear = (sessionRef) => {
+  sessionRef.child('messages').set(null)
+
+  sessionRef.once('value', ds => {
+    ds.child('teams').forEach(team => {
+      team.child('members').forEach(member => {
+        member.ref.set(null)
+      })
+    })
+  })
 }
