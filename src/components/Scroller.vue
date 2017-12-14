@@ -17,6 +17,7 @@
 .moving-thing {
   margin: 8px;
   width: 100%;
+  min-height: 100%;
   position: absolute;
   animation: scrolling 20s infinite linear;
 }

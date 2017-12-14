@@ -67,7 +67,7 @@ export const findUsersTeam = (session, userId) => {
   })
 }
 
-export const join = (sessionId, name) => {
+export const join = (sessionId, name, host) => {
   return getUser()
     .then((user) => {
       const sessionRef = getSessionRef(sessionId)
@@ -90,6 +90,9 @@ export const join = (sessionId, name) => {
           const userRef = sessionRef.child(`teams/${teamId}/members/${user.uid}`)
           userRef.child('name').set(name)
           userRef.child('code').set(1000 + Math.floor(Math.random() * 9000))
+          if (host) {
+            userRef.child('host').set(host)
+          }
         })
     })
 }

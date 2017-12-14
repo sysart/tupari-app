@@ -44,7 +44,7 @@ export default {
       let content = ''
       switch (message.type) {
         case MESSAGE_TYPES.CHAT:
-          content = `<strong>${message.user}</strong><br>fdsdf<br>${message.message}`
+          content = `<strong>${message.user}</strong><br>${message.message}`
           break
         case MESSAGE_TYPES.MEET:
           return `${message.user}<br>tapasi ${message.otherName}`
