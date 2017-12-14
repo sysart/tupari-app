@@ -89,7 +89,7 @@ export default new Vuex.Store({
       const existingCodes = Object.values(state.user.meets || {}).map(u => u.code)
 
       if (existingCodes.indexOf(code) !== -1) {
-        return Promise.reject(new Error('VILPPIÄ! Olet jo syöttänyt tämän henkilön numeron.')) // TODO parempi?
+        return Promise.reject(new Error('VILPPIÄ! Olet jo syöttänyt tämän henkilön numeron.'))
       }
 
       const userRef = refs['user']

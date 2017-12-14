@@ -13,9 +13,9 @@ export const GAMES = [
   },
   {
     id: 'meet',
-    name: 'Tapailu', // TODO parempi?
+    name: 'Tapailu',
     img: 'tapailu.svg',
-    info: 'Tutustu toisiin ihmisiin ja kysy niiden salaista koodia'
+    info: 'Tutustu toisiin ihmisiin ja kysy heidän salaista koodia'
   },
   {
     id: 'ralli',
