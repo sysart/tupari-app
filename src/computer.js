@@ -68,7 +68,7 @@ export const totalPlayers = (session) => {
 }
 
 export const gameScoreboard = (session, gameId) => {
-  return _(session.teams)
+  const chain = _(session.teams)
     .filter(team => team.members)
     .flatMap(team => {
       return _(team.members)
@@ -92,6 +92,6 @@ export const gameScoreboard = (session, gameId) => {
     .sortBy(['name'])
     .reverse()
     .sortBy(['result'])
-    .reverse()
-    .value()
+
+  return gameId !== 'ralli' ? chain.reverse().value() : chain.value()
 }
