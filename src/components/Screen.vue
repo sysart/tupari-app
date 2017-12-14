@@ -3,9 +3,7 @@
     <div class="column c1">
 
       <div class="box slim trans logo">
-        <img src="/static/images/logo.png">
-        <p class="slogan">avaa</p>
-        <h2 class="session">sysart.io</h2>
+        <img src="/static/images/logo.png"><p class="domain">.io</p>
       </div>
 
       <Messages :messages="session && session.messages"/>
@@ -168,7 +166,8 @@ html, body {
 	from { background-position: 0 0; }
 	to { background-position: 100% 0; }
 }
-.session {
+
+.domain {
   font-size: 50px !important;
   margin: 0;
 }
@@ -210,7 +209,7 @@ html, body {
 .logo {
   background: transparent;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .logo img {
@@ -222,15 +221,6 @@ html, body {
 .trans {
   background: transparent !important;
   border: 0 !important;
-}
-
-.session {
-  font-size: 9vmin;
-  line-height: 1em;
-}
-
-.slogan {
-  font-size: 2em;
 }
 
 .slim {
@@ -258,28 +248,35 @@ p {
 table {
   width: 85%;
   height: 80%;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 30px;
   border-collapse: collapse;
 }
 .members {
+  position: absolute;
   width: 100%;
-  height: 20px;
-  bottom: 0;
+  height: 30px;
+  margin: 4px 5px 0 0;
+  bottom: 10%;
 }
 .members img{
-  height: 15px;
-  position: absolute;
+  height: 10px;
   margin-right: 5px;
 }
-tr {
+
+tr:not(:last-child) {
   padding: 10px 0;
+  border-bottom: 1px solid #fff;
 }
 td {
-  border-bottom: 1px solid #fff;
+  position: relative;
 }
 .top {
   width: 50%;
+  height: initial
+}
+.top tr {
+  border: 0;
 }
 .top td {
   padding-top: 0;

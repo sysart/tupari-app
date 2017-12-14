@@ -3,7 +3,11 @@
     <div v-if="messages">
       <transition-group name="list" tag="div">
         <div v-for="message of list" :key="message.id" class="notification">
-          {{getContent(message)}}
+          <div class="messageIcon">
+          <img v-if="message.type == 'RESULT'" class="msgImg" :src="getImgUrl(message.game)">
+          <img v-if="message.type == 'JOIN_TEAM'" class="msgImg" :src="getImgUrl('join')">
+          </div>
+          <div class="message" v-html="getContent(message)"></div>
           <div class="team-name">
             #{{message.team}}
           </div>
@@ -31,24 +35,27 @@ export default {
     }
   },
   methods: {
+    getImgUrl (pic) {
+      return `/static/images/${pic}.svg`
+    },
     getContent (message) {
       switch (message.type) {
         case MESSAGE_TYPES.MEET:
-          return `${message.user} tapasi ${message.otherName}`
+          return `${message.user} <br> tapasi ${message.otherName}`
         case MESSAGE_TYPES.JOIN_TEAM:
-          return `${message.user} liittyi joukkueeseen ${message.team}`
+          return `${message.user} <br> liittyi joukkueeseen ${message.team}`
         case MESSAGE_TYPES.RESULT:
           if (message.prevScore) {
             if (message.score === message.result) {
-              return `${message.user} paransi ${message.game} pelissä ja sai ${message.score} pistettä`
+              return `${message.user} <br> ${message.score}p`
             } else {
-              return `${message.user} paransi ${message.game} pelissä ${message.result} tuloksella, jolla saa ${message.score} pistettä`
+              return `${message.user} <br> Tulos: ${message.result}<br> ${message.score}p`
             }
           } else {
             if (message.score === message.result) {
-              return `${message.user} sai ${message.game} pelissä ${message.score} pistettä`
+              return `${message.user} <br> ${message.score}p`
             } else {
-              return `${message.user} sai ${message.game} pelissä ${message.result} tuloksen, jolla saa ${message.score} pistettä`
+              return `${message.user} <br> Tulos: ${message.result}<br> ${message.score}p`
             }
           }
       }
@@ -60,17 +67,29 @@ export default {
 <style lang="scss" scoped>
 .notification {
   position: relative;
-  font-size: 20px;
+  font-size: 25px;
   line-height: 1.5em;
   padding: 30px 40px;
   text-align: center;
   background: #323c48;
+  border: 1px solid #48525d;
   color: #fff;
   width: 100%;
   margin: 0 0 1vmin;
   transition: all 1s;
-}
+  display: flex;
 
+}
+.messageIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20%;
+}
+.message {
+  text-align: left;
+  padding: 0 20px;
+}
 .team-name {
   opacity: 0.6;
   font-size: 10px;

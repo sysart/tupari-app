@@ -138,7 +138,7 @@ export const findUserByCode = (userRef, code) => {
       })
 
       if (!otherUser) {
-        throw new Error('*** HENKILÖÄ EI LÖYDY ***') // TODO
+        throw new Error('VILPPIÄ! Syötit tuulesta temmatun numeron.') // TODO parempi
       }
 
       return {

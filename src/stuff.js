@@ -12,7 +12,7 @@ export const GAMES = [
   },
   {
     id: 'meet',
-    name: '** KEKSI NIMI **', // TODO
+    name: 'Tapailu', // TODO parempi?
     img: 'tiimi.svg',
     info: 'Tutustu toisiin ihmisiin ja kysy niiden salaista koodia'
   },
